@@ -1,0 +1,80 @@
+\documentclass[12pt]{article}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{multirow}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{floatflt}
+%usepackage[frenchb]{babel}
+\usepackage{amsfonts}
+\usepackage{multirow}
+\usepackage{calc}
+%\linespread{1.3}
+\usepackage{setspace}
+\usepackage{hyperref}
+\hypersetup{bookmarks=true,
+colorlinks,%
+citecolor=black,%
+filecolor=black,%
+linkcolor=black,%
+urlcolor=blue,%
+pdftex}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\setlength{\unitlength}{2mm}
+\pagestyle{empty}
+\textwidth 17truecm
+\textheight 23truecm
+\voffset -2.5truecm
+\hoffset -2.0truecm
+\sloppy
+\hbadness = 10000
+\vbadness = 10000
+\def\RR{{\rm I\hspace{-0.50ex}R} }
+
+\begin{document}
+\paragraph*{}
+\textit{Bioinformatics} solves biological questions using computer science methods: as put by Wikipedia, it "develops methods and software tools for understanding biological data"\footnote{\href{https://en.wikipedia.org/wiki/Bioinformatics}{https://en.wikipedia.org/wiki/Bioinformatics}, accessed on the 7/6/2015}. Hence it revolves around data.
+
+Some datasets are purposely produced as scientific resources to the community, such as the Allen Brain Atlas\footnote{\href{http://www.brain-map.org/}{http://www.brain-map.org/}} which contains different datasets about the Human and Mouse brains at different stages. But most of the time, biological data is produced by a laboratory or a consortium thereof to answer a specific question. 
+
+However, there is never a single paradigm to look at a specific dataset. To go further, most datasets should be treated as a scientific resource to their parent laboratory and to the community, rather than a one-article commitment. Indeed, they can be re-used to either go further on the same question, either answer a different one. By \textbf{data re-use}, we target studies which will be based, mostly or as a starting point (e.g. getting a list of hit genes) on published data. In this opinion, we will focus on the current state of data re-use in Bioinformatics, and more specifically in Bioimage informatics, and try to identify the difficulties which could explain its relatively low level in the latter field. 
+
+\paragraph*{}
+Biological data re-use has many (obvious) advantages. On the one hand, it enables research to be sustainable by optimally exploiting existing experimental data. On the other hand, the emergence of a culture of data re-use is strongly linked to that of data sharing and open data. It would therefore ease method comparisons by the existence of easy-to-access common datasets. As pointed out by~\cite{pmid24904347}, it would also be well in harmony with the current trend of general transparency in science.
+
+However big the advantages of data re-use, its requirements are nevertheless not light. First of all, data and metadata should be of a minimal quality, for it to be understandable by other laboratories and re-analyzable. Laboratories should also share vocabularies, as well as formats, for data to be easily accessed and metadata understood by all parties. Data re-use should be born in mind while acquiring it~\cite{pmid23047157}. This is crucial, since post-experimental data re-organization is harder and likely to never happen. Hence data "sharability" should never be a project afterthought. Finally, data should be persistent, which demands time, fundings, and incentive. Indeed, if web servers are used for data storage and access, their maintenance will need time and fundings. If individuals are contacted for information about data access, their responding will demand time and incentive~\cite{pmid18636105}.
+
+\paragraph*{} The current state of data re-use in Bioinformatics depends much on the subfield, for maturity and culture reasons~\cite{pmid24904347}. Indeed, rather mature subfields have been sharing and re-using their experimental data for some time, whereas others only experiment isolated initiatives yet. If we consider the example of genomics,~\cite{pmid24109559} finds that this field sees quite a high level of third-party dataset re-use, since they expect 40 PubMed papers re-using data by year 2, if 100 datasets were deposited at time 0\footnote{However, this meta-study suffers from some limitations, one of which is to not define data re-use.}. This figure goes up to more than 150 PubMed papers re-using data 5 years after the deposition of the initial papers. 
+
+This is permitted by the existence of well-known servers where to deposit and search for functional genomics data, such as the Gene Expression Omnibus,  GEO\footnote{\href{http://www.ncbi.nlm.nih.gov/geo/}{http://www.ncbi.nlm.nih.gov/geo/}}. On the other hand, if we consider the example of Neuroscience,~\cite{pmid24904347} precisely suggests to learn from data sharing in genomics, and more specifically the Human Genome Project, in the context of the BRAIN Initiative. %QSAR models,~\cite{pmid24910716} proposes an approach for the digital organization and archiving of QSAR model information (although there are already two existing). 
+%Does not define data reuse (does it mean they produced new results from published data, or that they compared their results/tried their methods on the existing datasets?). High level of third-party dataset reuse (if data deposited on GEO) : "for 100 datasets deposited in year 0, we estimate that 40 papers in PubMed reused a dataset by year 2, 100 by year 4, and more than 150 by year 5." (but data reuse is simply measured by presence of dataset number in text body).
+
+\paragraph*{}
+If we now consider the subfield of \textit{Bioimage informatics}, initiatives remain isolated. Most of the time, Bioimage informatics experiments are conducted in view of one or a few publications within the same team ; it is still rare that people re-mine third-party published data. As an example, the Mitocheck dataset\footnote{\href{http://www.mitocheck.org/}{http://www.mitocheck.org/}} was produced by the Mitocheck consortium to identify the human genes which are involved in cell division. Since the original publication~\cite{pmid20360735}, two articles have been re-using it:~\cite{pmid25255318} searches for evidence of protein-protein interactions in siRNA experiment similarity, whereas~\cite{pmid24131777} dynamically models nuclear phenotypes. Hence we are quite far from the figures which~\cite{pmid24109559} mentions regarding functional genomic data re-use. 
+ %Initiatives are quite numerous when it comes to medical images, e.g.~\cite{pmid24309199} for radiographical images, or [CITE] [CITE].
+
+This low level of data re-use in Bioimage informatics is probably not due to format issues. Indeed, there are open-source formats and plugins to convert from proprietary formats to open-source ones (eg OME-TIFF format\footnote{\href{http://www.openmicroscopy.org}{http://www.openmicroscopy.org}} or Bio-Formats\footnote{\href{http://www.loci.wisc.edu/ome/formats.html}{http://www.loci.wisc.edu/ome/formats.html}}, and translation plugins available for, e.g., ImageJ~\cite{imagej}). Concerns about patient consent and robust data anonymization are neither likely to be an issue as far as cell lines, tissues and small organisms are imaged, although it should be considered when sharing data about, e.g., primary tumor imaging.
+\paragraph*{}
+In fact, it seems that there are three main reasons for the little re-use which is currently experienced in Bioimage informatics. First of all, there is the need for shared controlled vocabularies, as also noted by~\cite{pmid18603566}. The European network of excellence \textit{Systems microscopy} launched the initiative to build one\footnote{\href{http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=CMPO}{http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=CMPO}}, hence it will hopefully change in the future.
+\paragraph*{}
+The second reason comes from practical considerations. There is a need for \textit{one} main famous physical server where Bioimage informatics data would be uploaded and further stored and accessed. A list of existing bench test datasets can be found in~\cite{pmid18603566}, section 5.1. Although their existence helps creating a culture of data sharing, they are nevertheless not directly related to data re-use as defined in the beginning ; and they are scattered on the Web. 
+
+Creating this unique entry point is in fact likely to not be enough. Indeed, some datasets are hardly downloadable (as an example, the Mitocheck dataset amounts to approximately 12 Tb). This prompts the need for further technical thinking, a solution being the creation of a common computing cloud. Such solutions demand dedicated collaborative funding, which is not easily done. However, another EU-level research infrastructure project, European Bioimaging, currently has this in mind. The goal of European Bioimaging is to build a centered network of Euro-Bioimaging Nodes (imaging facilities all over the EU), around a Euro-Bioimaging Hub which will redirect users to Nodes, as well as take care of training activities and data management. Its work package 11, "Data Storage and Analysis"\footnote{\href{http://www.eurobioimaging.eu/content-page/wp11-data-storage-analysis}{http://www.eurobioimaging.eu/content-page/wp11-data-storage-analysis}}, is in charge of defining which data and metadata should be stored in its context, as well as plan "effective access to infrastructures that support large scale image computing". Therefore, one can hope that such a solution will arise soon, and permit scientists all over the European Union to re-mine existing datasets without needing to download them.
+
+\paragraph*{}
+These are still solvable problems - and seem indeed on their way to being solved. But the third and most important reason for the low level of data re-use in Bioimage informatics is the lack of recognition from scientific publishers for papers which are doing re-mining only (as is apparently also the case in Neuroscience~\cite{pmid24904347}). If one sees little prospect of publishing in a good journal his/her data re-mining study, since it also demands finding, downloading and understanding somebody else's experiments, she/he will probably choose to produce new data.
+
+\paragraph*{}
+In conclusion, the will to re-use Bioimage informatics data would increase research sustainability as well as data sharing in this field. Two main barriers remain for researchers to re-use published data: the absence of a common place where to search for and analyze relevant existing datasets, as well as the lack of recognition from scientific publishers for data re-mining papers. One could expect the former to be solved in the next few years, but the latter depends on the sociological evolution of the field.
+
+\bibliographystyle{apalike}
+\bibliography{these}{}
+
+\end{document}

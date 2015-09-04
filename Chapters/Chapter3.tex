@@ -1,0 +1,443 @@
+\lhead{Chapter 3 - \emph{High-content screening data as a resource}}
+
+\chapter{High-content screening data as a resource}
+\label{chap:reuse}
+\section{Data re-use in Bioimage Informatics}
+\paragraph*{}
+\textit{Bioinformatics} solves biological questions using computer science methods: as put by Wikipedia, it "develops methods and software tools for understanding biological data". Hence it revolves around data.
+
+Most of the time, biological data is produced by a laboratory or a consortium thereof in order to answer a specific question. As an example, the Mitocheck dataset~\cite{pmid20360735} was produced by the Mitocheck consortium to identify the human genes which are involved in cell division. 
+
+However, there is never a single paradigm to look at a specific dataset. To go further, most datasets should be treated as a scientific resource to their parent laboratory and to the community, rather than a one-article commitment. Indeed, they can be re-used to either go further on the same question, either answer a different one. By \textbf{data re-use}, we target studies which will be based, mostly or as a starting point (e.g. getting a list of hit genes) on existing data. The re-use of biological data enables research to be sustainable by optimally exploiting existing experimental data. It also eases method comparisons by the existence of easy-to-access common datasets. Finally, as pointed out by~\cite{pmid24904347}, it is well in harmony with the current trend of general transparency in science. To continue with the Mitocheck example, two articles have been re-using it since the original paper ~\cite{pmid20360735} was published:~\cite{pmid25255318} searches for evidence of protein-protein interactions in siRNA experiment similarity, whereas~\cite{pmid24131777} dynamically models nuclear phenotypes.
+
+\paragraph*{}
+However big the advantages of data re-use, its requirements are not light. First of all, data and metadata should be of a minimal quality, for it to be understandable by other laboratories and re-analyzable. Laboratories should also share vocabularies, as well as formats, for data to be easily accessed and understood by all parties. Data re-use should be born in mind while acquiring it~\cite{pmid23047157}, since post-experimental data re-organization is harder and likely to never happen. Hence data re-use should never be a project afterthought. Finally, data should be persistent, which demands time, fundings, and incentive. Indeed, if web servers are used for data storage and access, their maintenance will need time and fundings. If individuals are contacted for information about data access, their responding will demand time and incentive~\cite{pmid18636105}.
+
+\paragraph*{} The current state of data re-use in Bioinformatics depends much on the subfield, for maturity and culture reasons~\cite{pmid24904347}. Indeed, rather mature subfields have been sharing and re-using their experimental data for some time, whereas others only experiment isolated initiatives yet. If we consider the example of genomics,~\cite{pmid24109559} finds that this field sees quite a high level of third-party dataset re-use, since they expect 40 (resp. more than 150) PubMed papers re-using data by year 2 (resp. year 5) if 100 datasets were deposited at time 0\footnote{However, this meta-study suffers from some limitations, one of which is to not define data re-use.}. This is permitted by the existence of well-known servers where to deposit and search for functional genomics data, such as the Gene Expression Omnibus,  GEO\footnote{\href{http://www.ncbi.nlm.nih.gov/geo/}{http://www.ncbi.nlm.nih.gov/geo/}}. On the other hand, if we consider the example of Neuroscience,~\cite{pmid24904347} precisely suggests to learn from data sharing in genomics, and more specifically the Human Genome Project, in the context of the BRAIN Initiative. %QSAR models,~\cite{pmid24910716} proposes an approach for the digital organization and archiving of QSAR model information (although there are already two existing). 
+%Does not define data reuse (does it mean they produced new results from published data, or that they compared their results/tried their methods on the existing datasets?). High level of third-party dataset reuse (if data deposited on GEO) : "for 100 datasets deposited in year 0, we estimate that 40 papers in PubMed reused a dataset by year 2, 100 by year 4, and more than 150 by year 5." (but data reuse is simply measured by presence of dataset number in text body).
+
+\paragraph*{}
+If we now consider this thesis subfield, namely \textit{Bioimage informatics}, initiatives remain isolated. A list of existing bench test datasets can be found in ~\cite{pmid18603566}, section 5.1, which are different of the existence of an ecosystem for data sharing. %Initiatives are quite numerous when it comes to medical images, e.g.~\cite{pmid24309199} for radiographical images, or [CITE] [CITE].
+Most of the time, experiments are conducted in view of one or a few publications within the same team ; it is still rare that people re-mine third-party published data. This is probably not due to format issues. Indeed, there are open-source formats and plugins to convert from proprietary formats to open-source ones (eg OME-TIFF format\footnote{\href{http://www.openmicroscopy.org}{http://www.openmicroscopy.org}} or Bio-Formats\footnote{\href{http://www.loci.wisc.edu/ome/formats.html}{http://www.loci.wisc.edu/ome/formats.html}}, and translation plugins available for, e.g., ImageJ~\cite{imagej}). Concerns about patient consent and robust data anonymization are neither likely to be an issue as far as cell lines, tissues and small organisms are imaged, although it should be considered when sharing data about, e.g., primary tumors.
+
+I see three main reasons for the little re-use which is currently experienced in Bioimage informatics. First of all, there is the need for shared controlled vocabularies, as also noted by~\cite{pmid18603566}. The network of excellence \textit{Systems microscopy} launched the initiative to build one\footnote{\href{http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=CMPO}{http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=CMPO}}, hence it will hopefully change in the future.
+
+The second reason comes from practical considerations. There is a need for \textit{one} main famous physical server where Bioimage informatics data would be uploaded and further stored and accessed. Still, some datasets will not be downloadable (as an example, the Mitocheck dataset amounts to approximately 12 Tb). This prompts the need for further technical thinking (a common computing cloud?), which in its turn prompts the need for some dedicated collaborative funding. This is currently not easily done, as fundings are traditionally publication-based.% Nevertheless, more and more grant application calls insist that researchers commit to
+
+But this will not be a problem, as long as people have a strong incentive to do it. And indeed the third most important reason is the lack of recognition from scientific publishers for papers which are doing re-mining only (as is apparently also the case in Neuroscience~\cite{pmid24904347}). If one sees little prospect of publishing in a good journal his/her data re-mining study, since it also demands finding, downloading and understanding somebody else's experiments, she/he will probably choose to produce new data.
+%\begin{itemize}
+%\item this is not 
+%\item but more probably to the need for controlled vocabularies (\cite{pmid18603566} agrees, and an example of such an initiative: http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=CMPO in \textit{Systems Microscopy}, ie it's developing)
+%\item the need also for a place where to put this data (exists various websites but none is really better recognized than the others. Also with what money for servers and maintenance?)
+%\item AND most of all, to the lack of recognition from scientific publishers for papers which are doing data remining only.
+%\end{itemize}  
+
+\paragraph*{}Because we think that there is still unexploited information in the Mitocheck dataset, and more generally that data re-use should be encouraged in Bioimage Informatics, we chose to apply MotIW to this data. This led to the discovery of genes which are likely to be involved in cell motility, as well as an ontology of cell trajectories (section~\ref{sec:mitocheck}). Furthermore, combining tracking with nuclear phenotypic classification enables to detect genes which have an impact on cell cycle length, as described in section~\ref{sec:cellcycle}.
+
+\section{MotIW's direct application to the Mitocheck dataset}
+\label{sec:mitocheck}
+ Analysis of the screening data through our workflow enables the labelling of a list of genes as likely to be involved in cell motility (section~\ref{sec:hitlist}). Furthermore, it reveals the existence of a cell trajectory ontology in the dataset. Without any prior assumption on cell motion, we are able to identify eight types
+of cell trajectories (section~\ref{sec:ontology}).
+
+% As we removed figure 4 ... 
+Furthermore, studying how cell tracks distribute in the different motility patterns according to whether they are exposed agrees with the following paradigm: rather than creating new
+motility behaviours, chemical exposure perturbs how cells distribute in the different possibilities, which also exist in the basal state.
+\subsection{Hit list}
+\label{sec:hitlist}
+After evaluating MotIW on simulated data, we then apply it to the whole genome-wide screen Mitocheck~\cite{pmid20360735}. In the context of the Mitocheck dataset, the identification of an experiment in which cell motility is significantly different from negative controls leads to the identification of siRNAs which significantly and reproducibly alter cell motility. A gene was selected as possibly involved in motility mechanisms if it was targeted by at least one hit siRNA. Indeed, it is well known that strictly less than 100\% siRNAs which are targeted at a particular gene will effectively down-regulate it. The reasons which could explain this are still not completely understood. Therefore, requiring that more than one siRNA related to a given gene are selected for the gene to be selected would have led to too many false negatives.% Indeed, Mitocheck siRNAs supplier guaranteed that one out of 2 would actually work.
+
+The application of MotIW to the Mitocheck dataset enabled the identification of the experiments which significantly deviate from controls ($5\%$; $7,153$ out of $144,909$). It amounts to $1,180$ genes (out of $17,816$), which are available as a supplementary to this thesis (see Supp. table 1).%http://cbio.ensmp.fr/~aschoenauer/qvalues_motility_Mitocheck.csv
+
+\paragraph{Intersection with other published motility gene lists}
+Some of these genes are well known to be involved in cellular motility, such as RhoA (Ras homolog family, member A) or CDK5 (cyclin-dependent kinase 5). However, the list is not overall significantly enriched in genes which are linked to cell motility according to the Gene Ontology database. This is also the case for all recent screens, regardless of their throughput.~\cite{pmid19160483} describes a study of 1,081 genes regarding cell motility in human breast cells (MCF-10A cell line). Using wound healing, they identify 66 high confidence genes of which only 24 were previously associated with cell motility. Similarly,~\cite{pmid21423205} is focused on the involvement of kinases (779 genes) in cell motility of human lung cancer cells (A549 cell line). Using single cell tracking, they identify 70 hit genes, of which only 13 were previously linked to cell motility. Finally,~\cite{pmid25774502} study 1,429 genes using phago-kinetic tracks in human lung cancer cells (H1299 cell line), finding 136 hits. Thanks to a personal communication of the authors, we could access their hit list and see that only 13 of their hit genes are functionally linked to cell motility (Gene Ontology biological process GO:0048870). 
+
+Hence it seems that medium- to HT approaches to cell motility study tend to complement the older ones, rather than abide by them. In fact, this seems to be a more general trend of genetic screen hit lists. For example, Mitocheck mitotic hit list contains more than 50\% genes which were not functionally linked to cell division before~\cite{pmid20360735};~\cite{pmid15547975}'s cytokinesis-linked gene list contains only 20\% genes which were previously known to be involved in this cellular process. Modern systematic and automatic approaches to gene functional inference are indeed likely to detect genes whose involvement in the cellular process at hand was too subtle to be detected by lower-throughput and more ancient methods.
+
+A question which arises next is to know the extent of the intersection between gene lists from published medium- to high-throughput studies about cell motility. They are detailed in table~\ref{details_biblio}.
+
+\begin{table}[!ht]
+\centering
+\caption{Existing medium- to high-throughput studies of cell motility}
+\label{details_biblio}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Study & Assay & Cell line & Gene list & Hit gene list \\
+\hline
+\cite{pmid19160483} & Wound healing & MCF-10A & 1,081 & 66\\%Simpson
+\cite{pmid21423205} & Single cell tracking & A549 & 779 & 70\\%Lara
+\cite{pmid23593504} & Matrigel invasion chambers & U87 & 1,954 & 25\\%Yang
+\cite{pmid23751374} & Cell area growth & HeLa & 710 & 81\\%Zhang
+Us & Single cell tracking & HeLa & 17,816 & 1,180\\%Us
+\cite{pmid25774502} & Phago-kinetic tracks & H1299 & 1,429 & 136\\%Water
+\hline
+\end{tabular}
+\end{table}
+\begin{table}[!ht]
+\centering
+\caption{Hit list intersections}
+\label{intersection}
+\begin{tabular}{|l|l|l|l|l|l|l|}
+\hline
+& Simpson & Lara & Yang & Zhang & Us & van Roosmalen \\
+\hline
+\cite{pmid19160483}&  66& 4 &0&19&10&4\\%Simpson
+
+\cite{pmid21423205} &4&70 &0&4&4&2 \\%Lara
+
+\cite{pmid23593504} &0&0 &25&0&4&0\\%Yang
+
+\cite{pmid23751374} & 19 &4&0&81&13&5\\%Zhang
+Us & 10 & 4 & 4 & 13 &1,180&6 \\%Us
+\cite{pmid25774502} & 4 & 2 & 0 & 5 & 6 & 136\\%van Roosmalen
+\hline
+\end{tabular}
+
+\end{table}
+%HC Simpson: 10 not in Mitocheck study, 10 in common out of 66. Both HC and MC: 19 not in Mitocheck study, 16 in common (out of 142). Have 19 MAR genes among the HC.
+%We have 130 genes from Simpson study (138 siRNAs) of which 34 MAR genes (314 MAR genes). Hence that's approximately the same "concentration" of MAR genes although not designed for this (26\% for us, 29\% for them).
+%
+%Lara: 70 hit genes of which 13 not in Mitocheck. 4 genes in common with us, also 4 genes in common with Simpson HC. No MAR genes.
+
+Following the information which is presented in table~\ref{intersection}, there is little intersection between the hit genes which were obtained by the existing medium- to high-throughput studies of cell motility. This can be explained by the fact that all studies use distinct assays and/or cell lines. On top of the experimental differences which could partly explain such little overlap, one could think about the following biological explanations. First of all, it is likely that (at least partly) different cellular processes are at play in collective and single cell migration. Second, it could be the case that each cellular model (such as normal breast epithelial cells, lung cancer epithelial cells, cervix cancer epithelial cells) is depending on specific and partly distinct machineries for cell motility. All these reasons would explain that all studies find such "stars" of cell motility as RhoA, but have little intersection otherwise. As for hit list enrichment in previously known genes, little overlap is generally observed between medium- to HT screen outputs~\cite{pmid20360735}.
+
+\paragraph{Detailed functional analysis}
+\textcolor{blue}{Wait for Piel's lists and then at least do two paragraphs here to discuss the results using Gene Ontology and his lists with this kind of statement}:  As an exemple, cells are observed to be motile when they divide as they detach from the plate surface, but it has nothing to do with directed motion. Hence it is normal that we find more than just cell migration. Think about~\cite{pmid18213366} "these data indicate that changes in cell migratory behavior caused by the different can-
+didate migration genes are largely dominated by changes in cell matrix adhesion dynamics."
+
+ZRANB1: found to produce stress fibers in \cite{pmid21834987} and inhibit wound closure in PC3 cells. If I look at intersections with other screens, I can also cite them as saying their genes were not found by Collins et al 2006.
+
+\subsection{Cell trajectory ontology}
+\label{sec:ontology}
+A question which is related to motility gene discovery is to know whether there exists an ontology of cell trajectories. The approach to answer it would be to apply unsupervised clustering methods on the whole trajectory dataset and try to identify a number of motility patterns for which the clustering is of good quality. This is measured by cluster quality indices, which depend on the clustering method (see e.g.~\cite[Chapter~8]{Tan:2005:IDM:1095618}, or~\cite{Halkidi}). As an example, two common indices to evaluate the output of k-means are the intra-cluster cohesion $C(K)$ and the silhouette score $S(K)$. They both compare intra-cluster distances to inter-cluster distances, if $N$ is the number of data points centered in $c_{data}$:
+
+\[
+C(K) = \sum_{\substack{k}} \sum_{\substack{x \in c_k}} \dfrac{d(x, c_k)^2}{d(x, c_{data})^2}\]
+
+\[
+S(K) = \dfrac{1}{N} \sum_{\substack{x}} \dfrac{b_x-a_x}{\max (a_x, b_x)}\]
+where \[ a_x = mean \{d(x,y) | y \in c_{k_x} \},\ \ b_x = \min_{\substack{k\neq k_x}} mean \{d(x,y) | y \in c_k \}
+\]
+
+A slope change in $C(k)$ and a maximum in $S(k)$ are expected at the appropriate number of clusters, if it exists. Other interesting measures of clustering quality encompasses for example the Bayesian Information Criterion or clustering stability~\cite{pmid11928511}.
+
+This approach did not prove to be successful when applied to pooled trajectories from all experiments, for a wide range of clustering techniques (k-means, Gaussian mixtures models, spectral clustering, fuzzy c-means, kernel k-means with a radial basis function - data not shown). Concretely, no combination of clustering algorithm and cluster number could be found, whose quality was clearly over the quality obtained by the same clustering algorithm and other cluster numbers. It seemed as if no structure could be found in the data.
+
+Nevertheless, the clustering approach succeeded when only trajectories from the \textbf{detected} experiments were pooled together. Indeed, this small subset contains only experiments which have been selected for being significantly different of controls in terms of single cell motility: it is enriched in rare trajectories. Our interpretation for this result is the following. Let us assume that we have a number of $k$ clusters in the whole trajectory dataset. Due to biological variability, each trajectory is at a certain random distance (in the feature space) to its latent trajectory cluster center. Given the dataset size (approximately 50 million trajectories), this produces a continuous dataset in the feature space, preventing the identification of any cluster. Furthermore, the different clusters are unbalanced. It is therefore not sufficient to uniformly subsample the whole dataset to detect the clustering structure (data not shown). Applying MotIW to find experiments which are enriched in rarer trajectories functioned as performing a stratified subsampling with respect to the underlying cluster structure of the dataset. It made it possible to identify the latter.
+
+ After retaining the first seven principal components (explaining $95\%$ of the variance), k-means was applied to the resulting dataset of approximately 1.1 million trajectories. Fig.~\ref{clusterscore} shows the evolution of intra-cluster cohesion and silhouette score with respect to the number of clusters. It points to $k=8$ as being both the best and a good quality clustering on this dataset. Indeed, a break and a maximum are respectively expected in the cluster cohesion and the silhouette score curves at the correct cluster number, if it exists. It is compared to the evolution of those indices, if k-means is applied to a uniformly random dataset and a normal dataset (in $\mathbf{R}^8$). 
+
+\begin{figure*}[!ht]
+\centerline{\includegraphics[scale=0.3]{figures/Walter_295_fig_6.png}}
+\caption{Evaluation of k-means clustering quality as a function of the number of clusters (average and standard deviation on 10 algorithm initializations). The same protocol was applied to a subset of the Mitocheck dataset, and two samples of the same dimensions, respectively drawn from the Uniform and the Normal distributions. }
+\label{clusterscore}
+\end{figure*}
+
+A first insight on cell motility from this clustering is presented figure~\ref{distribution}. It presents the distribution of trajectory distributions in the eight identified clusters. One can observe that there are no cluster which is specific either to controls, either to hit experiments. This answers the question to know whether gene silencing creates new motility behaviours, or rather modify the probabilities that a cell belongs to a certain trajectory cluster. This figure shows that it is the latter which happens: siRNA exposure modifies how likely it is that a cell will belong to a certain cluster, but does not create new behaviours. This could be explained by the fact that a certain number of motility behaviours are possible for the cell to adopt at any time. Which one it chooses is function of its cellular and molecular state, as well as the stochasticity of gene expression. Hence some behaviours will be rarer in control videos, but exist nevertheless, which will become more frequent under a modification of the cell molecular state due to siRNA exposure.
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[scale=0.25]{figures/traj_distribution_clusters_EXP_CTRL.png}
+\caption{Comparison of cluster distributions between controls (Ctrl) and experiments (Exp) for the eight trajectory clusters which were identified in the Mitocheck dataset. The clusters are in the same order as in figure ~\ref{heatmap}.}
+\label{distribution}
+\end{figure*}
+ 
+The cluster characteristics are detailed fig.~\ref{heatmap}. Each column in the heatmap corresponds to one cell trajectory, for which the rows show the standard scores of a subset of features. 
+
+A result about single cell motility patterns is obtained from experiments which were selected on the basis of their trajectory feature distributions. This shows that meaningful single cell information can be retrieved by our statistical procedure, which works at the experiment level.
+
+In the second place, it shows that there is more than speed for differentiating trajectory types. For example, clusters 2 and 3 present very similar MSDs and \textit{Effective space length}. However, trajectory curvatures are different: the features \textit{Mean curvature} and \textit{Straigthness index} are quite distinct between the two clusters. This can be observed in the Supplementary movie, where cells whose trajectory belongs to cluster 2 (green) are much straighter than those belonging to cluster 3 (red). In this video, cells whose trajectory passed the trajectory quality control have a dot, whose colour corresponds to its cluster as indicated in fig.~\ref{heatmap}.
+
+\begin{figure*}[t!]
+\centerline{\includegraphics[scale=0.3]{figures/Walter_295_fig_7.png}}
+\caption{Characterization of our ontology of trajectories. Each column is a single cell trajectory ; trajectories are grouped by cluster label. 1,000 trajectories were randomly selected per trajectory cluster.}
+\label{heatmap}
+\end{figure*}
+\subsection{Experiment clustering}
+\label{Mito_classif}
+Experiment clustering? Dunno if we want to talk about it\clearpage
+\section{Cell cycle length study}
+\label{sec:cellcycle}
+%\textit{Eventually look at intersection with~\cite{pmid16564017},~\cite{pmid17001007}}
+\paragraph*{} The combination of the Mitocheck dataset and of our methodological workflow is also very well suited to study cell cycle genes. Indeed, one only needs to combine tracking and nucleus classification to recover a set of complete trajectories in each experiment, that is, trajectories which start with a mitosis and end with a mitosis. Using the methodological procedure described in~\ref{sec:stats}, it is then possible to detect the experiments in which cell cycle length distribution is significantly different than that in control experiments, resulting in a list of genes.
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.6]{figures/cell_cycle_examples.png}}
+\caption{Examples of object divisions from the Mitocheck dataset}
+\label{cellcycle2}
+\end{figure*}
+\subsection{Complete cell cycle detection}
+%\paragraph{Complete trajectory identification}
+The first step to study cell cycle length distribution according to siRNA exposure is to filter out complete trajectories from the others. By complete, we mean trajectory which start with a mitosis rather than the end of a \textit{merge} event, an apparition, the split of an apoptotic debris or the beginning of the film, and which end with a mitosis rather than a \textit{merge}, a disappearance or the end of the film. The distinctions are easily made by a human eye, as can be seen on figure~\ref{cellcycle2}. To automatize this filtering, one can rely on the nucleus classification as described in section~\ref{Mito_classif} and~\cite{pmid20360735}: prior to a mitosis, the nucleus will likely be observed in $M_{-1}=\{$\textit{prometaphase}, \textit{metaphase}, \textit{metaphase alignement problem}$\}$. Similarly, following a mitosis, the nucleus will likely be observed in $M_{+1}=\{$\textit{anaphase}$\}$. 
+
+However, given that the classifier is not 100\% correct, it is not fully certain. Furthermore, there could be cases of accelerated mitoses, in which it would not be possible to observe both the mother cell in $M_{-1}$ and the daughter cell in $M_{+1}$. Hence we developped a scoring approach with respect to each track of interest $\tau$ going from $T_0$ to $T_f$, as detailed in figure~\ref{cellcycle1}:
+ \[score_{1, \tau} = \mathbf{1} (Mother_\tau \in M_{-1}) + \mathbf{1} (\tau_{T_0} \in M_{+1}) \]
+ \[score_{2, \tau} = \mathbf{1} (\tau_{T_f} \in M_{-1}) + \sum_{\substack{\tau 's~ children}}\mathbf{1} (c \in M_{+1}) \]
+ 
+Briefly, the scores compute the number of \textit{right} classifications in the starting and ending splits. To evaluate where to threshold those scores in order to filter out the unwanted tracks, 20 movies were randomly sampled from the Mitocheck dataset, all splits scored and all 2,100 tracks manually divided into complete and other trajectories. Selecting tracks longer than 1 frame with $score_1\geq 1$ and $score_2\geq 1$ enables to select more than 87\% complete trajectories.
+
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.3]{figures/cell_cycle_study.png}}
+\caption{Approach to cell cycle study}
+\label{cellcycle1}
+\end{figure*}
+
+\subsection{Cell cycle length hit list}
+The principle of MotIW's statistical procedure~(see~\ref{sec:stats} and~\cite{motiw}) was then applied to the distributions of complete trajectory length: 2 sample Kolmogorov-Smirnov tests were realized between cell cycle length distributions of each experiment and the controls of the same batch. It was compared to the empirical null distribution in a second time. The latter is the distribution of 2 sample Kolmogorov-Smirnov tests comparing controls to controls. Finally, the empirical p-values which were obtained were adjusted for multiple testing, following the Benjamini-Hochberg procedure~\cite{Benjamini1}.
+
+Setting a threshold of $0.05$ enabled the identification of 66 genes whose cell cycle length distribution differs from that of controls from the same batch. The list is fully provided in appendix, see section~\ref{cellcyclelist}. Interestingly, the down-regulation of only three genes produces a \textit{longer} cell cycle length: APOA1, RPS20, SFMBT2 (coding respectively for the apolipoprotein A1, ribosomal protein S20 and Scm-like with four mbt domains 2). SFMBT2 silencing has already been found to decrease cell growth in human prostate cancer cells~\cite{pmid23385818}. 
+
+Gene Ontology analysis reveals that there are three annotation clusters which are highly enriched in this list. The first one is related to protein kinase activity. It contains such genes as BMPR-IB which encodes the bone morphogenetic protein receptor, type IB, and whose reduced expression is correlated to poor prognosis in breast cancer~\cite{pmid19451094}, and tumor grade in prostate cancer~\cite{pmid10850425}. The second cluster is related to nucleotide binding. It contains genes such as the integrin-linked kinase whose silencing has interestingly been found to slow cell cycle in human gastric carcinoma cells~\cite{pmid23748822}, whereas we have found its silencing to speed cell cycle in HeLa cells. Finally, the third cluster contains genes which encode proteins which are intrinsic to plasma membrane, such as the melatonin receptor 1A whose absence has been found to be correlated with bad prognosis in triple-negative breast cancer~\cite{pmid23250547}.  
+
+\subsection{Discussion}
+Our approach for studying cell cycle length enabled us to obtain a list of 66 genes which may be involved in cell cycle regulation. Gene Ontology analysis revealed that a certain number of these genes has already been found to be linked to cell cycle duration regulation. This list contains 3 genes whose silencing lengthens cell cycle, and 63 whose silencing shortens it. It is possible that this more broadly reflects that there are more proteins which play a role of checkpoints rather than cell cycle enhancers, hence the fact that gene silencing experiments produce more experiments where cell proliferation is increased than decreased. This is supported as well by other studies such as~\cite{pmid16564017}, which found 87 (resp. 15) genes whose silencing significantly increases (resp. decreases) the mitotic index of HT29 cells.
+
+\paragraph{Method bias}
+Our method was applied to the whole Mitocheck dataset, enabling the obtention of complete trajectory length distributions for all experiments. Experiments with less than 10 complete trajectories were not considered for further analysis. This explains why decreased proliferation genes as provided by~\cite{pmid20360735} could not be found: the proliferation is so low that no mitosis is observed, hence no complete trajectories can be found. Trying to diminish this bias in experiment selection, we also included trajectories which finish with the end of the experiment rather than a mitosis (hereafter called \textit{incomplete} trajectories). 
+
+However, this approach was not successful. For some siRNAs, it seems that incomplete trajectory length distribution indeed has the same shift as that of \textit{complete} ones (see the example of arylsulfatase F gene, ARSF, on fig.~\ref{ARSF}). However, for most of the siRNAs, incomplete trajectory length distributions seem to be more dependent on the batch than on the chemical exposure. Two examples are shown fig.~\ref{CAC} which concern the genes CACNA1D and DIMT1 (respectively coding for the calcium channel, voltage-dependent, L Type, Alpha 1D subunit and DIM1 dimethyladenosine transferase 1 homolog). The outcome of the statistical analysis consistently proved too noisy to enable the detection of any hit siRNA for incomplete trajectory length (up to the following threshold for adjusted p-values: $0.1$).
+
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.3]{figures/ARSF_length_distribution_cens.png}}
+\caption{Histograms showing cell cycle length for complete (top) and incomplete (bottom) trajectories, for two experiments of the Mitocheck dataset concerning ARSF which were detected as significantly different from controls for cell cycle length.}
+\label{ARSF}
+\end{figure*}
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.3]{figures/CACNA1D_length_distribution_cens.png}
+\includegraphics[scale=0.3]{figures/DIMT1_length_distribution_cens.png}
+}
+\caption{Histograms showing cell cycle length for complete (top) and incomplete (bottom) trajectories, for two experiments of the Mitocheck dataset concerning CACNA1D (left) and DIMT1 (right), which were detected as significantly different from controls for cell cycle length.}
+\label{CAC}
+\end{figure*}
+
+\paragraph{Perspective: cell cycle phase detection}
+The cell cycle can furthermore be split in four sequential phases: $G_1$, $S$, $G_2$, and $M$. $S$ is the DNA replication phase and $M$ stands for mitosis. To distinguish $S$ from $G_1$ and $G_2$, PCNA (proliferating cell nuclear antigen) is usually used. It forms sparkling nuclear dots during DNA replication, as it is recruited to replication foci~\cite{pmid10769021}.
+
+However, the only marker available in the Mitocheck dataset is the core histone 2B (H2B). The question is then to know whether it is possible to use this marker for $S$ detection.~\cite{pmid16765323}, using cell size and H2B-GFP fluorescence, managed to FACS-purify RKO cells in $G_1$, $S$ and $G_2$. Furthermore,~\cite{pmid17401369} uses a "cell cycle heuristic" to separate between the different phases of the cell cycle using DNA size and intensity as provided by Hoechst 33342 as a DNA marker (Supplementary figure 3,b-c). They use it to infer links between small molecule exposure and cell cycle modification; however they do not prove the accuracy of their heuristic.
+
+This led us to the hypothesis that it might be possible to use the information contained in the H2B-GFP fluorescence signal for \textit{in silico} sorting of HeLa cells. However, nuclear size and intensity as provided by H2B-GFP do not seem to make $S$ identification possible. Indeed, as shown on fig.~\ref{intensity_roisize}, they grow linearly during cell cycle without showing any clear slope break. This is confirmed on fig.~\ref{intensity_roisize2}. This latter plot has the same configuration as that of Supp. fig. 3 from~\cite{pmid17401369}. However, although this study uses a heuristic model that defines a clear separation between nuclei in different cell cycle phases, we do not find it in our data. This might be due to slight differences between the information from DNA intercalating agent fluorescence, such as Hoechst 33342, and the information from histone 2B fluorescence. Nevertheless, nuclear intensity and size are clearly linked to cell cycle phases.
+
+Hence to answer this question, we had the idea to use a published dataset of HeLa cells which were stained for both H2B and PCNA~\cite{cellcognition}. Cell cycle phase annotations of this dataset are available on the Cell Cognition website\footnote{\href{http://www.cellcognition.org/downloads/data}{http://www.cellcognition.org/downloads/data}}. This training set was created using the information on the PCNA channel. It makes it possible to test the following hypothesis: can a classifier be trained, which uses H2B information for cell cycle phase identification? Preliminary work shows that all tested methods have an accuracy below 70\% (random forest, gradient boosting, support vector machine, logistic regression). However, using both this information and cell tracking, one can hope that the use of Markov chains for correcting classification errors could lead to good results.
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.6]{figures/roisize-LT0013_01--00315.png}
+}
+\caption{Example of the time evolutions of nuclear size ("roisize", top left and bottom) and nuclear intensity ("total intensity", top right) for all complete trajectories of a control experiment from the Mitocheck dataset. As discussed in the text, no clear slope break is seen for most trajectories for any of the two indicators, hence preventing the delimitation of cell cycle phases using only this information.}
+\label{intensity_roisize}
+\end{figure*}
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.3]{figures/fig_intensity_DNAsize_cyclephases2.png}
+}
+\caption{DNA intensity and size as provided by H2B-GFP information is not sufficient to differenciate between the different cell cycle phases. Data and labelling come from the PCNA dataset.}
+\label{intensity_roisize2}
+\end{figure*}
+\clearpage
+\section{Functional inference by in silico comparison of small-molecule and siRNA screens}
+~\footnote{Manuscript in preparation}
+- some biblio ~\cite{pmid20418956}
+
+- discuss convergence as a function of lambda
+
+idée : compare gene lists for low doses (ie random noise) with gene lists for high doses with effects. Then maybe one can disentangle what is present randomly and what is not? Which is sort of more or less the idea behind rank product: you look for genes/siRNAs/Mitocheck experiments which are at small distance of the drug experiment consistently accross replicates
+
+type of approach as opposed to targeted bioassay which demand specific prior knowledge allows in principle for systematic and direct identification of drug target (as long as it is in the gene list)
+
+\subsection{Materials and methods}
+\subsubsection{Experimental work}
+This data set was not produced in the context of this PhD. Rather, the experiments were conducted at the EMBL (Heidelberg, Germany) by **. For the sake of completeness, here is briefly how it was produced. [MISSING]
+\subsubsection{Object segmentation}
+\label{sec:ds_seg}
+Since we are interested in nuclear morphologies in this context, the original segmentation of the Mitocheck project was used, as previously described~\cite{Walter2010}.
+
+\subsubsection{Object classification and phenotypic scores}
+\label{sec:ps}
+The use of the original segmentation from the Mitocheck project made it possible to re-use its training set, albeit strengthened for classes which were previously slightly under-represented. This can be seen on fig.~\ref{ds_classifier} in comparison with figure 3 from~\cite{Walter2010}. Cell Cognition~\cite{cellcognition} was used for learning an RBF (Radial Base Function) kernel SVM classifier, whose precision and recall are also indicated on fig.~\ref{ds_classifier}. Its parameters were optimised by grid-search ($\gamma=2^{-7}$, $C=8$).
+
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.6]{figures/ds_classifier.png}}
+\caption{Precision and recall per class as provided by Cell Cognition. Compared with the original classifier as published in~\cite{Walter2010}, classes \textit{ADCCM} [MEANING] and \textit{Out of focus} were added. More nuclei were furthermore included for training in most classes. \textit{Shape1} (resp. \textit{Shape3}, \textit{MetaphaseAlignement}) corresponds to binucleated (resp. polylobed, metaphase alignement problem) nuclei.}
+\label{ds_classifier}
+\end{figure*}
+
+This provides a representation of each video as a set of time-series, which are the evolution of the percentage of nuclei in each phenotypic class over time. To evaluate how an experiment $i$ diverges from  control experiments from the same batch $C_i$ for its temporal evolution of class $k$, we used phenotypic scores as previously described~\cite{Walter2010}. Briefly, temporal evolutions of the percentages of nuclei in class $k$ for experiment $i$, $(\%_{k,i,t})_t$ and its controls $(\%_{k,C_i,t})_t$ are regularized using a locally weighted scatterplot smoothing as implemented in the Python package statsmodels. The fraction of data points which is used for smoothing was manually chosen to be $f=50\%$. The maximum deviation between the two regularized time series is then computed, where $ps$ stands for "phenotypic score":
+\[
+ps_{k,i} = \max_{0\ldots T} (\%^{reg}_{k,i,t} - \%^{reg}_{k,C_i,t})
+\]
+
+\subsubsection{Quality control}
+One plate had to be eliminated due to an issue during image acquisition. An abrupt increase in fluorescence intensity around the 80\up{th} frame of all experiments from this plate causes a sudden increase in the number of detected object which prevent any time-consistent analysis.
+
+For the other experiments, a threshold of $c$ cells at the beginning of the movie, and maximum $p$\% out-of-focus objects were used to remove unexploitable movies. $c=50$ and $p=40$ were selected. Out-of-focus objects and cells that were neither artefacts nor out-of-focus objects were identified following segmentation, feature extraction and classification as described supra.
+
+\subsubsection{Selection of Mitocheck experiments for target inference}
+The Mitocheck project led to the identification of 1,249 mitotic hits in the primary screen. 1,042 were identified by manual thresholds on phenotypic scores from the following phenotypic classes: \textit{Prometaphase},\textit{Metaphase Alignement Problem}, \textit{Binucleated}, \textit{Polylobed}, \textit{Grape}. 207 genes were further identified by manual annotations. 1,128 of these genes were screened again in a validation screen.
+
+Lists of hit genes according to the following measures were also published:
+\begin{itemize}
+\item phenotypic score of \textit{Large} nuclei,
+\item cell death, as measured by phenotypic score of \textit{Apoptosis} nuclei,
+\item nuclear dynamic changes, as measured by the sum of phenotypic scores for \textit{Hole}, \textit{Folded} and \textit{Small irregular},
+\item and cell proliferation.
+\end{itemize}
+
+Finally, a list of hit experiments for \textit{Elongated} nuclei was computed, which can be found as a supplementary to this thesis (see Supp. table 2).
+
+Given the evolution of the reference sequence of the genome, not all those genes were in fact targeted in the Mitocheck experiments. An updated mapping of the siRNAs which were used in the primary and validation Mitocheck screens to the present reference sequence of the genome was graciously provided by Jean-Karim Hériché (EMBL, Heidelberg, Germany). Once this and the quality control are taken into account, the final list of hits in at least one of the listed categories amounts to 2,614 genes (cf fig.~\ref{hit_mito}), which are covered by 4,847 siRNAs.
+
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.4]{figures/gene_hit_mitocheck.png}
+}
+\caption{Number of hit genes per category. As hit detection is univariate, a gene can be in more than one category.}
+\label{hit_mito}
+\end{figure*}
+
+Given the variations in siRNA coverage between genes which were, for example, included or not in the validation screen, each gene was chosen to be represented by the siRNA which showed the maximum effect. This was measured by the median of the phenotypic scores for \textit{Interphase} nuclei of this siRNA experiments.
+%{ 'increased proliferation': 94, 'Cell Death': 746, 'Dynamic changes': 716, 'Large': 305, 'Elongated': 127, })
+
+%publi mitotic: 'Grape': 91,'Binuclear': 402, 'Polylobed': 344, 'Mitotic delay/arrest': 345
+
+\subsection{Phenotypic profile distances}
+Screening experiments provide us with temporal sequences of information. They can be seen as sequences of grey level two-dimensional distributions\footnote{Whole image analysis, think about it, exist use in HTS?}, sequences of object feature distributions or sequences of phenotypic class distributions. In our case, we chose to summarize each experiment by a set of temporal evolutions of phenotypic classes, that is, we chose to represent our experiments by their phenotypic profile. The question remains to know how to compute divergences between these representations of the information.
+
+\subsubsection{Investigated distances}
+We decided to test the following distances on the question to know whether we can apply phenotypic profiling to a genetic screen and a drug screen for drug target inference:
+\begin{itemize}
+\item a very simple approach, the Euclidean distance of phenotypic scores, 
+\item a state-of-the-art approach, the phenotypic trajectory distance as defined in~\cite{Walter2010},
+\item a divergence which enables the use of biological prior knowledge, the Sinkhorn divergence~\cite{sinkhorn}.
+\end{itemize}
+
+Let $i$ be a screening experiment, and $p$ the number of phenotypic classes ($p=15$ in our case). 
+\paragraph{Euclidean distance on phenotypic scores}
+$i$ can be represented in $\mathbb{R}^p$ by $(ps_{k,i})_k$ the vector of its phenotypic scores. The distance between two experiments is then the Euclidean distance of their vectors of phenotypic scores, excluding \textit{Interphase} and \textit{Anaphase} scores. \textit{Interphase} score is excluded as its decrease is most of the time a summary of the increases of other scores. \textit{Anaphase} score is excluded because [WHATs the reason again?]. 
+
+These vectors can be normalized with respect to the mean and standard deviation of phenotypic scores in the dataset. This will correspond to the \textbf{Normalized phenotypic score} distance in the following, whereas the non-normalized version will simply be called \textbf{Phenotypic score} distance.
+
+This distance does not take time into account, as two experiments which show the same increase in two classes in a different order will have a short distance.
+
+\paragraph{Phenotypic trajectory distance}
+On the other hand, it is possible to use the phenotypic trajectory distance as published in~\cite{Walter2010}. Briefly, let us re-use the notations of section~\ref{sec:ps}: $i$ is seen as $(\%_{k,i,t})_{k=1\ldots p,t=1\ldots T}$, that is, a sequence in $[0~;1]^p$. This sequence is then approximated by two p-dimensional vectors. The phenotypic trajectory distance between two experiments is then a distance between their vectors, as defined in formula 7 of~\cite{Walter2010}. This distance will be called \textbf{phenotypic trajectory} distance in the following.
+
+This distance does not take explicitly time into account, but it respects the order of phenotypic changes. Hence its strength is that even if one experiment is identical with a delay to another, their distance will be small. It will not if they're distinctly ordered.
+
+\paragraph{Sinkhorn divergence}
+Finally, we wanted to test a distance which would enable us to use some prior biological knowledge of phenotypic class relationships. Indeed, if we consider the two previous distances, they implicitly consider each phenotypic class to be independent of the others, and equally biologically far away from all. Nevertheless, \textit{binucleated}, \textit{polylobed} and \textit{grape} nuclei are for example three different outcomes of cytokinesis defects. Hence the biological intuition is that a chemical causing a great increase in \textit{polylobed} nuclei has probably a closer mode of action to that of another one causing an increase in \textit{binucleated} nuclei than it is to that of a third one causing a strict increase in apoptosis.
+
+Ideally, the idea is then that the distance of $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei is smaller than that to $b\%$ \textit{apoptosis} nuclei, or that it "costs" less to go from $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei than to $b\%$ \textit{apoptosis}. This is precisely the idea behind the Earth Mover's distance (or Wasserstein distance): to compute the cost to move a certain number of piles of dirt into a certain numer of holes, one need to take into account the distance between piles and holes.
+
+[expliquer la différence entre EMD et Sinkhorn, dire que l'on peut faire globalement sur l'experience ou que l'on peut faire temps par temps]
+
+\subparagraph{Choice of phenotypic cost matrix}
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.4]{figures/transportation_cost.png}
+}
+\caption{Cost matrix for phenotypic Sinkhorn divergence}
+\label{cost}
+\end{figure*}
+
+\subparagraph*{Choice of lambda}
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.3]{figures/transportation_convergence_right_seg.png}
+}
+\caption{Convergence of Sinkhorn divergence as a function of lambda. Divergences were computed between drug screen experiments and Mitocheck hit experiments for different values of lambda, and the distribution of their relative variation to the divergences computed for $\lambda=30$ are showed here.}
+\label{lambda_choice1}
+\end{figure*}
+
+\begin{figure*}[ht!]
+\centerline{
+\includegraphics[scale=0.3]{figures/MDS_lamb01_perPheno.png}
+}
+\caption{Separation between Mitocheck hit categories for $\lambda=0.1$. Divergences between Mitocheck hit experiments were computed for $\lambda=0.1$, and multi-dimensional scaling was used for representing them in two dimensions in the first two lines. Divergences between theses experiments and the drug screen were included and their multi-dimension scaling is showed on the last line (grey: controls).}
+\label{lambda_choice2}
+\end{figure*}
+\begin{figure*}[ht!]
+\centerline{
+\includegraphics[scale=0.3]{figures/MDS_lamb10_perPheno.png}}
+\caption{Separation between Mitocheck hit categories for $\lambda=10$. Divergences between Mitocheck hit experiments were computed for $\lambda=10$, and multi-dimensional scaling was used for representing them in two dimensions in the first two lines. Divergences between theses experiments and the drug screen were included and their multi-dimension scaling is showed on the last line (grey: controls).}
+\label{lambda_choice2}
+\end{figure*}
+This will be called \textbf{Sinkhorn divergence}
+
+\subsubsection{Ability to distinguish between experimental conditions as opposed to between replicates}
+
+
+
+1.Put indication of better separation between conditions than between replicates. Missing value of distance by Thomas
+
+For the separability score here it's distance to other conditions/distance to replicates if there is more than one replicate that passed QC. Based on that we can restrict ourselves to phenotypic trajectory, euclidean distance on phenotypic score and either sum or max of time Sinkhorn distance.
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.3]{figures/separability_score2.png}
+}
+\caption{Separability scores of investigated distances}
+\label{separability}
+\end{figure*}
+
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.3]{figures/correlation_different_plates_hits_on_dist_to_Mitocheck_ttransport_max.png}
+}
+\caption{Replicate correlation of distances to Mitocheck hits}
+\label{replicate_correlation}
+\end{figure*}
+
+%{'N_pheno_score': 0.59362688197421543,
+% 'U_pheno_score': 0.48755546170997333,
+% 'nature': 0.4740500150584811,
+% 'transport': 0.3754272501191217,
+% 'ttransport_INT': 0.41390462544644724,
+% 'ttransport_MAX': 0.3963477934703899}
+
+
+\subsection{Application to small molecule similarity evaluation}
+2.Experiment hits. In theory we could learn from the screen even if the drug is not directly targeted at something directly involved in mitosis but here we see that no
+
+\subsection{Application to target pathway inference}
+3.Link with Mitocheck for the hit experiments
+
+
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.4]{figures/inference_evaluation_gene_rank.png}
+}
+\caption{Index of known drug targets in function of their closeness to drug screen experiments as measured by the different distances}
+\label{gene_rank}
+\end{figure*}
+%Rang moyen des cibles connues en fonction des differentes distances:
+
+%Taking conditions with 2 or 3 replicate hits
+%(['Normalized\n phenotypic score',
+%  'Phenotypic score',
+%  'Global\n Sinkhorn div.',
+%  'Phenotypic\n trajectory',
+%  'Sum of time\n Sinkhorn div.',
+%  'Max time \n Sinkhorn div.'],
+%MEAN array([ 919.59701493,  697.86567164,  748.67164179,  728.32835821,
+%         730.94029851,  790.94029851]),
+%STD array([ 771.89969304,  697.96328209,  722.39546345,  722.65462918,
+%         818.89530395,  833.70951097]))
+
+%Conditions with 3 replicate hits
+%(['Normalized\n phenotypic score',
+%  'Phenotypic score',
+%  'Global\n Sinkhorn div.',
+%  'Phenotypic\n trajectory',
+%  'Sum of time\n Sinkhorn div.',
+%  'Max time \n Sinkhorn div.'],
+% array([ 858.42105263,  650.49122807,  641.43859649,  645.56140351,
+%         643.21052632,  732.49122807]),
+% array([ 735.60186475,  666.84186618,  629.07743694,  655.08301382,
+%         744.61728629,  800.71350031]))
+
+%=> Pour la suite je me limite a 
+%  'Phenotypic score',
+%  'Global\n Sinkhorn div.',
+%  'Phenotypic\n trajectory',
+%  'Sum of time\n Sinkhorn div.',
+
+\subsection{Discussion}
+SOME ELEMENTS FOR THE DISCUSSION
+
+Regarding the time transport distance, another idea could be to do dynamic time warping on frame correspondence rather than just 1-to-1. Indeed, the effect of the siRNA which we observe, is function of protein half-life, [prot] necessary for the cell to get its function rightly performed, as well as  if the prot has a direct or indirect function to play in cell division (or cell motility or whatever the process is that we consider).
+
+Furthermore, the phenotypic onset of the siRNA can be rather different than that of the drug because the drug directly acts on its target rather than get the mRNAs of this target destructed.
+
+Something else for the discussion: can have more than one target, and also not to forget are off-target effects
+
+Also: penetrance of phenotypes always higher in the drug screen than in siRNA experiments
+
+\cite{pmid18066055} work directly on feature distributions from the experiments (we work on nuclear phenotypes which are already an information summary of each image). Idea, we should check what we get by staying at the feature level on each image.

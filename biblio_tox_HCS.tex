@@ -1,0 +1,224 @@
+\documentclass[12pt]{article}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{floatflt}
+%usepackage[frenchb]{babel}
+\usepackage{amsfonts}
+\usepackage{multirow}
+\usepackage{calc}
+%\linespread{1.3}
+\usepackage{setspace}
+\usepackage{hyperref}
+\hypersetup{bookmarks=true,
+colorlinks,%
+citecolor=black,%
+filecolor=black,%
+linkcolor=black,%
+urlcolor=blue,%
+pdftex}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+%\DeclareMathOperator*{\min}{min}
+\setlength{\unitlength}{2mm}
+\pagestyle{plain}
+\textwidth 17truecm
+\textheight 23truecm
+\voffset -2.5truecm
+\hoffset -2.0truecm
+\sloppy
+\hbadness = 1000
+\vbadness = 10000
+\def\RR{{\rm I\hspace{-0.50ex}R} }
+
+\begin{document}
+\noindent
+a cell track : $T(1,N)$. We can consider subsets of points: $T(m,n)$
+\section{Bibliography about cell motility and screening}
+References for cell tracking \cite{pmid25630981}
+\paragraph{THE PAST\\}
+A paper which has already done what we have done:~\cite{pmid24324630}. BUT although it looks quite similar, it is not what we have done:
+\begin{itemize}
+\item they're working with neutrophils/manual tracking/time-resolution 18 ms/ data set for clustering $M \in \mathbb{M}_{n,p}(\mathbb{R})$ with $n=291$ and $p=5$
+\item their features are only what we called global features in our paper: confinement ratio (which we also have, as straightness index\footnote{although we normalize it by $\sqrt{N}$}), displacement ratio, outreach ratio and volume asphericity (which we do not measure)
+\item one of their point is that taking only into account what they call \textit{linear features} meaning dealing with $T(1,n)$ for $n \in \{2,\ldots,N\} $ instead of \textit{staggered features} $T(m,n)$ for $(m,n) \in \{2,\ldots,N\}^2 $ does not enable to detect different migratory behaviours (especially with regard to diffusion vs straightness) at the level of a cell population. Basically, they state this while staying at the univariate level and claim that a mean is not subtle enough. They prove it on synthetic data as well (table S1, fig S6)
+\item given the size of our dataset, staggered features feasible with dynamic programming (storing info). BUT we're very importantly on a different time-scale, so not sure if this would add up meaningful signal. We did not try it. What we tried was computing features between t and $t+\delta$ for $\delta \in \{1,..,5\}$, for \textit{averaged local features}. We discarded them after except for $\delta =1$ because mainly noise. For the purpose of having locally temporal information on the cell track, we designed track entropy
+\end{itemize}
+\paragraph{Probably two subsections to introduce the subject:\\} First definitions: \textit{cell migration}, "an umbrella term in biology to describe any directed cell movement within the body" (\cite{pmid22940039}) vs \textit{cell motility} which more broadly encompasses any cell movement which is active, i.e. energy-consuming. As an exemple, cells are observed to be motile when they divide as they detach from the plate surface, but it has nothing to do with cell migration.
+\begin{enumerate}
+\item what are the methods to study cell motility? use~\cite{pmid22940039}. \\All methods except trans-well migration assays (in their classical version) can be live-imaged, hence data at single cell level could be obtained (individual trajectories). Most of the time the experiments are nevertheless used as endpoint assays, meaning we're provided with aggregated data at the level of the cell population (e.g. wound closure in 15 minutes or 80\% of cells staying in the upper compartment of the well). This prevents the identification and the study of cell subpopulations with regard to their motility behaviours~\cite{pmid24324630} (other examples ppl showing that?). However, single cell characteristics are relevant: metastasis (invasion can be led by leader cells, which create a path in the extra-cellular matrix and guide the following cells~\cite{pmid18987875},~\cite{pmid11929834}, or show more subtle patterns whose study require single cell data~\cite{pmid25129619}), drug design (targeting specific populations~\cite{pmid15539606},~\cite{pmid20461076})
+\subitem most classic: wound-healing assay, trans-well migration assay, cell exclusion zone assay (xCelligence, Boyden)
+\subitem a bit less classic, with recent adaptations for HT conditions: using particle-coated plates, in which particles are phagocyted by cells as they move and hence leave an imprint of their track.~\cite{pmid329998} and then~\cite{pmid18213366}, both HC-HT
+\subitem also suitable for 3D: micro-carrier bead assay, spheroid migration assay
+
+%\subitem newest: ring of whatever (find ref, another ex of use~\cite{pmid24520372}), microfluidic device~\cite{pmid24478127}
+\item We're looking for \textbf{methods that study single cell motility, providing data at single cell level, and usable in HT settings}. What are the existing methods? What has been done before?
+\end{enumerate}
+
+Recherche done on pubmed: motility screen sirna, motility AND screening, motility AND high-throughput, motility AND screening AND sirna AND high-throughput
+\begin{itemize}
+\item method paper:~\cite{pmid25630981}. Two application papers on the same dataset: ~\cite{pmid23186832} et~\cite{pmid23251412}. No study of motility despite the title of the method paper, a single motility feature is used (average well displacement) and its utility is not indicated except to show that there is a strong row and column bias.
+
+\item \cite{pmid24520372} cells MDA-MB-231, screening the 1280 member Library of Pharmacologically Active Compounds. Measure: coverage of exclusion zone (hole around which cells are seeded)
+
+\item \cite{pmid25652422} Study: kinome + related (748 genes) in NBT-L2b (derived from rat bladder carcinoma). 32 confirmed hits. Measure: average speed in consecutive frames with manual tracking. Bad quality (no indication of number of cells tracked per spot, no FDR control)
+
+\item \cite{pmid21423205} Study: kinome (779 genes) in A549 lung cells (human epithelial cancer cells)
+70 hit genes, 57 of which were novel modulators of migration
+Endpoint: single cell tracking
+\item \cite{pmid19160483} Study: 1,081 genes (kinome, phosphatome and MAR genes) in MCF-10A breast cells (human normal cells)
+66 hits, 42 not previously associated with cell motility
+Endpoint: wound healing assay
+
+\item \cite{pmid16537454} Study: 5,234 genes in SKOV-3 ovarian cells (human epithelial cancer cells, highly motile)
+Didn't produce a hit list
+Endpoint: wound healing assay
+
+\item \cite{pmid25774502}. 1,429 genes, siRNA screen in highly motile H1299 cells. 136 hits. Assay: phagokinetic track. Use method from~\cite{pmid18213366} without the manual parameters. No overlap with another screen looking at focal adhesions in HeLa. They say it's because of different cell lines.
+
+\item \cite{pmid23593504} 11,954 annotated human genes (who ??) in U87 cells (human epithelial glioblastoma), 7 hits. Matrigel invasion chamber and wound-healing assay.
+
+\end{itemize}
+~
+
+\section{Bibliography about drug screen and target inference}
+\begin{itemize}
+\item \cite{pmid20418956} yeast deletion mutants and 4 drugs. Not convincing
+
+\item \cite{pmid23508189} three ways for doing target identification: direct biochemical methods, genetic manipulation = by modulating presumed targets in cells and see if small molecule action is modified, or what we do here, and finally computational inference. Computational inference and genetic manipulations: "Mechanistic hypotheses, rather than targets per se, for new compounds emerge from such tests. The target pathway or protein of a new small molecule is inferred but remains to be confirmed" (as opposed to direct biochemical methods)
+\item \cite{pmid18755517} review on yeast chemical genomics and drug discovery
+
+Cellular profiling approach: snapshot of the cellular signaling response to compound treatment and has proven in our hands to be valuable for \underline{large-scale} correlation to profiles of compounds with known MoA. Distinction between efficacy target and  other proteins around that play a role in the pathway which is involved. "drug effect pathway: consists of the efficacy target(s) as well as additional classes of epistatic proteins that influence compound phenotype. Efficacy target - direct target of compound, physical interactor through which the drug elicits the phenotype of interest; here [e.g.
+ribonucleotide reductase (RNR) DNA] incorporation leads to termination of DNA strand synthesis. Indirect compound effector - not a direct target of the
+compound but influences drug-dependent effect on phenotype (e.g. complex members modulating target activity, components of cellular mechanisms
+counteracting compound effect; here, components of DNA damage response). Binding (off )-target - binds drug directly or indirectly, but binding is irrelevant to
+phenotype of interest; could still mediate different phenotype. Compound-specific effector - influences compound activity but not part of phenotype pathway
+[e.g. transporters (in/out), bioactivating/metabolizing enzymes; here, deoxycytidine kinase (dKC) and other kinases involved in Gem activation via
+phosphorylation, nucleoside transporters (hCNT, hENT) required for Gem uptake]. Compound-independent assay effector?modulates assay phenotype when
+altered, with or without compound treatment; here, PLK1 knockdown alone causes cell toxicity." AND "many important compounds in pharmacology defy a simple compound–target modulation relationship – from paclitaxel to thalidomide to metformin."~\cite{pmid26272035}
+
+\item \cite{pmid25181411} méthode statistique plus que sommaire, no real target inference
+
+\item \cite{pmid24183972} \textbf{tout le monde est d'accord que c'est pas facile} Cell-based high-throughput chemical screens (HTSs) are a powerful approach for the discovery of small molecules that modulate complex phenotypes, such as viability, and may serve as lead compounds for the development of novel therapies. However, subsequent identification of the cognate target or pathway through which the compound acts remains technically challenging, and lack of understanding of the mechanism of action is a roadblock for drug development.
+
+\item \cite{pmid19568283} review comparing different types of profiling and encouraging their use early in drug discovery workflow "summarize the 
+technologies that are currently in use for phenotypic profiling — including mRNA-, 
+protein- and imaging-based multi-parameter profiling — in the drug discovery context. 
+We think that an earlier integration of phenotypic profiling technologies, combined with 
+effective experimental and in silico target identification approaches, can improve success 
+rates of lead selection and optimization in the drug discovery process."
+
+\item \cite{pmid10929718} TO READ
+
+\item \cite{pmid15547975} "parallel RNA interference and small molecule screening is a generally useful approach to
+identifying active small molecules and their target pathways". They do two screens in parallel, their measure is univariate: number of binucleated cells per image. Methodologically poor, they do target inference manually...
+
+\item \cite{pmid17401369} awesome paper
+
+\item \cite{pmid16901791} "an emerging view is that compounds with similar biological effects lead to similar chemical-genetic profiles". A bit far away from our approach
+
+\item \cite{pmid18066055} "This rapidly developing
+technology [HCS] is increasingly used to facilitate both target and lead
+characterization 5,6 . The instrumentation and image quantification
+aspects of HCS, while under constant improvement, are already well
+advanced 7–9 . Methods for downstream data processing and mining of
+biological data are by comparison significantly less refined." 
+
+"Phenotype and predicted targets constitute a useful SAR pair that can overcome the limitations of chemical similarities" because chemically distinct molecules can target the same pathway via distinct targets, or can bind the same target via distinct binding sites.
+
+Results reveal that phenotypes correlate better with predicted compound target than with the compound structure themselves.
+
+\end{itemize}
+\section{Bibliography about data re-use}
+~\cite{pmid18636105}\\
+\cite{pmid24904347}: "data sharing responds to the increasing call within the scientific community and within the public at large for greater access to raw data and general transparency"
+** About data re-use in specific fields (searches "open[OT] data[OT]" et "data[OT] reuse[OT]" sur Pubmed) :
+\begin{itemize}
+\item gene expression data: \cite{pmid24109559}. Does not define data reuse (does it mean they produced new results from published data, or that they compared their results/tried their methods on the existing datasets?). High level of third-party dataset reuse (if data deposited on GEO) : "for 100 datasets deposited in year 0, we estimate that 40
+papers in PubMed reused a dataset by year 2, 100 by year 4, and more than 150 by year 5." (but data reuse is simply measured by presence of dataset number in text body).
+\item ChipSeq and DNASeq : \cite{pmid23508969}. Creation of a data portal CistromeFinder that can help query, evaluate and visualize publicly available Chromatin immunoprecipitation and DNase I hypersensitivity assays with high-throughput sequencing data in human and mouse
+\item QSAR models \cite{pmid24910716}. Proposition of an approach for the digital
+organization and archiving of QSAR model information (already two existing)
+\item a lot in health, eg for radiographical images ~\cite{pmid24309199}
+\end{itemize}
+\paragraph{}
+** Images: search "Bioimage reuse", "Bioimage data remining", "Bioimage data sharing" on Google, no results on PubMed
+\begin{itemize}
+\item \cite{pmid18603566} (gives list of existing bench test datasets section 5.1 eg the Allen Brain Atlas, single-cell atlas for the L1 stage of \textit{C. elegans}, ccdb.ucsd.edu)
+\item \cite{pmid25484346} for promoting an open data ecosystem for cell migration research. Advocates the creation of a db where to put data (possibility: extend www.cellmigration.org) + metadata standardization + format standardization. "The data sets generated in cell migration research currently remain isolated due to the lack of a data sharing ecosystem." BUT I think that it is also due to the fact that big papers = new data.
+\end{itemize}
+
+Mostly in Bioimage Informatics, people do their own experiments and mine them. Very rare that people use published data for another purpose than that of the original publication. Known examples:~\cite{pmid25255318} (remining Mitocheck to identify PPIs), ~\cite{pmid24131777}. According to me,
+\begin{itemize}
+\item this is not really due to format issues because there are open-source formats and plugins to convert from proprietary formats to open-source ones (eg OME-TIFF format http://www.openmicroscopy.org or Bio-Formats http://www.loci.wisc.edu/ome/formats.html and translation plugins available for, eg, ImageJ)
+\item but more probably to the need for controlled vocabularies (\cite{pmid18603566} agrees, and an example of such an initiative: http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=CMPO in \textit{Systems Microscopy}, ie it's developing)
+\item the need also for a place where to put this data (exists various websites but none is really better recognized than the others. Also with what money for servers and maintenance?)
+\item AND most of all, to the lack of recognition from scientific publishers for papers which are doing data remining only.
+\end{itemize}   
+
+\section{Bibliography in the context of HC/HTS and Environmental Toxicology
+}
+
+%Interesting to us are: papers publishing a method in HC/HTS+ETox OR papers publishing results using classical methods HC/HTS in the field of ETox. 
+
+Summary: the parameters are time, content and throughput. Toxicology is slowly moving from HT+LC OR HC+LT to HC+HT. Still quasi nothing in HC+HT+time-lapse in Environmental Tox.
+\begin{enumerate}
+\item Classical \textit{in vitro} toxicological tests have been used in a HT setup for some time : e.g. Ames tests since the seventies~\cite{pmid19157069}. However they provide very little info compared to what HC assays give.
+\item Till recently, quasi no use of time-lapse in Environmental Tox (HT or not). And results were analyzed manually most of the time (e.g.~\cite{pmid17949680},~\cite{pmid15388243}, oldest paper found~\cite{pmid24263567}) %Dans les cas où la vidéo-microscopie est exploitée dans ce domaine, elle ne l'est pas encore de manière quantitative : les phénotypes sont analysés manuellement (à l'\oe il nu, par exemple dans cet article des effets du DDT sur les cellules de Sertoli~\cite{pmid17949680}, ou cet article sur l'ordre des évènements conduisant à la cytotoxicité du méthylmercure~\cite{pmid15388243}).
+\item But subtler tests are being developed in a HT setup, either endpoint assays~\cite{pmid24772387},~\cite{pmid24610750} or real-time \cite{pmid21516415}, \cite{pmid24141454}
+\item Still nothing in time-lapse video-microscopy in a HT setup in Environmental Toxicology (whereas developing in Ecotoxicology, e.g. \cite{pmid24510773} - "easy" models for screening like the Zebrafish which can also be used for HT Envtal Tox~\cite{pmid25678986})
+\end{enumerate} 
+
+%Distinguish between human cell-based ones and animal cell-based ones. ALSO need to check who is real-time and who is endpoint, who is high-throughput and who is low-throughput.
+
+Searches done on PubMed on the 19th of March 2015:
+\begin{itemize}
+\item HCS environmental toxicology
+\item (environmental) AND cellular AND (screening[Other Term] OR High throughput/high content assays[Other Term])
+\item (environmental) AND time-lapse AND (screening[Other Term] OR High throughput/high content assays[Other Term])  PAS DE RESULTATS
+\item environmental toxicology videos
+\item time-lapse toxicology
+\end{itemize}
+\subsection{Methodological proof of concept papers/methodological papers for HC and/or HTS in ETox}
+\subsubsection{Generic tox methods}
+\cite{pmid24845243} how are HTS-derived prediction models reliable
+
+\cite{pmid24619905} ? (prob HC) cardiomyocytes toxicology/time-resolved video analysis
+
+\cite{pmid21516415} LC RT cytotox 
+
+\cite{pmid24141454} LC 3D migration assay, real-time, human cells, HT
+
+\cite{pmid21748693} HC live-cell imaging migration assay
+\subsubsection{Environmental tox}
+
+\cite{pmid25637748} LC 96-well, human cell lines, real-time. Water samples
+
+\cite{pmid24823434} LC wound healing assay + nanoparticles
+
+\cite{pmid24772387} LC thyroid hormone receptor + 1,408 compounds of the National Toxicology Pgm
+
+\cite{pmid24610750} ? (prob HC) genotoxicity + nanomaterials
+
+%\cite{pmid24273086} Avian hepatocyte assay + organic flame retardants
+
+\cite{pmid23856233} LC cytotoxicity + nanoparticles
+
+\cite{pmid22312247} HC-LT neurotox (12 compounds)
+\subsection{Result papers using HCS in ETox}
+\cite{pmid24997295} HC ms LT et pas de time-lapse (images cellules fixees)
+\subsection{Papers using time-lapse in ETox}
+%\cite{pmid24510773} Zebrafish, methodological dvt
+
+%\cite{pmid11812923} Zebrafish, TCDD on jaw dvt and blood flow during early dvt
+
+\cite{pmid17949680},~\cite{pmid15388243}
+
+\bibliographystyle{apalike}
+\bibliography{these}{}
+\end{document}

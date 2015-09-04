@@ -1,0 +1,257 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Masters/Doctoral Thesis 
+% LaTeX Template
+% Version 1.43 (17/5/14)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original authors:
+% Steven Gunn 
+% http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/
+% and
+% Sunil Patel
+% http://www.sunilpatel.co.uk/thesis-template/
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+% Note:
+% Make sure to edit document variables in the Thesis.cls file
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[11pt, oneside]{Thesis} % The default font size and one-sided printing (no margin offsets)
+% oneside : better for pdf reading
+% twoside : better if printed in book format
+\usepackage{cite} % for multiple quotes
+%\usepackage[]{algorithm2e} % for algorithm environment
+%\usepackage[square, comma, numbers, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
+
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+\usepackage{graphicx}
+%\usepackage{graphics}
+\usepackage{color}
+\usepackage{floatflt}
+%usepackage[frenchb]{babel}
+\usepackage{amsfonts}
+\usepackage{multirow}
+\usepackage{calc}
+%\linespread{1.3}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{longtable}
+\hypersetup{bookmarks=true,
+colorlinks,%
+citecolor=black,%
+filecolor=black,%
+linkcolor=black,%
+urlcolor=blue,%
+pdftex}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\title{\ttitle} % Defines the thesis title - don't touch this
+
+%\setlength{\unitlength}{2mm}
+%\pagestyle{plain}
+%\textwidth 17truecm
+%\textheight 23truecm
+%\voffset -2.5truecm
+%\hoffset -2.0truecm
+%\sloppy
+%\hbadness = 10000
+%\vbadness = 10000
+%\def\RR{{\rm I\hspace{-0.50ex}R} }
+
+\begin{document}
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+
+\setstretch{1.3} % Line spacing of 1.3
+
+% Define the page headers using the FancyHdr package and set up for one-sided printing
+\fancyhead{} % Clears all page headers and footers
+\rhead{\thepage} % Sets the right side header to show the page number
+\lhead{} % Clears the left side page header
+
+\pagestyle{fancy} % Finally, use the "fancy" page style to implement the FancyHdr headers
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % New command to make the lines in the title page
+
+% PDF meta-data
+\hypersetup{pdftitle={\ttitle}}
+\hypersetup{pdfsubject=\subjectname}
+\hypersetup{pdfauthor=\authornames}
+\hypersetup{pdfkeywords=\keywordnames}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Personal Commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+%\begin{titlepage}
+%\begin{center}
+%Titre
+%\end{center}
+%
+%\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	DECLARATION PAGE
+%	Your institution may give you a different text to place here
+%----------------------------------------------------------------------------------------
+
+\Declaration{
+
+\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
+
+I, \authornames, declare that this thesis titled, '\ttitle' and the work presented in it are my own. I confirm that:
+
+\begin{itemize} 
+\item[\tiny{$\blacksquare$}] This work was done wholly or mainly while in candidature for a research degree at this University.
+\item[\tiny{$\blacksquare$}] Where any part of this thesis has previously been submitted for a degree or any other qualification at this University or any other institution, this has been clearly stated.
+\item[\tiny{$\blacksquare$}] Where I have consulted the published work of others, this is always clearly attributed.
+\item[\tiny{$\blacksquare$}] Where I have quoted from the work of others, the source is always given. With the exception of such quotations, this thesis is entirely my own work.
+\item[\tiny{$\blacksquare$}] I have acknowledged all main sources of help.
+\item[\tiny{$\blacksquare$}] Where the thesis is based on work done by myself jointly with others, I have made clear exactly what was done by others and what I have contributed myself.\\
+\end{itemize}
+ 
+Signed:\\
+\rule[1em]{25em}{0.5pt} % This prints a line for the signature
+ 
+Date:\\
+\rule[1em]{25em}{0.5pt} % This prints a line to write the date
+}
+
+\clearpage % Start a new page
+
+%----------------------------------------------------------------------------------------
+%	QUOTATION PAGE
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	RESUME PAGE
+%----------------------------------------------------------------------------------------
+
+\addtotoc{Résumé} % Add the "Abstract" page entry to the Contents
+
+\clearpage % Start a new page
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%----------------------------------------------------------------------------------------
+
+\addtotoc{Abstract} % Add the "Abstract" page entry to the Contents
+\clearpage % Start a new page
+%----------------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS
+%----------------------------------------------------------------------------------------
+
+% \setstretch{1.3} % Reset the line-spacing to 1.3 for body text (if it has changed)
+ 
+ \acknowledgements{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
+ 
+ The acknowledgements and the people to thank go here, don't forget to include your project advisor\ldots
+ }
+ \clearpage % Start a new page
+
+%----------------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%----------------------------------------------------------------------------------------
+
+\pagestyle{fancy} % The page style headers have been "empty" all this time, now use the "fancy" headers as defined before to bring them back
+
+\lhead{\emph{Contents}} % Set the left side page header to "Contents"
+\tableofcontents % Write out the Table of Contents
+
+\lhead{\emph{List of Figures}} % Set the left side page header to "List of Figures"
+\listoffigures % Write out the List of Figures
+
+\lhead{\emph{List of Tables}} % Set the left side page header to "List of Tables"
+\listoftables % Write out the List of Tables
+
+%----------------------------------------------------------------------------------------
+%	ABBREVIATIONS
+%----------------------------------------------------------------------------------------
+
+\clearpage % Start a new page
+\lhead{\emph{List of Abbreviations}} % Set the left side page header to "List of Figures"
+\begin{table}
+\caption{Abbreviations}
+\begin{tabular}{ll}
+BPA & bisphenol-A \\
+DMSO & dimethyl sulfoxide\\
+DNA & deoxyribonucleic acid\\
+Endo & $\alpha$-endosulfan \\
+FACS & fluorescence-activated cell sorter\\
+FCS & fetal calf serum\\
+H2B & histone 2B\\
+HC & high-content\\
+HT & high-throughput\\
+MeHg & methylmercury\\
+MSD & mean squared displacement\\
+PCB153 & 2,2',4,4',5,5'-Hexachlorobiphenyl\\
+PCNA & proliferating cell nuclear antigen\\
+RT-qPCR & real-time quantitative polymerase chain reaction\\
+TCDD & 2,3,7,8-Tetrachlorodibenzo-p-dioxin\\
+\end{tabular}
+\end{table}
+\clearpage % Start a new page
+
+%----------------------------------------------------------------------------------------
+%	DEDICATION
+%----------------------------------------------------------------------------------------
+
+\setstretch{1.3} % Return the line spacing back to 1.3
+
+\pagestyle{empty} % Page style needs to be empty for this page
+
+\dedicatory{A Mine et Baba, Tita et Pigeo} % Dedication text
+
+\addtocontents{toc}{\vspace{2em}} % Add a gap in the Contents, for aesthetics
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\pagestyle{fancy} % Return the page headers back to the "fancy" style
+
+\input{Chapters/Chapter1.tex}%introduction
+\clearpage
+\input{Chapters/Chapter2.tex}
+\clearpage
+\input{Chapters/Chapter3.tex}
+\clearpage
+\input{Chapters/Chapter4.tex}
+\clearpage
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - APPENDICES
+%----------------------------------------------------------------------------------------
+\appendix
+\input{Appendices/AppendixA.tex}
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+\lhead{\emph{Bibliography}} % Change the page header to say "Bibliography"
+
+\bibliographystyle{apalike}
+\bibliography{these,refs}{}
+\end{document}
