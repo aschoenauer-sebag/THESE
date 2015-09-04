@@ -252,7 +252,7 @@ The use of the original segmentation from the Mitocheck project made it possible
 
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.6]{figures/ds_classifier.png}}
-\caption{Precision and recall per class as provided by Cell Cognition. Compared with the original classifier as published in~\cite{Walter2010}, classes \textit{ADCCM} [MEANING] and \textit{Out of focus} were added. More nuclei were furthermore included for training in most classes. \textit{Shape1} (resp. \textit{Shape3}, \textit{MetaphaseAlignement}) corresponds to binucleated (resp. polylobed, metaphase alignement problem) nuclei.}
+\caption{Precision and recall per class as provided by Cell Cognition. Compared with the original classifier as published in~\cite{Walter2010}, classes \textit{ADCCM} (Asymmetric Distribution of Condensed Chromosome Masses) and \textit{Out of focus} were added. More nuclei were furthermore included for training in most classes. \textit{Shape1} (resp. \textit{Shape3}, \textit{MetaphaseAlignement}) corresponds to binucleated (resp. polylobed, metaphase alignement problem) nuclei.}
 \label{ds_classifier}
 \end{figure*}
 
@@ -332,7 +332,7 @@ Ideally, the idea is then that the distance of $a\%$ \textit{binucleated} nuclei
 \label{cost}
 \end{figure*}
 
-\subparagraph*{Choice of lambda}
+\subparagraph{Choice of lambda}
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.3]{figures/transportation_convergence_right_seg.png}
 }
@@ -361,21 +361,19 @@ This will be called \textbf{Sinkhorn divergence}
 
 1.Put indication of better separation between conditions than between replicates. Missing value of distance by Thomas
 
-For the separability score here it's distance to other conditions/distance to replicates if there is more than one replicate that passed QC. Based on that we can restrict ourselves to phenotypic trajectory, euclidean distance on phenotypic score and either sum or max of time Sinkhorn distance.
+For the separability score here it's distance to other conditions/distance to replicates if there is more than one replicate that passed QC. We look at hit conditions only because we feel that's where the real things are happening. It's easy to get a high reproducibility when nothing happens basically. Based on that we can restrict ourselves to phenotypic trajectory, euclidean distance on phenotypic score and either sum or max of time Sinkhorn distance.
 \begin{figure*}[ht!]
-\centerline{\includegraphics[scale=0.3]{figures/separability_score2.png}
+\centerline{\includegraphics[scale=0.3]{figures/separability_score_final.png}
 }
 \caption{Separability scores of investigated distances}
 \label{separability}
 \end{figure*}
-
-\begin{figure*}[ht!]
-\centerline{\includegraphics[scale=0.3]{figures/correlation_different_plates_hits_on_dist_to_Mitocheck_ttransport_max.png}
-}
-\caption{Replicate correlation of distances to Mitocheck hits}
-\label{replicate_correlation}
-\end{figure*}
-
+%\begin{figure*}[ht!]
+%\centerline{\includegraphics[scale=0.3]{figures/correlation_different_plates_hits_on_dist_to_Mitocheck_ttransport_max.png}
+%}
+%\caption{Replicate correlation of distances to Mitocheck hits}
+%\label{replicate_correlation}
+%\end{figure*}
 %{'N_pheno_score': 0.59362688197421543,
 % 'U_pheno_score': 0.48755546170997333,
 % 'nature': 0.4740500150584811,
@@ -383,10 +381,18 @@ For the separability score here it's distance to other conditions/distance to re
 % 'ttransport_INT': 0.41390462544644724,
 % 'ttransport_MAX': 0.3963477934703899}
 
-
 \subsection{Application to small molecule similarity evaluation}
-2.Experiment hits. In theory we could learn from the screen even if the drug is not directly targeted at something directly involved in mitosis but here we see that no
+POINT 1 In theory we could learn from the screen even if the drug is not directly targeted at something directly involved in mitosis but here we see that no. Explain somewhere how we derive hits??
 
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.55]{figures/Clust_0transport_ward_ward.png}}
+
+\caption{Drug screen condition - Mitocheck siRNA two-dimensional hierarchical clustering using global Sinkhorn divergence. See in appendix, section~\ref{heatmaps} for the other heatmaps.}
+\label{cond_clust_transport}
+\end{figure*}
+
+POINT 2 so we focus on hits detected on phenotypic scores. Here is what we have in terms of hit reproducibility: means it's high. Good sign
+Counter({3: 55, 2: 14, 1: 4})
 \subsection{Application to target pathway inference}
 3.Link with Mitocheck for the hit experiments
 
