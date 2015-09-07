@@ -294,10 +294,10 @@ Given the variations in siRNA coverage between genes which were, for example, in
 %publi mitotic: 'Grape': 91,'Binuclear': 402, 'Polylobed': 344, 'Mitotic delay/arrest': 345
 
 \subsection{Phenotypic profile distances}
-Screening experiments provide us with temporal sequences of information. They can be seen as sequences of grey level two-dimensional distributions\footnote{Whole image analysis, think about it, exist use in HTS?}, sequences of object feature distributions or sequences of phenotypic class distributions. In our case, we chose to summarize each experiment by a set of temporal evolutions of phenotypic classes, that is, we chose to represent our experiments by their phenotypic profile. The question remains to know how to compute divergences between these representations of the information.
+Screening experiments provide us with temporal sequences of information. They can be seen as sequences of grey level two-dimensional distributions~[CITE], sequences of object feature distributions or sequences of phenotypic class distributions. In our case, we chose to summarize each experiment by a set of temporal evolutions of phenotypic classes, that is, we chose to represent our experiments by their phenotypic profile. The question remains to know how to compute divergences between these representations of the information.
 
 \subsubsection{Investigated distances}
-We decided to test the following distances on the question to know whether we can apply phenotypic profiling to a genetic screen and a drug screen for drug target inference:
+We decided to test the following distances on the question to know whether we can apply phenotypic profiling for drug target inference from parallel drug and siRNA screens:
 \begin{itemize}
 \item a very simple approach, the Euclidean distance of phenotypic scores, 
 \item a state-of-the-art approach, the phenotypic trajectory distance as defined in~\cite{Walter2010},
@@ -310,19 +310,43 @@ $i$ can be represented in $\mathbb{R}^p$ by $(ps_{k,i})_k$ the vector of its phe
 
 These vectors can be normalized with respect to the mean and standard deviation of phenotypic scores in the dataset. This will correspond to the \textbf{Normalized phenotypic score} distance in the following, whereas the non-normalized version will simply be called \textbf{Phenotypic score} distance.
 
-This distance does not take time into account, as two experiments which show the same increase in two classes in a different order will have a short distance.
+These distances are robust to time delay in the onset of phenotypic changes. Indeed, as controls basically show a constant percentage of \textit{Interphase} nuclei, phenotypic scores will be identical for two experiments which show an increase in, e.g., \textit{Apoptosis} nuclei respectively at the beginning and at the end of the experiments. Hence the strength of these distances is that even if one experiment is identical with a delay to another, their distance will be small. It will however still be small if they're distinctly ordered, e.g. if one experiments shows the same phenotypic events than the other, albeit in the opposite order.
 
 \paragraph{Phenotypic trajectory distance}
 On the other hand, it is possible to use the phenotypic trajectory distance as published in~\cite{Walter2010}. Briefly, let us re-use the notations of section~\ref{sec:ps}: $i$ is seen as $(\%_{k,i,t})_{k=1\ldots p,t=1\ldots T}$, that is, a sequence in $[0~;1]^p$. This sequence is then approximated by two p-dimensional vectors. The phenotypic trajectory distance between two experiments is then a distance between their vectors, as defined in formula 7 of~\cite{Walter2010}. This distance will be called \textbf{phenotypic trajectory} distance in the following.
 
-This distance does not take explicitly time into account, but it respects the order of phenotypic changes. Hence its strength is that even if one experiment is identical with a delay to another, their distance will be small. It will not if they're distinctly ordered.
+This distance does not take explicitly time into account, but it respects the order of phenotypic changes. Hence its strength is that even if one experiment is identical with a delay to another, their distance will be small. It will not if they're distinctly ordered, as opposed to the phenotypic score distances.
 
 \paragraph{Sinkhorn divergence}
-Finally, we wanted to test a distance which would enable us to use some prior biological knowledge of phenotypic class relationships. Indeed, if we consider the two previous distances, they implicitly consider each phenotypic class to be independent of the others, and equally biologically far away from all. Nevertheless, \textit{binucleated}, \textit{polylobed} and \textit{grape} nuclei are for example three different outcomes of cytokinesis defects. Hence the biological intuition is that a chemical causing a great increase in \textit{polylobed} nuclei has probably a closer mode of action to that of another one causing an increase in \textit{binucleated} nuclei than it is to that of a third one causing a strict increase in apoptosis.
+Finally, we wanted to test a distance which would enable us to use some prior biological knowledge of phenotypic class relationships. If we consider the two previous distances, they implicitly consider each phenotypic class to be independent of the others, and equally biologically far away from all. Indeed, the phenotypic score distances operate in $\mathbb{R}^p$ to sum the squared differences of phenotypic scores, hence treating the different phenotypes independently of eachother. Nevertheless, \textit{binucleated}, \textit{polylobed} and \textit{grape} nuclei are for example three different outcomes of cytokinesis defects. Hence the biological intuition is that a chemical causing a great increase in \textit{polylobed} nuclei has probably a closer mode of action to that of another one causing an increase in \textit{binucleated} nuclei than it is to that of a third one causing a strict increase in apoptosis.
 
-Ideally, the idea is then that the distance of $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei is smaller than that to $b\%$ \textit{apoptosis} nuclei, or that it "costs" less to go from $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei than to $b\%$ \textit{apoptosis}. This is precisely the idea behind the Earth Mover's distance (or Wasserstein distance): to compute the cost to move a certain number of piles of dirt into a certain numer of holes, one need to take into account the distance between piles and holes.
+Ideally, the idea is then that the distance of $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei is smaller than that to $b\%$ \textit{apoptosis} nuclei, or that it "costs" less to go from $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei than to $b\%$ \textit{apoptosis}. This is precisely the idea behind the Earth Mover's distance (or transportation distance, or Wasserstein distance): to compute the cost to move a certain number of piles of dirt into a certain numer of holes, one need to take into account the distance between piles and holes.
 
-[expliquer la différence entre EMD et Sinkhorn, dire que l'on peut faire globalement sur l'experience ou que l'on peut faire temps par temps]
+Let us formalize this intuition and briefly introduce transportation distance\footnote{References of proofs can be found in~\cite{sinkhorn}.}. We note $\Sigma_d = \{ x \in \mathbb{R}^d_+ | x^T \mathbf{1}_d = 1\}$ the probability simplex. In our case, $d=13$: we can consider either the distributions of phenotypes in a given experiment over all time-points, or this distribution in a specific frame.
+
+Given $r$ and $c$ in $\Sigma_d$, the transport polytope $U(r,c)$ is the set of matrices such that $U(r,c)=\{ P\in \mathbb{R}^{d\times d}_+ | P\mathbf{1}_d = r, P^T \mathbf{1}_d = c \}$. If $X$ and $Y$ are two discrete random variables with values in $ \left[1,\ldots , d\right] $ whose distributions are $r$ and $c$, the elements of $U(r,c)$ are in fact the possible joint probabilities of $\left( X,Y\right)$. 
+
+Given a cost matrix $M$ in $\mathbb{R}^{d\times d}$, the optimal transportation distance between $r$ and $c$ is the solution of the following optimization program, where $<\cdot, \cdot> $ is the Frobenius matrix norm:
+\[
+d_M(r,c) = \min_{\substack{P\in U(r,c)}} <M,P>
+\]
+
+Optimal solutions $P^*$ can be obtained. Furthermore, if $M$ is a metric matrix, this quantity is a distance~\cite{Villani}. This optimization program's complexity is in $O\left( d^3\log d\right) $ in theory and in practice, which makes it less applicable to high-dimensionality problems. 
+
+In our case however, $d=13$, hence complexity is not a serious issue. An issue which is more relevant is that optimal solutions $P^*$ will lie on the vertices of $U(r,c)$. This is due to the linear quality of the optimization problem. It will produce almost deterministic joint probabilities~\cite{sinkhorn}. The idea is therefore to solve a regularized version of this program, placing ourselves in the following convex subset of $U(r,c)$, for $\alpha >0$:
+\[
+U_\alpha\left( r, c\right) = \{ P \in U\left( r,c \right) | \mathbf{KL}\left(P || rc^T\right)\leqslant \alpha\}
+\]
+
+The Sinkhorn divergence will be the following quantity, for $\alpha >0$:
+\[
+d_{M, \alpha}(r,c) = \min_{\substack{P\in U_\alpha (r,c)}} <M,P>
+\]
+
+This will produce less deterministic optimal solutions, which will converge to $P^*$ as $\alpha$ increases, while $d_{M, \alpha}(r,c)$ converges to $d_{M}(r,c)$. In practice, we will solve the dual problem of this optimization problem, using Sinkhorn fixed-point algorithm~\cite{}Sinkhorn,  R. and Knopp,  P. (1967).  Concerning nonnegative  matrices and doubly stochastic matrices.
+Pacific J. Math, 21(2):343-348.
+
+The use of this divergence will enable us to compute distances between phenotypic distributions and take into account
 
 \subparagraph{Choice of phenotypic cost matrix}
 \begin{figure*}[ht!]
