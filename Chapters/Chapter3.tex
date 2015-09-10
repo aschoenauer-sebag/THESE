@@ -248,7 +248,9 @@ Since we are interested in nuclear morphologies in this context, the original se
 
 \subsubsection{Object classification and phenotypic scores}
 \label{sec:ps}
-The use of the original segmentation from the Mitocheck project made it possible to re-use its training set, albeit strengthened for classes which were previously slightly under-represented. This can be seen on fig.~\ref{ds_classifier} in comparison with figure 3 from~\cite{Walter2010}. Cell Cognition~\cite{cellcognition} was used for learning an RBF (Radial Base Function) kernel SVM classifier, whose precision and recall are also indicated on fig.~\ref{ds_classifier}. Its parameters were optimised by grid-search ($\gamma=2^{-7}$, $C=8$).
+The use of the original segmentation from the Mitocheck project made it possible to re-use its training set, albeit strengthened for classes which were previously slightly under-represented. This can be seen on fig.~\ref{ds_classifier} in comparison with figure 3 from~\cite{Walter2010}. A visual inspection of the dataset enabled us to verify that the drug screen experiments do not contain any nuclear morphological phenotype which were not observed in the Mitocheck experiments. This would have made it necessary to include nuclei from drug screen experiments into our training set.
+
+Cell Cognition~\cite{cellcognition} was used for learning an RBF (Radial Base Function) kernel SVM classifier, whose precision and recall are also indicated on fig.~\ref{ds_classifier}. Its parameters were optimised by grid-search ($\gamma=2^{-7}$, $C=8$).
 
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.6]{figures/ds_classifier.png}}
@@ -267,6 +269,7 @@ One plate had to be eliminated due to an issue during image acquisition. An abru
 For the other experiments, a threshold of $c$ cells at the beginning of the movie, and maximum $p$\% out-of-focus objects were used to remove unexploitable movies. $c=50$ and $p=40$ were selected. Out-of-focus objects and cells that were neither artefacts nor out-of-focus objects were identified following segmentation, feature extraction and classification as described supra.
 
 \subsubsection{Selection of Mitocheck experiments for target inference}
+\label{sec:selection_mitocheck}
 The Mitocheck project led to the identification of 1,249 mitotic hits in the primary screen. 1,042 were identified by manual thresholds on phenotypic scores from the following phenotypic classes: \textit{Prometaphase},\textit{Metaphase Alignement Problem}, \textit{Binucleated}, \textit{Polylobed}, \textit{Grape}. 207 genes were further identified by manual annotations. 1,128 of these genes were screened again in a validation screen.
 
 Lists of hit genes according to the following measures were also published:
@@ -294,7 +297,7 @@ Given the variations in siRNA coverage between genes which were, for example, in
 %publi mitotic: 'Grape': 91,'Binuclear': 402, 'Polylobed': 344, 'Mitotic delay/arrest': 345
 
 \subsection{Phenotypic profile distances}
-Screening experiments provide us with temporal sequences of information. They can be seen as sequences of grey level two-dimensional distributions~[CITE], sequences of object feature distributions or sequences of phenotypic class distributions. In our case, we chose to summarize each experiment by a set of temporal evolutions of phenotypic classes, that is, we chose to represent our experiments by their phenotypic profile. The question remains to know how to compute divergences between these representations of the information.
+Screening experiments provide us with temporal sequences of information. They can be seen as sequences of intensity two-dimensional distributions~\cite{pmid22743764}, sequences of object feature distributions or sequences of phenotypic class distributions. In our case, we chose to summarize each experiment by a set of temporal evolutions of phenotypic classes, that is, we chose to represent our experiments by their phenotypic profile. The question remains to know how to compute divergences between these representations of the information.
 
 \subsubsection{Investigated distances}
 We decided to test the following distances on the question to know whether we can apply phenotypic profiling for drug target inference from parallel drug and siRNA screens:
@@ -320,11 +323,11 @@ This distance does not take explicitly time into account, but it respects the or
 \paragraph{Sinkhorn divergence}
 Finally, we wanted to test a distance which would enable us to use some prior biological knowledge of phenotypic class relationships. If we consider the two previous distances, they implicitly consider each phenotypic class to be independent of the others, and equally biologically far away from all. Indeed, the phenotypic score distances operate in $\mathbb{R}^p$ to sum the squared differences of phenotypic scores, hence treating the different phenotypes independently of eachother. Nevertheless, \textit{binucleated}, \textit{polylobed} and \textit{grape} nuclei are for example three different outcomes of cytokinesis defects. Hence the biological intuition is that a chemical causing a great increase in \textit{polylobed} nuclei has probably a closer mode of action to that of another one causing an increase in \textit{binucleated} nuclei than it is to that of a third one causing a strict increase in apoptosis.
 
-Ideally, the idea is then that the distance of $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei is smaller than that to $b\%$ \textit{apoptosis} nuclei, or that it "costs" less to go from $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei than to $b\%$ \textit{apoptosis}. This is precisely the idea behind the Earth Mover's distance (or transportation distance, or Wasserstein distance): to compute the cost to move a certain number of piles of dirt into a certain numer of holes, one need to take into account the distance between piles and holes.
+Ideally, the idea is then that the distance of $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei is smaller than that to $b\%$ \textit{apoptosis} nuclei, or that it "costs" less to go from $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei than to $b\%$ \textit{apoptosis}. This is precisely the idea behind the Earth Mover's distance (or transportation distance, or Wasserstein distance). This distance was developed in the first place to compute the cost to move a certain number of piles of dirt into a certain numer of holes. To do so, one needs to take into account the distance between piles and holes.
 
 Let us formalize this intuition and briefly introduce transportation distance\footnote{References of proofs can be found in~\cite{sinkhorn}.}. We note $\Sigma_d = \{ x \in \mathbb{R}^d_+ | x^T \mathbf{1}_d = 1\}$ the probability simplex. In our case, $d=13$: we can consider either the distributions of phenotypes in a given experiment over all time-points, or this distribution in a specific frame.
 
-Given $r$ and $c$ in $\Sigma_d$, the transport polytope $U(r,c)$ is the set of matrices such that $U(r,c)=\{ P\in \mathbb{R}^{d\times d}_+ | P\mathbf{1}_d = r, P^T \mathbf{1}_d = c \}$. If $X$ and $Y$ are two discrete random variables with values in $ \left[1,\ldots , d\right] $ whose distributions are $r$ and $c$, the elements of $U(r,c)$ are in fact the possible joint probabilities of $\left( X,Y\right)$. 
+Given $r$ and $c$ in $\Sigma_d$, the transport polytope $U(r,c)$ is the set of matrices such that $U(r,c)=\{ P\in \mathbb{R}^{d\times d}_+ | P\mathbf{1}_d = r, P^T \mathbf{1}_d = c \}$. If $X$ and $Y$ are two discrete random variables with values in $ \{1,\ldots , d\} $ whose distributions are $r$ and $c$, the elements of $U(r,c)$ are in fact the possible joint probabilities of $\left( X,Y\right)$. 
 
 Given a cost matrix $M$ in $\mathbb{R}^{d\times d}$, the optimal transportation distance between $r$ and $c$ is the solution of the following optimization program, where $<\cdot, \cdot> $ is the Frobenius matrix norm:
 \[
@@ -339,16 +342,27 @@ U_\alpha\left( r, c\right) = \{ P \in U\left( r,c \right) | \mathbf{KL}\left(P |
 \]
 
 The Sinkhorn divergence will be the following quantity, for $\alpha >0$:
-\[
+\begin{equation}
 d_{M, \alpha}(r,c) = \min_{\substack{P\in U_\alpha (r,c)}} <M,P>
+\label{emd}
+\end{equation}
+
+This will produce less deterministic optimal solutions, which will converge to $P^*$ as $\alpha$ increases, while $d_{M, \alpha}(r,c)$ converges to $d_{M}(r,c)$. In practice, there exists an efficient method for solving the dual of this problem, Sinkhorn fixed-point algorithm~\cite{sinkhorn_original}. 
+
+The solution for obtaining a faster computation of an approximate transportation distance is therefore to solve the dual problem of formula~\ref{emd}. Its solution will be used to compute the Sinkhorn divergence. For any $\alpha >0$, there exists $\lambda >0$ such that $d_{M, \alpha}(r,c) = d_{M, \lambda}(r,c)$, with
+\[
+d_{M, \lambda}(r,c) = <M,P^\lambda>,~~ P^\lambda = \argmin_{\substack{P\in U (r,c)}} <M,P> - \dfrac{1}{\lambda} h\left( P\right)
 \]
 
-This will produce less deterministic optimal solutions, which will converge to $P^*$ as $\alpha$ increases, while $d_{M, \alpha}(r,c)$ converges to $d_{M}(r,c)$. In practice, we will solve the dual problem of this optimization problem, using Sinkhorn fixed-point algorithm~\cite{}Sinkhorn,  R. and Knopp,  P. (1967).  Concerning nonnegative  matrices and doubly stochastic matrices.
-Pacific J. Math, 21(2):343-348.
-
-The use of this divergence will enable us to compute distances between phenotypic distributions and take into account
+The use of this divergence will enable us to take into account prior biological knowledge while computing distances between phenotypic distributions. This knowledge will be encoded in the cost matrix M. Another parameter which should be set in $\lambda$.
 
 \subparagraph{Choice of phenotypic cost matrix}
+The phenotypic cost matrix summarizes our biological knowledge about the phenotypes which were observed in the Mitocheck dataset (they include those which were observed in the drug screen). We made the choice to set inter-phenotypic costs according to the cellular process which is perturbed when they appear, or which they represent. The phenotypic cost matrix which we chose is illustrated fig.~\ref{cost}.
+
+To resume with our previous example, \textit{Polylobed}, \textit{Grape} and \textit{Binucleated} nuclei were considered to be closer to eachother than to any other phenotype, as they all result from cytokinesis defect. Nevertheless, \textit{Binucleated} nuclei were set slightly further apart from \textit{Polylobed} and \textit{Grape} nuclei than those two from eachother. This is because [EXPLANATION AGAIN ??].
+
+Let us consider another example and take the group of \textit{Interphase}, \textit{Elongated} and \textit{Large} nuclei. They were set closer to eachother than to any other phenotype because they represent normal and abnormal versions of interphase nuclei.
+
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.4]{figures/transportation_cost.png}
 }
@@ -356,7 +370,33 @@ The use of this divergence will enable us to compute distances between phenotypi
 \label{cost}
 \end{figure*}
 
-\subparagraph{Choice of lambda}
+\subparagraph{Choice of $\lambda$} This choice will determine how close the Sinkhorn divergence is to the transportation distance. As expected, when $\lambda$ increases, the Sinkhorn divergence converges. This is illustrated fig.~\ref{lambda_choice1}. This figure also enables us to see that in the range of $\lambda$ which we investigated, there seems to be mainly two different behaviours: one which is shown at $\lambda=0.01$ and $\lambda=0.1$, and one which is shown at $\lambda=1$ and $\lambda=10$.
+
+Our choice of $\lambda$ was driven by the ability to differenciate between Mitocheck hit experiments. As detailed in section~\ref{sec:selection_mitocheck}, these experiments are grouped according to the phenotype(s) of which they present a strikingly high percentage. We therefore visually compared the ability of $\lambda$'s two different value ranges to separate Mitocheck hit experiment from different phenotypic hit lists. This is shown on figures~\ref{lambda_choice2} and~\ref{lambda_choice3}. We clearly see that $\lambda=10$ seems to better enable distinct phenotype separation, for example between \textbf{Binuclear} and \textbf{Cell death} hits. This value was hence chosen.
+
+Finally, there are two ways to use Sinkhorn divergence with the parameters $M,~ \lambda$ as defined above. Let us consider two experiments $i$ and $j$ of duration $T$: 
+
+\begin{itemize}
+\item one can pool all nuclei from all frames to summarize them in $\Sigma_d$. This distance will be called \textbf{global Sinkhorn divergence} in the following (formula~\ref{global}),
+\item one can choose to keep the temporal information by summarizing them in $\left(\Sigma_d\right) ^T$. We will define two distances from this:
+\subitem \textbf{max time Sinkhorn divergence}, which is the maximum of all timepoints Sinkhorn divergences (as detailed formula~\ref{max}),
+\subitem \textbf{sum of time Sinkhorn divergence}, which is the sum of all timepoints Sinkhorn divergences (as detailed formula~\ref{int}).
+\end{itemize}
+\begin{equation}
+D_{M,\lambda}(i,j)= d_{M,\lambda}((\%_{k,i})_{k},(\%_{k,j})_{k})
+\label{global}
+\end{equation}
+
+\begin{equation}
+D_{M,\lambda}^{max}(i,j)= \max_t d_{M,\lambda}((\%_{k,i,t})_{k},(\%_{k,j,t})_{k})
+\label{max}
+\end{equation}
+
+\begin{equation}
+D_{M,\lambda}^{sum}(i,j)= \sum_t d_{M,\lambda}((\%_{k,i,t})_{k},(\%_{k,j,t})_{k})
+\label{int}
+\end{equation}
+
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.3]{figures/transportation_convergence_right_seg.png}
 }
@@ -375,9 +415,8 @@ The use of this divergence will enable us to compute distances between phenotypi
 \centerline{
 \includegraphics[scale=0.3]{figures/MDS_lamb10_perPheno.png}}
 \caption{Separation between Mitocheck hit categories for $\lambda=10$. Divergences between Mitocheck hit experiments were computed for $\lambda=10$, and multi-dimensional scaling was used for representing them in two dimensions in the first two lines. Divergences between theses experiments and the drug screen were included and their multi-dimension scaling is showed on the last line (grey: controls).}
-\label{lambda_choice2}
+\label{lambda_choice3}
 \end{figure*}
-This will be called \textbf{Sinkhorn divergence}
 
 \subsubsection{Ability to distinguish between experimental conditions as opposed to between replicates}
 
