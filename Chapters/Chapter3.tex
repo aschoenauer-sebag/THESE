@@ -152,9 +152,8 @@ In the second place, it shows that there is more than speed for differentiating 
 \caption{Characterization of our ontology of trajectories. Each column is a single cell trajectory ; trajectories are grouped by cluster label. 1,000 trajectories were randomly selected per trajectory cluster.}
 \label{heatmap}
 \end{figure*}
-\subsection{Experiment clustering}
-\label{Mito_classif}
-Experiment clustering? Dunno if we want to talk about it\clearpage
+\subsection{Discussion}
+discussion\clearpage
 \section{Cell cycle length study}
 \label{sec:cellcycle}
 %\textit{Eventually look at intersection with~\cite{pmid16564017},~\cite{pmid17001007}}
@@ -268,6 +267,8 @@ One plate had to be eliminated due to an issue during image acquisition. An abru
 
 For the other experiments, a threshold of $c$ cells at the beginning of the movie, and maximum $p$\% out-of-focus objects were used to remove unexploitable movies. $c=50$ and $p=40$ were selected. Out-of-focus objects and cells that were neither artefacts nor out-of-focus objects were identified following segmentation, feature extraction and classification as described supra.
 
+Out of $1,232$ experiments on four plates, $904$ were left on three plates, among which $98$ controls.
+
 \subsubsection{Selection of Mitocheck experiments for target inference}
 \label{sec:selection_mitocheck}
 The Mitocheck project led to the identification of 1,249 mitotic hits in the primary screen. 1,042 were identified by manual thresholds on phenotypic scores from the following phenotypic classes: \textit{Prometaphase},\textit{Metaphase Alignement Problem}, \textit{Binucleated}, \textit{Polylobed}, \textit{Grape}. 207 genes were further identified by manual annotations. 1,128 of these genes were screened again in a validation screen.
@@ -298,7 +299,9 @@ Given the variations in siRNA coverage between genes which were, for example, in
 
 \subsubsection{Selection of drug screen hit experiments}
 \label{sec:selection_ds}
-Phenotypic scores of the drug screen experiments were computed as described supra. Experiments whose \textit{Interphase} phenotypic score was lower than $Q_1^{ctrl} - 1.5\times IQR^{ctrl}$ were selected as hit experiments, where $Q_1^{ctrl}$ and $IQR^{ctrl}$ are respectively the first quartile and the inter-quartile range of control \textit{Interphase} scores. This is a robust one-sided way to select outliers, as the distribution of control \textit{Interphase} scores cannot be assumed to be Gaussian. This corresponds to the experiments which are under the bottom whisker on the \textit{Interphase} subplot of fig.~\ref{hit_ds}. Supplementary plots represent the distribution of phenotypic scores as a function of dose and drug, see "Phenotypic score plots" in "Supplementaries" folder.
+Phenotypic scores of the drug screen experiments were computed as described supra. Experiments whose \textit{Interphase} phenotypic score was lower than $Q_1^{ctrl} - 1.5\times IQR^{ctrl}$ were selected as hit experiments, where $Q_1^{ctrl}$ and $IQR^{ctrl}$ are respectively the first quartile and the inter-quartile range of control \textit{Interphase} scores. This is a robust one-sided way to select outliers, as the distribution of control \textit{Interphase} scores cannot be assumed to be Gaussian. 
+
+It corresponds to the $197$ experiments which are under the bottom whisker on the \textit{Interphase} subplot of fig.~\ref{hit_ds}. Supplementary plots represent the distribution of phenotypic scores as a function of dose and drug, see "Phenotypic score plots" in "Supplementaries" folder.
 
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.35]{figures/phenotypic_scores2.png}
@@ -410,7 +413,7 @@ Let us consider another example and take the group of \textit{Interphase}, \text
 
 Our choice of $\lambda$ was driven by the ability to differenciate between Mitocheck hit experiments. As detailed in section~\ref{sec:selection_mitocheck}, these experiments are grouped according to the phenotype(s) of which they present a strikingly high percentage. We therefore visually compared the ability of $\lambda$'s two different value ranges to separate Mitocheck hit experiment from different phenotypic hit lists. 
 
-This is shown on figures~\ref{lambda_choice2} and~\ref{lambda_choice3}: Mitocheck hit experiments are represented following the use of multi-dimensional scaling in 2 dimensions of their \textbf{global Sinkhorn divergences}. We clearly see that $\lambda=10$ seems to distinguish - to a certain extent - between distinct phenotypes, as opposed to $\lambda=0.1$. This is striking if we consider the example of \textbf{Binuclear} and \textbf{Cell death} hits. $\lambda=10$ was hence chosen.
+This is shown on figures~\ref{lambda_choice_2} and~\ref{lambda_choice_3}: Mitocheck hit experiments are represented following the use of multi-dimensional scaling in 2 dimensions of their \textbf{global Sinkhorn divergences}. We clearly see that $\lambda=10$ seems to distinguish - to a certain extent - between distinct phenotypes, as opposed to $\lambda=0.1$. This is striking if we consider the example of \textbf{Binuclear} and \textbf{Cell death} hits (see also figures in Appendix, section~\ref{choice_param_Sinkhorn}). $\lambda=10$ was hence chosen.
 
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.3]{figures/transportation_convergence_right_seg.png}
@@ -418,25 +421,31 @@ This is shown on figures~\ref{lambda_choice2} and~\ref{lambda_choice3}: Mitochec
 \caption{Convergence of Sinkhorn divergence as a function of lambda. Divergences were computed between drug screen experiments and Mitocheck hit experiments for different values of lambda, and the distribution of their relative variation to the divergences computed for $\lambda=30$ are showed here.}
 \label{lambda_choice1}
 \end{figure*}
-
 \begin{figure*}[ht!]
 \centerline{
-\includegraphics[scale=0.3]{figures/MDS_lamb01_perPheno.png}
+\includegraphics[scale=0.25]{figures/MDS_lamb01.png}
 }
-\caption{Separation between Mitocheck hit categories for $\lambda=0.1$. Divergences between Mitocheck hit experiments were computed for $\lambda=0.1$, and multi-dimensional scaling was used for representing them in two dimensions in the first two lines. Divergences between theses experiments and the drug screen were included and their multi-dimension scaling is showed on the last line (grey: controls).}
-\label{lambda_choice2}
+\caption{Separation between Mitocheck hit categories (left) for $\lambda=0.1$. Global Sinkhorn divergences between Mitocheck hit experiments were computed for $\lambda=0.1$, and multi-dimensional scaling was used for representing them in two dimensions in the first two lines. Divergences between these experiments and the drug screen were included and their multi-dimension scaling is shown on the right plot.}
+\label{lambda_choice_2}
 \end{figure*}
 \begin{figure*}[ht!]
 \centerline{
-\includegraphics[scale=0.3]{figures/MDS_lamb10_perPheno.png}}
-\caption{Separation between Mitocheck hit categories for $\lambda=10$. Divergences between Mitocheck hit experiments were computed for $\lambda=10$, and multi-dimensional scaling was used for representing them in two dimensions in the first two lines. Divergences between theses experiments and the drug screen were included and their multi-dimension scaling is showed on the last line (grey: controls).}
-\label{lambda_choice3}
+\includegraphics[scale=0.25]{figures/MDS_lamb10.png}}
+\caption{Separation between Mitocheck hit categories (left) for $\lambda=10$. Global Sinkhorn divergences between Mitocheck hit experiments were computed for $\lambda=10$, and multi-dimensional scaling was used for representing them in two dimensions in the first two lines. Divergences between these experiments and the drug screen were included and their multi-dimension scaling is shown on the right plot.}
+\label{lambda_choice_3}
 \end{figure*}
+
 \clearpage
 
 \subsubsection{Distance quality evaluation}
+Six distances were selected to compare phenotypic profiles following drug exposure. We then wanted to evaluate their ability to distinguish between different conditions\footnote{A condition is the combination of a drug and a dose.} without distinguishing between condition replicates. For this purpose, we computed for each distance $d$ and condition $C$ the following quantities: for each experiment $i$ we note $C_i$ its condition, $corr$ the Pearson correlation and $d(i,M)$ the vector of distances between $i$ and all Mitocheck hit experiments
+\begin{equation}
+S_d(C)=\dfrac{\sum_i \sum_{\substack{k|C_k\neq C}} d(i,k)}{\sum_i \sum_{\substack{j| C_j = C, j\neq i}} d(i,j)}
+\end{equation}
 
-
+\begin{equation}
+R_d(C)=\dfrac{2}{(n-1)(n-2)}~ \sum_i \sum_{\substack{j\\ C_j = C_i\\ j\neq i}} corr(d(i,M), d(j,M))
+\end{equation}
 
 1.Put indication of better separation between conditions than between replicates. Missing value of distance by Thomas
 
