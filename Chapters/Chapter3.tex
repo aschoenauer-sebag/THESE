@@ -230,11 +230,8 @@ Hence to answer this question, we had the idea to use a published dataset of HeL
 \clearpage
 \section{Functional inference by in silico comparison of small-molecule and siRNA screens}
 ~\footnote{Manuscript in preparation}
+Maybe briefly describe the drugs?\\
 - some biblio ~\cite{pmid20418956}
-
-- discuss convergence as a function of lambda
-
-idée : compare gene lists for low doses (ie random noise) with gene lists for high doses with effects. Then maybe one can disentangle what is present randomly and what is not? Which is sort of more or less the idea behind rank product: you look for genes/siRNAs/Mitocheck experiments which are at small distance of the drug experiment consistently accross replicates
 
 type of approach as opposed to targeted bioassay which demand specific prior knowledge allows in principle for systematic and direct identification of drug target (as long as it is in the gene list)
 
@@ -267,7 +264,7 @@ One plate had to be eliminated due to an issue during image acquisition. An abru
 
 For the other experiments, a threshold of $c$ cells at the beginning of the movie, and maximum $p$\% out-of-focus objects were used to remove unexploitable movies. $c=50$ and $p=40$ were selected. Out-of-focus objects and cells that were neither artefacts nor out-of-focus objects were identified following segmentation, feature extraction and classification as described supra.
 
-Out of $1,232$ experiments on four plates, $904$ were left on three plates, among which $98$ controls.
+Out of $1,232$ experiments on four plates, $904$ experiments from three plates passed the quality control, among which $98$ control experiments.
 
 \subsubsection{Selection of Mitocheck experiments for target inference}
 \label{sec:selection_mitocheck}
@@ -303,16 +300,27 @@ Phenotypic scores of the drug screen experiments were computed as described supr
 
 It corresponds to the $197$ experiments which are under the bottom whisker on the \textit{Interphase} subplot of fig.~\ref{hit_ds}. Supplementary plots represent the distribution of phenotypic scores as a function of dose and drug, see "Phenotypic score plots" in "Supplementaries" folder.
 
+Hit conditions are conditions for which stricly more than 50\% of their replicates are hit experiments.
+
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.35]{figures/phenotypic_scores2.png}
 }
 \caption{Distributions of phenotypic scores from the drug screen experiments. Each boxplot corresponds to the distribution of control phenotypic scores, whereas each red dot is an experiment in which cells were exposed to a drug.}
 \label{hit_ds}
 \end{figure*}
+
+\subsubsection{Other analyses}
+%Proliferation hit detection was realized similarly to hit experiment detection: 
+%
+Condition hierarchical clustering was performed using the median of condition replicates. The Python package fastcluster~\cite{fastcluster} was used to this end.
+
+
+A Web-based user interface was designed and implemented for result visualization and result sharing among collaborators. It is described more in details infra, see section~\ref{interface}.
+
 \subsection{Phenotypic profile distances}
 Screening experiments provide us with temporal sequences of information. They can be seen as sequences of intensity two-dimensional distributions~\cite{pmid22743764}, sequences of object feature distributions or sequences of phenotypic class distributions. In our case, we chose to summarize each experiment by a set of temporal evolutions of phenotypic classes, that is, we chose to represent our experiments by their phenotypic profile. The question remains to know how to compute divergences between these representations of the information.
 
-\subsubsection{Investigated distances}
+%\subsubsection{Investigated distances}
 We decided to test the following distances on the question to know whether we can apply phenotypic profiling for drug target inference from parallel drug and siRNA screens:
 \begin{itemize}
 \item a very simple approach, the Euclidean distance of phenotypic scores, 
@@ -321,24 +329,24 @@ We decided to test the following distances on the question to know whether we ca
 \end{itemize}
 
 Let $i$ be a screening experiment, and $p$ the number of phenotypic classes ($p=15$ in our case). 
-\subsubsection*{Euclidean distance on phenotypic scores}
+\subsubsection{Euclidean distance on phenotypic scores}
 $i$ can be represented in $\mathbb{R}^p$ by $(ps_{k,i})_k$ the vector of its phenotypic scores. The distance between two experiments is then the Euclidean distance of their vectors of phenotypic scores, excluding \textit{Interphase} and \textit{Anaphase} scores. \textit{Interphase} score is excluded as its decrease is most of the time a summary of the increases of other scores. \textit{Anaphase} score is excluded because [WHATs the reason again?]. 
 
 These vectors can be normalized with respect to the mean and standard deviation of phenotypic scores in the dataset. This will correspond to the \textbf{Normalized phenotypic score} distance in the following, whereas the non-normalized version will simply be called \textbf{Phenotypic score} distance.
 
 These distances are robust to time delay in the onset of phenotypic changes. Indeed, as controls basically show a constant percentage of \textit{Interphase} nuclei, phenotypic scores will be identical for two experiments which show an increase in, e.g., \textit{Apoptosis} nuclei respectively at the beginning and at the end of the experiments. Hence the strength of these distances is that even if one experiment is identical with a delay to another, their distance will be small. It will however still be small if they're distinctly ordered, e.g. if one experiments shows the same phenotypic events than the other, albeit in the opposite order.
 
-\subsubsection*{Phenotypic trajectory distance}
+\subsubsection{Phenotypic trajectory distance}
 On the other hand, it is possible to use the phenotypic trajectory distance as published in~\cite{Walter2010}. Briefly, let us re-use the notations of section~\ref{sec:ps}: $i$ is seen as $(\%_{k,i,t})_{k=1\ldots p,t=1\ldots T}$, that is, a sequence in $[0~;1]^p$. This sequence is then approximated by two p-dimensional vectors. The phenotypic trajectory distance between two experiments is then a distance between their vectors, as defined in formula 7 of~\cite{Walter2010}. This distance will be called \textbf{phenotypic trajectory} distance in the following.
 
 This distance does not take explicitly time into account, but it respects the order of phenotypic changes. Hence its strength is that even if one experiment is identical with a delay to another, their distance will be small. It will not if they're distinctly ordered, as opposed to the phenotypic score distances.
 
-\subsubsection*{Sinkhorn divergence}
-\paragraph*{Motivations}
+\subsubsection{Sinkhorn divergence}
+\paragraph{Motivations}
 Finally, we wanted to test a distance which would enable us to use some prior biological knowledge of phenotypic class relationships. If we consider the two previous distances, they implicitly consider each phenotypic class to be independent of the others, and equally biologically far away from all. Indeed, the phenotypic score distances operate in $\mathbb{R}^p$ to sum the squared differences of phenotypic scores, hence treating the different phenotypes independently of eachother. Nevertheless, \textit{binucleated}, \textit{polylobed} and \textit{grape} nuclei are for example three different outcomes of cytokinesis defects. Hence the biological intuition is that a chemical causing a great increase in \textit{polylobed} nuclei has probably a closer mode of action to that of another one causing an increase in \textit{binucleated} nuclei than it is to that of a third one causing a strict increase in apoptosis.
 
 Ideally, the idea is then that the distance of $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei is smaller than that to $b\%$ \textit{apoptosis} nuclei, or that it "costs" less to go from $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei than to $b\%$ \textit{apoptosis}. This is precisely the idea behind the Earth Mover's distance (or transportation distance, or Wasserstein distance). This distance was developed in the first place to compute the cost to move a certain number of piles of dirt into a certain numer of holes. To do so, one needs to take into account the distance between piles and holes.
-\paragraph*{Definitions}
+\paragraph{Definitions}
 Let us formalize this intuition and briefly introduce transportation distance\footnote{References and proofs can be found in~\cite{sinkhorn}.}. We note $\Sigma_d = \{ x \in \mathbb{R}^d_+ | x^T \mathbf{1}_d = 1\}$ the probability simplex. In our case, $d=13$: we can consider either the distributions of phenotypes in a given experiment over all time-points, or this distribution in a specific frame.
 
 Given $r$ and $c$ in $\Sigma_d$, the transport polytope $U(r,c)$ is the set of matrices such that 
@@ -395,7 +403,7 @@ D_{M,\lambda}^{sum}(i,j)= \sum_t d_{M,\lambda}((\%_{k,i,t})_{k},(\%_{k,j,t})_{k}
 \label{int}
 \end{equation}
 
-\paragraph*{Choice of phenotypic cost matrix}
+\paragraph{Choice of phenotypic cost matrix}
 The phenotypic cost matrix summarizes our biological knowledge about the phenotypes which were observed in the Mitocheck dataset (they include those which were observed in the drug screen). We made the choice to set inter-phenotypic costs according to the cellular process which is perturbed when they appear, or which they represent. The phenotypic cost matrix which we chose is illustrated fig.~\ref{cost}.
 
 To resume our previous example, \textit{Polylobed}, \textit{Grape} and \textit{Binucleated} nuclei were considered to be closer to eachother than to any other phenotype, as they all result from cytokinesis defect. Nevertheless, \textit{Binucleated} nuclei were set slightly further apart from \textit{Polylobed} and \textit{Grape} nuclei than those two from eachother. This is because [EXPLANATION AGAIN ??].
@@ -409,7 +417,7 @@ Let us consider another example and take the group of \textit{Interphase}, \text
 \label{cost}
 \end{figure*}
 
-\paragraph*{Choice of $\lambda$} This choice will determine how close the Sinkhorn divergence is to the transportation distance. As expected, when $\lambda$ increases, the Sinkhorn divergence converges. This is illustrated fig.~\ref{lambda_choice1}. This figure also enables us to see that in the range of $\lambda$ which we investigated, there seems to be mainly two different behaviours: one which is shown at $\lambda=0.01$ and $\lambda=0.1$, and one which is shown at $\lambda=1$ and $\lambda=10$.
+\paragraph{Choice of $\lambda$} This choice will determine how close the Sinkhorn divergence is to the transportation distance. As expected, when $\lambda$ increases, the Sinkhorn divergence converges. This is illustrated fig.~\ref{lambda_choice1}. This figure also enables us to see that in the range of $\lambda$ which we investigated, there seems to be mainly two different behaviours: one which is shown at $\lambda=0.01$ and $\lambda=0.1$, and one which is shown at $\lambda=1$ and $\lambda=10$.
 
 Our choice of $\lambda$ was driven by the ability to differenciate between Mitocheck hit experiments. As detailed in section~\ref{sec:selection_mitocheck}, these experiments are grouped according to the phenotype(s) of which they present a strikingly high percentage. We therefore visually compared the ability of $\lambda$'s two different value ranges to separate Mitocheck hit experiment from different phenotypic hit lists. 
 
@@ -438,7 +446,9 @@ This is shown on figures~\ref{lambda_choice_2} and~\ref{lambda_choice_3}: Mitoch
 \clearpage
 
 \subsubsection{Distance quality evaluation}
-Six distances were selected to compare phenotypic profiles following drug/siRNA exposure. We then wanted to evaluate their ability to distinguish between different conditions\footnote{A condition is the combination of a drug and a dose.} without distinguishing between condition replicates. For this purpose, we computed for each distance $d$ and hit condition $C$ a separability score $S_d(C)$ as defined in formula~\ref{sepa} and a replicability score $R_d(C)$ as defined in formula~\ref{replica}. Notations: for each experiment $i$ we note $C_i$ its condition, $d(i,M)$ the vector of distances between $i$ and all Mitocheck hit experiments and $corr$ the Pearson correlation.
+Six distances were selected to compare phenotypic profiles following drug/siRNA exposure. We then wanted to evaluate their ability to distinguish between different conditions without distinguishing between condition replicates. For this purpose, we computed for each distance $d$ and condition $C$ a separability score $S_d(C)$ as defined in formula~\ref{sepa} and a replicability score $R_d(C)$ as defined in formula~\ref{replica}. Separability compares the distance between replicates of the same condition to the distance to other conditions, whereas replicability measures the correlation between condition replicates to Mitocheck hit experiments.
+
+Notations: for each experiment $i$ we note $C_i$ its condition, $d(i,M)$ the vector of distances between $i$ and all Mitocheck hit experiments and $corr$ the Pearson correlation.
 \begin{equation}
 S_d(C)=\dfrac{\sum_{\substack{i|C_i= C}} \sum_{\substack{k|C_k\neq C}} d(i,k)}{\sum_{\substack{i|C_i= C}} \sum_{\substack{j\neq i| C_j = C}} d(i,j)}
 \label{sepa}
@@ -449,14 +459,20 @@ R_d(C)=\dfrac{2}{(n-1)(n-2)}~ \sum_{\substack{i\\C_i= C}} \sum_{\substack{j\neq 
 \label{replica}
 \end{equation}
 
-The results are presented fig.~\ref{separability}. We can observe that all investigated distances score the same on average in terms of replicability and separability on drug screen hit conditions. There is a high standard deviation, as some conditions were visually observed to have lower reproducibility levels than most of the conditions. One can for example consider the reproducibility of the 10th dose of JNJ7706621 (see fig.~\ref{jnj} in appendix). This high standard deviation is therefore 
+The results are presented fig.~\ref{separability}. We can observe that all investigated distances score the same on average in terms of replicability and separability on drug screen hit conditions ; they are more different on all drug screen conditions. In the latter case, Sinkhorn divergences and the simple phenotypic score distance seem to better separate conditions than normalized phenotypic score and phenotypic trajectory distance, although not significantly. 
+
+In both cases, there is a high standard deviation, as some conditions were visually observed to have lower reproducibility levels than the others. One can for example consider the reproducibility of the 10th dose of JNJ7706621 (see fig.~\ref{jnj} in appendix, section~\ref{sec:jnj}). This high standard deviation is therefore at least partly experimental, which means that none of the investigated distances is robust enough to cover it.
+
+Based on these results, we chose to restrict ourselves to the phenotypic score distance, the phenotypic trajectory distance, the sum of time and global Sinkhorn divergences.
 
 
 %For the separability score here it's distance to other conditions/distance to replicates if there is more than one replicate that passed QC. We look at hit conditions only because we feel that's where the real things are happening. It's easy to get a high reproducibility when nothing happens basically. Based on that we can restrict ourselves to phenotypic trajectory, euclidean distance on phenotypic score and either sum or max of time Sinkhorn distance.
 \begin{figure*}[ht!]
-\centerline{\includegraphics[scale=0.3]{figures/separability_score_final.png}
+\centerline{
+\includegraphics[scale=0.3]{figures/separability_score_all_exp.png}
+\includegraphics[scale=0.27]{figures/separability_score_hit_only.png}
 }
-\caption{Mean separability and replicability scores of investigated distances on all hit conditions (bars represent standard deviations).}
+\caption{Mean separability and replicability scores of investigated distances on all conditions (left) and hit conditions only (right - bars represent standard deviations).}
 \label{separability}
 \end{figure*}
 %\begin{figure*}[ht!]
@@ -472,13 +488,27 @@ The results are presented fig.~\ref{separability}. We can observe that all inves
 % 'ttransport_INT': 0.41390462544644724,
 % 'ttransport_MAX': 0.3963477934703899}
 
-\subsection{Application to small molecule similarity evaluation}
-POINT 1 In theory we could learn from the screen even if the drug is not directly targeted at something directly involved in mitosis but here we see that no. Explain somewhere how we derive hits??
+\subsection{Applications}
+There are two main applications of phenotypic profiling to drug or small molecule screen experiments~\cite{pmid17401369}. On the one hand, one might be interested in studying the similarity between the different conditions cells were exposed to. On the other hand, if there exists a parallel siRNA screen, that is, a screen which was performed in the same experimental conditions, one might be interested in comparing phenotypic profiles resulting from gene silencing to phenotypic profiles resulting from drug exposure. These two applications could lead to the inference of possible targets for unknown chemicals, and might even give a hint as to the possible mode of action.
 
+\subsubsection{Small molecule similarity evaluation}
+\paragraph{Condition clustering}
+The median distance to Mitocheck hit experiments was used to perform condition hierarchical clustering for each investigated distance. The output for the global Sinkhorn divergence is illustrated fig.~\ref{cond_clust_transport}, and outputs for the other distances can be seen in appendix (see section~\ref{appendix:heatmaps}).
+
+From 89\% to 100\% of (drug screen) hit conditions are clustering together, depending on the distance at hand. Furthermore, the clusters they belong to are composed of hit conditions at purity levels ranging from 85\% to 91\%. The dendrogram shows that their clusters are at a certain distance from eachother (i.e. they are not flat). On the other hand, non-hit conditions are grouped in one large and flat cluster. This means that non-hit conditions as described by their distance to Mitocheck hit experiments are not distinguishable, whereas hit conditions are.
+
+We have made the choice to summarize experiments by their nuclear phenotypic profiles, that is, the temporal sequence of nuclear phenotype distributions. Mitotic hits are conditions which alter cell mitosis. Hence they perturb the basal distribution of nuclei between normal nuclear phenotypes such as \textit{Interphase}, \textit{Metaphase}, etc. By construction, they are easily detected by our approach if they act within the experiment duration. 
+
+It was not clear at the beginning that other type of hits could not be detected in our approach. From these clusterings, it nevertheless seems that chemicals which have an impact on different cellular processes, such as thalidomide whose known teratogenic effects might be linked to an inhibition of ubiquitin ligase~\cite{pmid20223979}, cannot be detected. It could also be that they do not have any effect on HeLa cells, or that they would need more exposure time for an effect to be detected.
+
+%The precise mechanism of action for thalidomide is unknown, but possible mechanisms include anti-angiogenic and oxidative stress-inducing effects.[22]
+
+The conclusion of these clusterings is that our information representation is suitable for detecting and infering knowledge regarding mitotic hit conditions, whereas it is not for non-hit conditions. We therefore restrict ourselves to hit conditions in the following.
+%POINT 1 In theory we could learn from the screen even if the drug is not directly targeted at something directly involved in mitosis but here we see that no
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.55]{figures/Clust_0transport_ward_ward.png}}
 
-\caption{Drug screen condition - Mitocheck siRNA two-dimensional hierarchical clustering using global Sinkhorn divergence. See in appendix, section~\ref{heatmaps} for the other heatmaps.}
+\caption{Drug screen condition - Mitocheck siRNA two-dimensional hierarchical clustering using global Sinkhorn divergence. Ward method was used in combination with the Euclidean distance.}
 \label{cond_clust_transport}
 \end{figure*}
 
@@ -486,7 +516,7 @@ POINT 2 so we focus on hits detected on phenotypic scores. Here is what we have 
 Counter({3: 55, 2: 14, 1: 4})
 
 Not working well for phenotypic score with other clustering methods as well (not shown, 'single' and 'centroid'). Working better for phenotypic trajectory distance: centroid
-\subsection{Application to target pathway inference}
+\subsubsection{Target pathway inference}
 3.Link with Mitocheck for the hit experiments
 
 
