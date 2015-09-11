@@ -664,7 +664,8 @@ MAP4K4  &  ENSG00000071054  &  TTL  &  ENSG00000114999  \\
 \end{tabular}
 \end{table}
 \clearpage
-\section{Choice of $\lambda$ parameter}
+\section{Functional inference by in silico comparison of small-molecule and siRNA screens}
+\subsection{Choice of $\lambda$ parameter}
 \label{choice_param_Sinkhorn}
 \begin{figure*}[ht!]
 \centerline{
@@ -679,6 +680,17 @@ MAP4K4  &  ENSG00000071054  &  TTL  &  ENSG00000114999  \\
 \caption{Separation between Mitocheck hit categories for $\lambda=10$. Global Sinkhorn divergences between Mitocheck hit experiments were computed for $\lambda=10$, and multi-dimensional scaling was used for representing them in two dimensions in the first two lines. Divergences between theses experiments and the drug screen were included and their multi-dimension scaling is showed on the last line (grey: controls).}
 \label{lambda_choice3}
 \end{figure*}
+
+\subsection{Phenotypic scores of JNJ7706621}
+\label{sec:jnj}
+\begin{figure*}[ht!]
+\centerline{
+\includegraphics[scale=0.4]{figures/phenoscore_nice_JNJ7706621.png}}
+\caption{Phenotypic scores of JNJ7706621 experiments, as a function of plate (left, middle, right) and dose (abscissa). The redder a square, the further away from control phenotypic scores.}
+\label{jnj}
+\end{figure*}
+
+
 
 \clearpage
 \section{Two-dimensional hierarchical clustering of drug screen condition distance to Mitocheck siRNAs for different distances}

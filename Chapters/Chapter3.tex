@@ -438,22 +438,25 @@ This is shown on figures~\ref{lambda_choice_2} and~\ref{lambda_choice_3}: Mitoch
 \clearpage
 
 \subsubsection{Distance quality evaluation}
-Six distances were selected to compare phenotypic profiles following drug exposure. We then wanted to evaluate their ability to distinguish between different conditions\footnote{A condition is the combination of a drug and a dose.} without distinguishing between condition replicates. For this purpose, we computed for each distance $d$ and condition $C$ the following quantities: for each experiment $i$ we note $C_i$ its condition, $corr$ the Pearson correlation and $d(i,M)$ the vector of distances between $i$ and all Mitocheck hit experiments
+Six distances were selected to compare phenotypic profiles following drug/siRNA exposure. We then wanted to evaluate their ability to distinguish between different conditions\footnote{A condition is the combination of a drug and a dose.} without distinguishing between condition replicates. For this purpose, we computed for each distance $d$ and hit condition $C$ a separability score $S_d(C)$ as defined in formula~\ref{sepa} and a replicability score $R_d(C)$ as defined in formula~\ref{replica}. Notations: for each experiment $i$ we note $C_i$ its condition, $d(i,M)$ the vector of distances between $i$ and all Mitocheck hit experiments and $corr$ the Pearson correlation.
 \begin{equation}
-S_d(C)=\dfrac{\sum_i \sum_{\substack{k|C_k\neq C}} d(i,k)}{\sum_i \sum_{\substack{j| C_j = C, j\neq i}} d(i,j)}
+S_d(C)=\dfrac{\sum_{\substack{i|C_i= C}} \sum_{\substack{k|C_k\neq C}} d(i,k)}{\sum_{\substack{i|C_i= C}} \sum_{\substack{j\neq i| C_j = C}} d(i,j)}
+\label{sepa}
 \end{equation}
 
 \begin{equation}
-R_d(C)=\dfrac{2}{(n-1)(n-2)}~ \sum_i \sum_{\substack{j\\ C_j = C_i\\ j\neq i}} corr(d(i,M), d(j,M))
+R_d(C)=\dfrac{2}{(n-1)(n-2)}~ \sum_{\substack{i\\C_i= C}} \sum_{\substack{j\neq i\\ C_j = C}} corr(d(i,M), d(j,M))
+\label{replica}
 \end{equation}
 
-1.Put indication of better separation between conditions than between replicates. Missing value of distance by Thomas
+The results are presented fig.~\ref{separability}. We can observe that all investigated distances score the same on average in terms of replicability and separability on drug screen hit conditions. There is a high standard deviation, as some conditions were visually observed to have lower reproducibility levels than most of the conditions. One can for example consider the reproducibility of the 10th dose of JNJ7706621 (see fig.~\ref{jnj} in appendix). This high standard deviation is therefore 
 
-For the separability score here it's distance to other conditions/distance to replicates if there is more than one replicate that passed QC. We look at hit conditions only because we feel that's where the real things are happening. It's easy to get a high reproducibility when nothing happens basically. Based on that we can restrict ourselves to phenotypic trajectory, euclidean distance on phenotypic score and either sum or max of time Sinkhorn distance.
+
+%For the separability score here it's distance to other conditions/distance to replicates if there is more than one replicate that passed QC. We look at hit conditions only because we feel that's where the real things are happening. It's easy to get a high reproducibility when nothing happens basically. Based on that we can restrict ourselves to phenotypic trajectory, euclidean distance on phenotypic score and either sum or max of time Sinkhorn distance.
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.3]{figures/separability_score_final.png}
 }
-\caption{Separability scores of investigated distances}
+\caption{Mean separability and replicability scores of investigated distances on all hit conditions (bars represent standard deviations).}
 \label{separability}
 \end{figure*}
 %\begin{figure*}[ht!]
