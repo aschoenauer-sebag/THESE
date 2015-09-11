@@ -296,6 +296,16 @@ Given the variations in siRNA coverage between genes which were, for example, in
 
 %publi mitotic: 'Grape': 91,'Binuclear': 402, 'Polylobed': 344, 'Mitotic delay/arrest': 345
 
+\subsubsection{Selection of drug screen hit experiments}
+\label{sec:selection_ds}
+Phenotypic scores of the drug screen experiments were computed as described supra. Experiments whose \textit{Interphase} phenotypic score was lower than $Q_1^{ctrl} - 1.5\times IQR^{ctrl}$ were selected as hit experiments, where $Q_1^{ctrl}$ and $IQR^{ctrl}$ are respectively the first quartile and the inter-quartile range of control \textit{Interphase} scores. This is a robust one-sided way to select outliers, as the distribution of control \textit{Interphase} scores cannot be assumed to be Gaussian. This corresponds to the experiments which are under the bottom whisker on the \textit{Interphase} subplot of fig.~\ref{hit_ds}. Supplementary plots represent the distribution of phenotypic scores as a function of dose and drug, see "Phenotypic score plots" in "Supplementaries" folder.
+
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.35]{figures/phenotypic_scores2.png}
+}
+\caption{Distributions of phenotypic scores from the drug screen experiments. Each boxplot corresponds to the distribution of control phenotypic scores, whereas each red dot is an experiment in which cells were exposed to a drug.}
+\label{hit_ds}
+\end{figure*}
 \subsection{Phenotypic profile distances}
 Screening experiments provide us with temporal sequences of information. They can be seen as sequences of intensity two-dimensional distributions~\cite{pmid22743764}, sequences of object feature distributions or sequences of phenotypic class distributions. In our case, we chose to summarize each experiment by a set of temporal evolutions of phenotypic classes, that is, we chose to represent our experiments by their phenotypic profile. The question remains to know how to compute divergences between these representations of the information.
 
@@ -308,33 +318,36 @@ We decided to test the following distances on the question to know whether we ca
 \end{itemize}
 
 Let $i$ be a screening experiment, and $p$ the number of phenotypic classes ($p=15$ in our case). 
-\paragraph{Euclidean distance on phenotypic scores}
+\subsubsection*{Euclidean distance on phenotypic scores}
 $i$ can be represented in $\mathbb{R}^p$ by $(ps_{k,i})_k$ the vector of its phenotypic scores. The distance between two experiments is then the Euclidean distance of their vectors of phenotypic scores, excluding \textit{Interphase} and \textit{Anaphase} scores. \textit{Interphase} score is excluded as its decrease is most of the time a summary of the increases of other scores. \textit{Anaphase} score is excluded because [WHATs the reason again?]. 
 
 These vectors can be normalized with respect to the mean and standard deviation of phenotypic scores in the dataset. This will correspond to the \textbf{Normalized phenotypic score} distance in the following, whereas the non-normalized version will simply be called \textbf{Phenotypic score} distance.
 
 These distances are robust to time delay in the onset of phenotypic changes. Indeed, as controls basically show a constant percentage of \textit{Interphase} nuclei, phenotypic scores will be identical for two experiments which show an increase in, e.g., \textit{Apoptosis} nuclei respectively at the beginning and at the end of the experiments. Hence the strength of these distances is that even if one experiment is identical with a delay to another, their distance will be small. It will however still be small if they're distinctly ordered, e.g. if one experiments shows the same phenotypic events than the other, albeit in the opposite order.
 
-\paragraph{Phenotypic trajectory distance}
+\subsubsection*{Phenotypic trajectory distance}
 On the other hand, it is possible to use the phenotypic trajectory distance as published in~\cite{Walter2010}. Briefly, let us re-use the notations of section~\ref{sec:ps}: $i$ is seen as $(\%_{k,i,t})_{k=1\ldots p,t=1\ldots T}$, that is, a sequence in $[0~;1]^p$. This sequence is then approximated by two p-dimensional vectors. The phenotypic trajectory distance between two experiments is then a distance between their vectors, as defined in formula 7 of~\cite{Walter2010}. This distance will be called \textbf{phenotypic trajectory} distance in the following.
 
 This distance does not take explicitly time into account, but it respects the order of phenotypic changes. Hence its strength is that even if one experiment is identical with a delay to another, their distance will be small. It will not if they're distinctly ordered, as opposed to the phenotypic score distances.
 
-\paragraph{Sinkhorn divergence}
+\subsubsection*{Sinkhorn divergence}
+\paragraph*{Motivations}
 Finally, we wanted to test a distance which would enable us to use some prior biological knowledge of phenotypic class relationships. If we consider the two previous distances, they implicitly consider each phenotypic class to be independent of the others, and equally biologically far away from all. Indeed, the phenotypic score distances operate in $\mathbb{R}^p$ to sum the squared differences of phenotypic scores, hence treating the different phenotypes independently of eachother. Nevertheless, \textit{binucleated}, \textit{polylobed} and \textit{grape} nuclei are for example three different outcomes of cytokinesis defects. Hence the biological intuition is that a chemical causing a great increase in \textit{polylobed} nuclei has probably a closer mode of action to that of another one causing an increase in \textit{binucleated} nuclei than it is to that of a third one causing a strict increase in apoptosis.
 
 Ideally, the idea is then that the distance of $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei is smaller than that to $b\%$ \textit{apoptosis} nuclei, or that it "costs" less to go from $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei than to $b\%$ \textit{apoptosis}. This is precisely the idea behind the Earth Mover's distance (or transportation distance, or Wasserstein distance). This distance was developed in the first place to compute the cost to move a certain number of piles of dirt into a certain numer of holes. To do so, one needs to take into account the distance between piles and holes.
+\paragraph*{Definitions}
+Let us formalize this intuition and briefly introduce transportation distance\footnote{References and proofs can be found in~\cite{sinkhorn}.}. We note $\Sigma_d = \{ x \in \mathbb{R}^d_+ | x^T \mathbf{1}_d = 1\}$ the probability simplex. In our case, $d=13$: we can consider either the distributions of phenotypes in a given experiment over all time-points, or this distribution in a specific frame.
 
-Let us formalize this intuition and briefly introduce transportation distance\footnote{References of proofs can be found in~\cite{sinkhorn}.}. We note $\Sigma_d = \{ x \in \mathbb{R}^d_+ | x^T \mathbf{1}_d = 1\}$ the probability simplex. In our case, $d=13$: we can consider either the distributions of phenotypes in a given experiment over all time-points, or this distribution in a specific frame.
-
-Given $r$ and $c$ in $\Sigma_d$, the transport polytope $U(r,c)$ is the set of matrices such that $U(r,c)=\{ P\in \mathbb{R}^{d\times d}_+ | P\mathbf{1}_d = r, P^T \mathbf{1}_d = c \}$. If $X$ and $Y$ are two discrete random variables with values in $ \{1,\ldots , d\} $ whose distributions are $r$ and $c$, the elements of $U(r,c)$ are in fact the possible joint probabilities of $\left( X,Y\right)$. 
-
-Given a cost matrix $M$ in $\mathbb{R}^{d\times d}$, the optimal transportation distance between $r$ and $c$ is the solution of the following optimization program, where $<\cdot, \cdot> $ is the Frobenius matrix norm:
+Given $r$ and $c$ in $\Sigma_d$, the transport polytope $U(r,c)$ is the set of matrices such that 
 \[
+U(r,c)=\{ P\in \mathbb{R}^{d\times d}_+ | P\mathbf{1}_d = r, P^T \mathbf{1}_d = c \}\] 
+If $X$ and $Y$ are two discrete random variables with values in $ \{1,\ldots , d\} $ whose distributions are $r$ and $c$, the elements of $U(r,c)$ are in fact the possible joint probabilities of $\left( X,Y\right)$. Given a cost matrix $M$ in $\mathbb{R}^{d\times d}$, the optimal transportation distance between $r$ and $c$ is the solution of the following optimization program, where $<\cdot, \cdot> $ is the Frobenius matrix norm:
+\begin{equation}
 d_M(r,c) = \min_{\substack{P\in U(r,c)}} <M,P>
-\]
+\label{exact_emd}
+\end{equation}
 
-Optimal solutions $P^*$ can be obtained. Furthermore, if $M$ is a metric matrix, this quantity is a distance~\cite{Villani}. This optimization program's complexity is in $O\left( d^3\log d\right) $ in theory and in practice, which makes it less applicable to high-dimensionality problems. 
+Optimal solutions $P^*$ of~\ref{exact_emd} can be obtained. Furthermore, if $M$ is a metric matrix, this quantity is a distance~\cite{Villani}. This optimization program's complexity is in $O\left( d^3\log d\right) $ in theory and in practice, which makes it less applicable to high-dimensionality problems. 
 
 In our case however, $d=13$, hence complexity is not a serious issue. An issue which is more relevant is that optimal solutions $P^*$ will lie on the vertices of $U(r,c)$. This is due to the linear quality of the optimization problem. It will produce almost deterministic joint probabilities~\cite{sinkhorn}. The idea is therefore to solve a regularized version of this program, placing ourselves in the following convex subset of $U(r,c)$, for $\alpha >0$:
 \[
@@ -354,31 +367,13 @@ The solution for obtaining a faster computation of an approximate transportation
 d_{M, \lambda}(r,c) = <M,P^\lambda>,~~ P^\lambda = \argmin_{\substack{P\in U (r,c)}} <M,P> - \dfrac{1}{\lambda} h\left( P\right)
 \]
 
-The use of this divergence will enable us to take into account prior biological knowledge while computing distances between phenotypic distributions. This knowledge will be encoded in the cost matrix M. Another parameter which should be set in $\lambda$.
+The use of this divergence will enable us to take into account prior biological knowledge while computing distances between phenotypic distributions. This knowledge will be encoded in the cost matrix M. Its choice as well as $\lambda$'s is described infra. Practically, Sinkhorn fixed-point algorithm was implemented in Python to compute Sinkhorn divergences.
 
-\subparagraph{Choice of phenotypic cost matrix}
-The phenotypic cost matrix summarizes our biological knowledge about the phenotypes which were observed in the Mitocheck dataset (they include those which were observed in the drug screen). We made the choice to set inter-phenotypic costs according to the cellular process which is perturbed when they appear, or which they represent. The phenotypic cost matrix which we chose is illustrated fig.~\ref{cost}.
-
-To resume with our previous example, \textit{Polylobed}, \textit{Grape} and \textit{Binucleated} nuclei were considered to be closer to eachother than to any other phenotype, as they all result from cytokinesis defect. Nevertheless, \textit{Binucleated} nuclei were set slightly further apart from \textit{Polylobed} and \textit{Grape} nuclei than those two from eachother. This is because [EXPLANATION AGAIN ??].
-
-Let us consider another example and take the group of \textit{Interphase}, \textit{Elongated} and \textit{Large} nuclei. They were set closer to eachother than to any other phenotype because they represent normal and abnormal versions of interphase nuclei.
-
-\begin{figure*}[ht!]
-\centerline{\includegraphics[scale=0.4]{figures/transportation_cost.png}
-}
-\caption{Cost matrix for phenotypic Sinkhorn divergence}
-\label{cost}
-\end{figure*}
-
-\subparagraph{Choice of $\lambda$} This choice will determine how close the Sinkhorn divergence is to the transportation distance. As expected, when $\lambda$ increases, the Sinkhorn divergence converges. This is illustrated fig.~\ref{lambda_choice1}. This figure also enables us to see that in the range of $\lambda$ which we investigated, there seems to be mainly two different behaviours: one which is shown at $\lambda=0.01$ and $\lambda=0.1$, and one which is shown at $\lambda=1$ and $\lambda=10$.
-
-Our choice of $\lambda$ was driven by the ability to differenciate between Mitocheck hit experiments. As detailed in section~\ref{sec:selection_mitocheck}, these experiments are grouped according to the phenotype(s) of which they present a strikingly high percentage. We therefore visually compared the ability of $\lambda$'s two different value ranges to separate Mitocheck hit experiment from different phenotypic hit lists. This is shown on figures~\ref{lambda_choice2} and~\ref{lambda_choice3}. We clearly see that $\lambda=10$ seems to better enable distinct phenotype separation, for example between \textbf{Binuclear} and \textbf{Cell death} hits. This value was hence chosen.
-
-Finally, there are two ways to use Sinkhorn divergence with the parameters $M,~ \lambda$ as defined above. Let us consider two experiments $i$ and $j$ of duration $T$: 
+Finally, there are two ways to apply Sinkhorn divergence to the problem at hand with the parameters $M,~ \lambda$ as defined above. Let us consider two experiments $i$ and $j$ of duration $T$: 
 
 \begin{itemize}
-\item one can pool all nuclei from all frames to summarize them in $\Sigma_d$. This distance will be called \textbf{global Sinkhorn divergence} in the following (formula~\ref{global}),
-\item one can choose to keep the temporal information by summarizing them in $\left(\Sigma_d\right) ^T$. We will define two distances from this:
+\item one can pool all nuclei from all frames by representing the experiments in $\Sigma_d$. This distance will be called \textbf{global Sinkhorn divergence} in the following (formula~\ref{global}),
+\item one can choose to keep the temporal information by representing the experiments in $\left(\Sigma_d\right) ^T$. We will define two distances from this:
 \subitem \textbf{max time Sinkhorn divergence}, which is the maximum of all timepoints Sinkhorn divergences (as detailed formula~\ref{max}),
 \subitem \textbf{sum of time Sinkhorn divergence}, which is the sum of all timepoints Sinkhorn divergences (as detailed formula~\ref{int}).
 \end{itemize}
@@ -396,6 +391,26 @@ D_{M,\lambda}^{max}(i,j)= \max_t d_{M,\lambda}((\%_{k,i,t})_{k},(\%_{k,j,t})_{k}
 D_{M,\lambda}^{sum}(i,j)= \sum_t d_{M,\lambda}((\%_{k,i,t})_{k},(\%_{k,j,t})_{k})
 \label{int}
 \end{equation}
+
+\paragraph*{Choice of phenotypic cost matrix}
+The phenotypic cost matrix summarizes our biological knowledge about the phenotypes which were observed in the Mitocheck dataset (they include those which were observed in the drug screen). We made the choice to set inter-phenotypic costs according to the cellular process which is perturbed when they appear, or which they represent. The phenotypic cost matrix which we chose is illustrated fig.~\ref{cost}.
+
+To resume our previous example, \textit{Polylobed}, \textit{Grape} and \textit{Binucleated} nuclei were considered to be closer to eachother than to any other phenotype, as they all result from cytokinesis defect. Nevertheless, \textit{Binucleated} nuclei were set slightly further apart from \textit{Polylobed} and \textit{Grape} nuclei than those two from eachother. This is because [EXPLANATION AGAIN ??].
+
+Let us consider another example and take the group of \textit{Interphase}, \textit{Elongated} and \textit{Large} nuclei. They were set closer to eachother than to any other phenotype because they represent normal and abnormal versions of interphase nuclei.
+
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.4]{figures/transportation_cost.png}
+}
+\caption{Cost matrix for phenotypic Sinkhorn divergence}
+\label{cost}
+\end{figure*}
+
+\paragraph*{Choice of $\lambda$} This choice will determine how close the Sinkhorn divergence is to the transportation distance. As expected, when $\lambda$ increases, the Sinkhorn divergence converges. This is illustrated fig.~\ref{lambda_choice1}. This figure also enables us to see that in the range of $\lambda$ which we investigated, there seems to be mainly two different behaviours: one which is shown at $\lambda=0.01$ and $\lambda=0.1$, and one which is shown at $\lambda=1$ and $\lambda=10$.
+
+Our choice of $\lambda$ was driven by the ability to differenciate between Mitocheck hit experiments. As detailed in section~\ref{sec:selection_mitocheck}, these experiments are grouped according to the phenotype(s) of which they present a strikingly high percentage. We therefore visually compared the ability of $\lambda$'s two different value ranges to separate Mitocheck hit experiment from different phenotypic hit lists. 
+
+This is shown on figures~\ref{lambda_choice2} and~\ref{lambda_choice3}: Mitocheck hit experiments are represented following the use of multi-dimensional scaling in 2 dimensions of their \textbf{global Sinkhorn divergences}. We clearly see that $\lambda=10$ seems to distinguish - to a certain extent - between distinct phenotypes, as opposed to $\lambda=0.1$. This is striking if we consider the example of \textbf{Binuclear} and \textbf{Cell death} hits. $\lambda=10$ was hence chosen.
 
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.3]{figures/transportation_convergence_right_seg.png}
@@ -417,8 +432,9 @@ D_{M,\lambda}^{sum}(i,j)= \sum_t d_{M,\lambda}((\%_{k,i,t})_{k},(\%_{k,j,t})_{k}
 \caption{Separation between Mitocheck hit categories for $\lambda=10$. Divergences between Mitocheck hit experiments were computed for $\lambda=10$, and multi-dimensional scaling was used for representing them in two dimensions in the first two lines. Divergences between theses experiments and the drug screen were included and their multi-dimension scaling is showed on the last line (grey: controls).}
 \label{lambda_choice3}
 \end{figure*}
+\clearpage
 
-\subsubsection{Ability to distinguish between experimental conditions as opposed to between replicates}
+\subsubsection{Distance quality evaluation}
 
 
 
