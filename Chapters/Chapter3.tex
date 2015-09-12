@@ -235,6 +235,8 @@ Maybe briefly describe the drugs?\\
 
 type of approach as opposed to targeted bioassay which demand specific prior knowledge allows in principle for systematic and direct identification of drug target (as long as it is in the gene list)
 
+ATTENTION TOUT BIEN REMETTRE DE MANIERE COHERENTE LA ON DIRAIT QUE RESULTS ET DISCUSSION SONT UN PEU MELANGES
+
 \subsection{Materials and methods}
 \subsubsection{Experimental work}
 This data set was not produced in the context of this PhD. Rather, the experiments were conducted at the EMBL (Heidelberg, Germany) by **. For the sake of completeness, here is briefly how it was produced. [MISSING]
@@ -298,7 +300,7 @@ Given the variations in siRNA coverage between genes which were, for example, in
 \label{sec:selection_ds}
 Phenotypic scores of the drug screen experiments were computed as described supra. Experiments whose \textit{Interphase} phenotypic score was lower than $Q_1^{ctrl} - 1.5\times IQR^{ctrl}$ were selected as hit experiments, where $Q_1^{ctrl}$ and $IQR^{ctrl}$ are respectively the first quartile and the inter-quartile range of control \textit{Interphase} scores. This is a robust one-sided way to select outliers, as the distribution of control \textit{Interphase} scores cannot be assumed to be Gaussian. 
 
-It corresponds to the $197$ experiments which are under the bottom whisker on the \textit{Interphase} subplot of fig.~\ref{hit_ds}. Supplementary plots represent the distribution of phenotypic scores as a function of dose and drug, see "Phenotypic score plots" in "Supplementaries" folder.
+It corresponds to the $197$ experiments which are under the bottom whisker on the \textit{Interphase} subplot of fig.~\ref{hit_ds}. Supplementary plots represent the distribution of phenotypic scores as a function of dose and drug, see "Phenotypic score plots\_type1" in "Supplementaries" folder.
 
 Hit conditions are conditions for which stricly more than 50\% of their replicates are hit experiments.
 
@@ -310,11 +312,11 @@ Hit conditions are conditions for which stricly more than 50\% of their replicat
 \end{figure*}
 
 \subsubsection{Other analyses}
-%Proliferation hit detection was realized similarly to hit experiment detection: 
-%
-Condition hierarchical clustering was performed using the median of condition replicates. The Python package fastcluster~\cite{fastcluster} was used to this end.
-
-
+\paragraph{Proliferation hit detection}
+Proliferation hit detection was realized similarly to hit experiment detection: experiments whose proliferation rate was higher than $Q_3^{ctrl} + 1.5\times IQR^{ctrl}$ or lower than $Q_1^{ctrl} - 1.5\times IQR^{ctrl}$ were considered proliferation hit experiments. Proliferation hit conditions were conditions for which stricly more than 50\% of their replicates are proliferation hit experiments. Interestingly, only one condition (Azacytidin, dose 7) was a proliferation hit without being a hit.
+\paragraph{Hierarchical clustering}
+Condition hierarchical clustering was performed using the median of condition replicates. The Python package fastcluster~\cite{fastcluster} was used to this end. In each case, the clustering method which visually produced the best result was used, from Ward, centroid and single methods.
+\paragraph{Data visualization}
 A Web-based user interface was designed and implemented for result visualization and result sharing among collaborators. It is described more in details infra, see section~\ref{interface}.
 
 \subsection{Phenotypic profile distances}
@@ -487,22 +489,10 @@ Based on these results, we chose to restrict ourselves to the phenotypic score d
 % 'ttransport_MAX': 0.3963477934703899}
 
 \subsection{Applications}
-There are two main applications of phenotypic profiling to drug or small molecule screen experiments~\cite{pmid17401369}. On the one hand, one might be interested in studying the similarity between the different conditions cells were exposed to. On the other hand, if there exists a parallel siRNA screen, that is, a screen which was performed in the same experimental conditions, one might be interested in comparing phenotypic profiles resulting from gene silencing to phenotypic profiles resulting from drug exposure. These two applications could lead to the inference of possible targets for unknown chemicals, and might even give a hint as to the possible mode of action.
+There are two main applications of phenotypic profiling to drug or small molecule screens~\cite{pmid17401369}. On the one hand, one might be interested in studying the similarity between the different conditions cells were exposed to. On the other hand, if there exists a parallel genetic screen, that is, a genetic screen which was performed in the same experimental conditions, one might be interested in comparing phenotypic profiles resulting from gene silencing or over-expression to phenotypic profiles resulting from drug exposure. These two applications could lead to the inference of possible targets for unknown chemicals, and might even give a hint as to a possible mode of action.
 
 \subsubsection{Small molecule similarity evaluation}
-\paragraph{Condition clustering}
-The median distance to Mitocheck hit experiments was used to perform condition hierarchical clustering for each investigated distance. The output for the global Sinkhorn divergence is illustrated fig.~\ref{cond_clust_transport}, and outputs for the other distances can be seen in appendix (see section~\ref{appendix:heatmaps}).
 
-From 89\% to 100\% of (drug screen) hit conditions are clustering together, depending on the distance at hand. Furthermore, the clusters they belong to are composed of hit conditions at purity levels ranging from 85\% to 91\%. The dendrogram shows that their clusters are at a certain distance from eachother (i.e. they are not flat). On the other hand, non-hit conditions are grouped in one large and flat cluster. This means that non-hit conditions as described by their distance to Mitocheck hit experiments are not distinguishable, whereas hit conditions are.
-
-We have made the choice to summarize experiments by their nuclear phenotypic profiles, that is, the temporal sequence of nuclear phenotype distributions. Mitotic hits are conditions which alter cell mitosis. Hence they perturb the basal distribution of nuclei between normal nuclear phenotypes such as \textit{Interphase}, \textit{Metaphase}, etc. By construction, they are easily detected by our approach if they act within the experiment duration. 
-
-It was not clear at the beginning that other type of hits could not be detected in our approach. From these clusterings, it nevertheless seems that chemicals which have an impact on different cellular processes, such as thalidomide whose known teratogenic effects might be linked to an inhibition of ubiquitin ligase~\cite{pmid20223979}, cannot be detected. It could also be that they do not have any effect on HeLa cells, or that they would need more exposure time for an effect to be detected.
-
-%The precise mechanism of action for thalidomide is unknown, but possible mechanisms include anti-angiogenic and oxidative stress-inducing effects.[22]
-
-The conclusion of these clusterings is that our information representation is suitable for detecting and infering knowledge regarding mitotic hit conditions, whereas it is not for non-hit conditions. We therefore restrict ourselves to hit conditions in the following.
-%POINT 1 In theory we could learn from the screen even if the drug is not directly targeted at something directly involved in mitosis but here we see that no
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.55]{figures/Clust_0transport_ward_ward.png}}
 
@@ -510,10 +500,87 @@ The conclusion of these clusterings is that our information representation is su
 \label{cond_clust_transport}
 \end{figure*}
 
-POINT 2 so we focus on hits detected on phenotypic scores. Here is what we have in terms of hit reproducibility: means it's high. Good sign/ better say in terms of more than 50\% experiments that passed QC
-Counter({3: 55, 2: 14, 1: 4})
+\paragraph{Condition clustering}
+The median distance of each condition replicates to Mitocheck hit experiments was used to perform condition hierarchical clustering, for each investigated distance. The output for the global Sinkhorn divergence is illustrated fig.~\ref{cond_clust_transport}, and outputs for the other distances can be seen in appendix (see section~\ref{appendix:heatmaps}).
 
-Not working well for phenotypic score with other clustering methods as well (not shown, 'single' and 'centroid'). Working better for phenotypic trajectory distance: centroid
+%Numbers and figures obtained by focusing on hits with 3 replicate hits
+From 89\% to 100\% of (drug screen) hit conditions are clustering together, depending on the distance at hand. Furthermore, the clusters they belong to are composed of hit conditions at purity levels ranging from 85\% to 91\%. The dendrogram shows that these clusters present subclusters, which are at a certain distance from eachother (i.e. the dendrogram is not flat). On the other hand, non-hit conditions are grouped in one large and flat cluster. This means that non-hit conditions as described by their distance to Mitocheck hit experiments are not distinguishable, whereas hit conditions are.
+
+We have made the choice to summarize experiments by their nuclear phenotypic profiles, that is, the temporal sequence of nuclear phenotype distributions. Mitotic hits are conditions which alter cell mitosis. Hence they perturb the basal distribution of nuclei between normal nuclear phenotypes such as \textit{Interphase}, \textit{Metaphase}, etc. By construction, they are easily detected by our approach if they act within the experiment duration. 
+
+It was not clear at the beginning that other type of hits could not be detected in our approach. From these clusterings, it nevertheless seems that chemicals which have an impact on different cellular processes, such as thalidomide whose known teratogenic effects might be linked to an inhibition of ubiquitin ligase~\cite{pmid20223979}, cannot be detected. It could also be that they do not have any effect on HeLa cells, or that they would need more exposure time for an effect to be detected.
+
+%The precise mechanism of action for thalidomide is unknown, but possible mechanisms include anti-angiogenic and oxidative stress-inducing effects.[22]
+
+The conclusion of these clusterings is that our information representation is suitable for detecting and infering knowledge regarding mitotic hit conditions, whereas it is not for non-mitotic hit conditions. We therefore restrict ourselves to the hit conditions which we have detected in the following, i.e. mitotic hit conditions.
+%POINT 1 In theory we could learn from the screen even if the drug is not directly targeted at something directly involved in mitosis but here we see that no
+
+
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.55]{figures/Clust_1transport_ward_ward.png}}
+\caption{Drug screen hit condition - Mitocheck siRNA two-dimensional hierarchical clustering using global Sinkhorn divergence. Ward method was used in combination with the Euclidean distance.}
+\label{hitcond_clust_transport}
+\end{figure*}
+
+\begin{table}[!ht]
+\centering
+\caption{Known protein targets of hit drugs (bold: present in Mitocheck hit experiments). Drugs are grouped by target similarity. Source: DrugBank unless specified.}
+\label{drug_target}
+\begin{tabular}{|L{3cm}|L{7cm}|L{4cm}|}
+\hline
+Drug & Protein target (HUGO gene symbol) & Other targets\\
+\hline
+Anisomycin &RPL10L,	RPL13A,	RPL23,	RPL15,	\textbf{RPL19},	RPL23A,	RSL24D1,	RPL26L1,	RPL8,	RPL37,	RPL3,	RPL11, \textbf{NHP2L1} &\\	
+\hline							
+Azacytidine 5 & DNMT1 & DNA and RNA hypomethylation	\\								
+\hline
+Camptothecin (S,+)& TOP1&\\								
+\hline
+Daunorubicin hydrochloride & TOP2A, TOP2B & ds-DNA intercalating agent\\ %interc	inhib	inhib			
+Doxorubicin	hydrochloride &	TOP2A & ds-DNA intercalating agent\\%interc	inhib					
+Etoposide & TOP2A, TOP2B&\\		%	inhib	inhib		
+\hline											
+JNJ7706621	& \textbf{AURKA}, \textbf{AURKB}, \textbf{CDK1}, CDK2, CDK3, \textbf{CDK4}, CDK6\cite{pmid16204078} &\\	
+MLN8054	& \textbf{AURKA}\cite{pmid20197380} & \\
+R763 & \textbf{AURKA}, \textbf{AURKB}, FLT3, VEGFR2~\cite{pmid19609559}&\\
+VX680 &	\textbf{AURKA}, \textbf{AURKB}&\\
+\hline	
+Nocodazole & \textbf{HPGDS}, TUBB (\textbf{B2A, B4A,B4B,B6}) &Microtubule destabilizer\\			
+Paclitaxel & \textbf{BCL2},TUBB1, NR1I2, MAPT, MAP4, MAP2 &Microtubule stabilizer\\
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph{Hit condition clustering}
+Hit condition clustering was realized in the same way. The output for the global Sinkhorn divergence can be seen fig.~\ref{hitcond_clust_transport} ; other distance outputs are displayed in appendix section~\ref{appendix:hit_heatmaps}.
+
+Existing knowledge about hit condition targets, as displayed in table~\ref{drug_target}, can be used to evaluate the consistency of clustering results\footnote{Unfortunately, our dose ranges are too different from that of~\cite{pmid15539606} to compare our clustering results to those of~\cite{pmid17401369}.}. Ideally, drugs with similar targets on the one hand, and similar doses from the same drug on the other hand, cluster together. A way to visualize how the different distances perform with regard to that, is to look at the binary maps which are presented on fig.~\ref{binary_map_ps}, \ref{binary_map_transport} and in appendix section~\ref{appendix:hit_heatmaps}.
+
+The binary map from phenotypic score distance shows little agreement with the literature: conditions seem to randomly belong to the same cluster. On the other hand, the binary map from global Sinkhorn divergence looks more structured. For example, doses 5 to 10 of Paclitaxel are clustered together with doses 8 to 10 of Nocodazole, which is consistent with their being both targeted at $\beta$-tubulin. Another interesting example is that of Anisomycin. Its doses 5 to 8 constitute a single cluster according to global Sinkhorn divergence. This is consistent with Anisomycin being the only drug in the drug screen to inhibit protein synthesis. The same thing can be observed for doses 3 to 10 of Camptothecin (S,+): they cluster together in an almost pure cluster, which is consistent with Camptothecin being the only drug inhibiting topoisomerase I.
+
+The binary map from time Sinkhorn divergence shows little difference with that from global Sinkhorn divergence. Finally, the binary map from phenotypic trajectory distance shows more agreement with the literature than the phenotypic score distance's (e.g. a high number of conditions of Etoposide, Doxorubicin hydrochloride and Daunorubicin hydrochloride cluster together), but it seems less refined than any Sinkhorn's maps (e.g. most doses of Camptothecin (S,+) are included in the aforementioned cluster). % On the other hand, its doses 3 and 4 cluster with the previously mentioned Nocodazole-Paclitaxel cluster, which can be explained by the increased presence of \textit{Polylobed}, \textit{Prometaphase} and \textit{Apoptosis} nuclei. %which can be explained by the fact that these conditions result in nothing else than apoptosis. %Doses 3 and 4 of 
+
+Another observation can be made from these clustering results. All three "sophisticated" distances, the phenotypic trajectory distance, the global and time Sinkhorn divergences, present a small dose cluster (respectively green, yellow and red as indicated by the y-absciss colorbar on figures~\ref{hitcond_clust_nature}, \ref{hitcond_clust_transport} and \ref{hitcond_clust_ttransport_INT}). It contains mostly the smallest doses for each drug hit: Anisomycin dose 1, Daunorubicin hydrochloride dose 0, Azacytidin 5 doses 8 and 9, etc. Interestingly, these conditions have in common very unspecific phenotypic consequences: slight increases in \textit{Elongated} and/or \textit{Large} and/or \textit{Polylobed} and/or \textit{Binucleated} nuclei, without any increase in \textit{Apoptosis} nuclei. This can be seen in the phenotypic plots which are in the supplementaries, folder "Phenotypic score plots\_type2".
+
+Global and time Sinkhorn divergence results present a second unspecific effect cluster (respectively green and yellow-green on figures~\ref{hitcond_clust_transport} and \ref{hitcond_clust_ttransport_INT}), which contains mostly small to medium doses for each drug hit: Daunorubicin hydrochloride doses 2, 3, 4, Azacytidin 5 dose 10, etc. Similarly to the small dose cluster, these conditions have very unspecific effects in common, with a non-negligeable level of \textit{Apoptosis} nuclei. This cluster is not present in the phenotypic trajectory distance results.
+
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.25]{figures/cond_clustering_U_pheno_score.png}}
+\caption{Visualization of condition clustering for phenotypic score distance. A black dot means that the conditions belong to the same cluster, a white dot that they do not.}
+\label{binary_map_ps}
+\end{figure*}
+\begin{figure*}[ht!]
+\centerline{%\includegraphics[scale=0.25]{figures/cond_clustering_U_pheno_score.png}
+\includegraphics[scale=0.25]{figures/cond_clustering_transport.png} }
+\caption{Visualization of condition clustering for global Sinkhorn divergence. A black dot means that the conditions belong to the same cluster, a white dot that they do not.}
+\label{binary_map_transport}
+\end{figure*}
+
+From these observations we can conclude that both Sinkhorn divergence (and especially global Sinkhorn divergence) produce drug similarities which better correspond to the literature. Furthermore, these similarities are easily understandable by going back to the phenotypic scores and the cost matrix. As an example, Anisomycin doses 5-8 cluster is very likely a result of the exclusive high increase in \textit{Apoptosis} nuclei which is observed in these experiments, and of \textit{Apoptosis} being at a cost of 5 from all other phenotypes. Finally, these results also show that for almost all drugs, small doses produce unspecific effects which seem difficult to robustly link to any gene silencing experiment. Our focus for target pathway inference will therefore be condition clusters which are not small/medium dose clusters, using global Sinkhorn divergence.
+
+%POINT 2 so we focus on hits detected on phenotypic scores. Here is what we have in terms of hit reproducibility: means it's high. Good sign/ better say in terms of more than 50\% experiments that passed QC
+%Counter({3: 55, 2: 14, 1: 4})
+%Not working well for phenotypic score with other clustering methods as well (not shown, 'single' and 'centroid'). Working better for phenotypic trajectory distance: centroid
 \subsubsection{Target pathway inference}
 3.Link with Mitocheck for the hit experiments
 
@@ -557,6 +624,11 @@ Not working well for phenotypic score with other clustering methods as well (not
 %  'Sum of time\n Sinkhorn div.',
 
 \subsection{Discussion}
+
+
+
+
+
 SOME ELEMENTS FOR THE DISCUSSION
 
 Regarding the time transport distance, another idea could be to do dynamic time warping on frame correspondence rather than just 1-to-1. Indeed, the effect of the siRNA which we observe, is function of protein half-life, [prot] necessary for the cell to get its function rightly performed, as well as  if the prot has a direct or indirect function to play in cell division (or cell motility or whatever the process is that we consider).

@@ -669,14 +669,14 @@ MAP4K4  &  ENSG00000071054  &  TTL  &  ENSG00000114999  \\
 \label{choice_param_Sinkhorn}
 \begin{figure*}[ht!]
 \centerline{
-\includegraphics[scale=0.4]{figures/MDS_lamb01_perPheno.png}
+\includegraphics[scale=0.35]{figures/MDS_lamb01_perPheno.png}
 }
 \caption{Separation between Mitocheck hit categories for $\lambda=0.1$. Global Sinkhorn divergences between Mitocheck hit experiments were computed for $\lambda=0.1$, and multi-dimensional scaling was used for representing them in two dimensions in the first two lines. Divergences between theses experiments and the drug screen were included and their multi-dimension scaling is showed on the last line (grey: controls).}
 \label{lambda_choice2}
 \end{figure*}
 \begin{figure*}[ht!]
 \centerline{
-\includegraphics[scale=0.4]{figures/MDS_lamb10_perPheno.png}}
+\includegraphics[scale=0.35]{figures/MDS_lamb10_perPheno.png}}
 \caption{Separation between Mitocheck hit categories for $\lambda=10$. Global Sinkhorn divergences between Mitocheck hit experiments were computed for $\lambda=10$, and multi-dimensional scaling was used for representing them in two dimensions in the first two lines. Divergences between theses experiments and the drug screen were included and their multi-dimension scaling is showed on the last line (grey: controls).}
 \label{lambda_choice3}
 \end{figure*}
@@ -693,28 +693,67 @@ MAP4K4  &  ENSG00000071054  &  TTL  &  ENSG00000114999  \\
 
 
 \clearpage
-\section{Two-dimensional hierarchical clustering of drug screen condition distance to Mitocheck siRNAs for different distances}
+\subsection{Two-dimensional hierarchical clustering of drug screen condition distance to Mitocheck siRNAs for different distances}
 \label{appendix:heatmaps}
 
 \begin{figure*}[ht!]
-\centerline{\includegraphics[scale=0.55]{figures/Clust_0ttranspor_ward_ward.png}
+\centerline{\includegraphics[scale=0.4]{figures/Clust_0ttranspor_ward_ward.png}
 }
-\caption{Drug screen condition - Mitocheck siRNA two-dimensional hierarchical clustering using sum of time Sinkhorn divergence.}
-\label{cond_clust_ttransport}
+\caption{Drug screen condition - Mitocheck siRNA two-dimensional hierarchical clustering using sum of time Sinkhorn divergence. Ward method was used in combination with the Euclidean distance.}
+\label{cond_clust_ttransport_INT}
 \end{figure*}
 
 \begin{figure*}[ht!]
-\centerline{\includegraphics[scale=0.55]{figures/Clust_0nature_ward_ward.png}
+\centerline{\includegraphics[scale=0.4]{figures/Clust_0nature_ward_ward.png}
 }
-\caption{Drug screen condition - Mitocheck siRNA two-dimensional hierarchical clustering using phenotypic trajectory distance.}
+\caption{Drug screen condition - Mitocheck siRNA two-dimensional hierarchical clustering using phenotypic trajectory distance. Ward method was used in combination with the Euclidean distance.}
 \label{cond_clust_nature}
 \end{figure*}
 
 \begin{figure*}[ht!]
-\centerline{\includegraphics[scale=0.55]{figures/Clust_0U_pheno_s_ward_ward.png}
+\centerline{\includegraphics[scale=0.4]{figures/Clust_0U_pheno_s_ward_ward.png}
 }
-\caption{Drug screen condition - Mitocheck siRNA two-dimensional hierarchical clustering using Euclidean distance of phenotypic scores.}
+\caption{Drug screen condition - Mitocheck siRNA two-dimensional hierarchical clustering using Euclidean distance of phenotypic scores. Ward method was used in combination with the Euclidean distance.}
 \label{cond_clust_ps}
+\end{figure*}
+\clearpage
+\subsection{Two-dimensional hierarchical clustering of drug screen hit condition distance to Mitocheck siRNAs for different distances}
+\label{appendix:hit_heatmaps}
+
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.55]{figures/Clust_1ttranspor_ward_ward.png}
+}
+\caption{Drug screen hit condition - Mitocheck siRNA two-dimensional hierarchical clustering using sum of time Sinkhorn divergence. Ward method was used in combination with the Euclidean distance.}
+\label{hitcond_clust_ttransport_INT}
+\end{figure*}
+
+\begin{figure*}[ht!]
+\centerline{%\includegraphics[scale=0.25]{figures/cond_clustering_U_pheno_score.png}
+\includegraphics[scale=0.25]{figures/cond_clustering_ttransport_INT.png} }
+\caption{Corresponding visualization of condition clustering for time Sinkhorn divergence. A black dot means that the conditions belong to the same cluster, a white dot that they do not.}
+\label{binary_map_ttransport_INT}
+\end{figure*}
+
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.55]{figures/Clust_1nature_ward_centroid.png}
+}
+\caption{Drug screen hit condition - Mitocheck siRNA two-dimensional hierarchical clustering using phenotypic trajectory distance. Centroid method was used in combination with the Euclidean distance.}
+\label{hitcond_clust_nature}
+\end{figure*}
+
+\begin{figure*}[ht!]
+\centerline{%\includegraphics[scale=0.25]{figures/cond_clustering_U_pheno_score.png}
+\includegraphics[scale=0.25]{figures/cond_clustering_nature.png} }
+\caption{Corresponding visualization of condition clustering for phenotypic trajectory distance. A black dot means that the conditions belong to the same cluster, a white dot that they do not.}
+\label{binary_map_nature}
+\end{figure*}
+
+
+\begin{figure*}[ht!]
+\centerline{\includegraphics[scale=0.55]{figures/Clust_1U_pheno_s_ward_ward.png}
+}
+\caption{Drug screen hit condition - Mitocheck siRNA two-dimensional hierarchical clustering using Euclidean distance of phenotypic scores. Ward method was used in combination with the Euclidean distance.}
+\label{hitcond_clust_ps}
 \end{figure*}
 
 
