@@ -361,7 +361,7 @@ Proliferation hit detection was realized similarly to hit experiment detection: 
 Condition hierarchical clustering was performed using the median of condition replicates. The Python package fastcluster~\cite{fastcluster} was used to this end. In each case, the clustering method which visually produced the best result was used, from Ward, centroid and single methods.
 
 \paragraph{Target pathway inference and analysis}
-Target pathways were infered for groups of selected conditions following hierarchical clustering. For each group, experiments from all group conditions were pooled together and considered as replicates of one artificial condition. This condition was characterized by all experiment distances to Mitocheck experiments. A way to consider each experiment nearest neighbours consistently accross group experiments is to use rank products~\cite{pmid15327980}. Briefly, the idea is that if a gene is consistently close to all experiments, it will consistently by in the top of each ranked experiment-gene list. The product of its ranks will therefore be small. This is the final variable which was used to compute the nearest neighbours for each condition group. The 200 nearest genes to each condition group was then analyzed using DAVID online tool~\cite{pmid22543366}.
+Target pathways were infered for groups of selected conditions following hierarchical clustering. For each group, experiments from all group conditions were pooled together and considered as replicates of one artificial condition. This condition was characterized by all experiment distances to Mitocheck experiments. A way to consider each experiment nearest neighbours consistently accross group experiments is to use rank products~\cite{pmid15327980}. Briefly, the idea is that if a gene is consistently close to all experiments, it will consistently by in the top of each ranked experiment-gene list. The product of its ranks will therefore be small. This is the final variable which was used to compute the nearest neighbours for each condition group. The list of 200 nearest genes to each condition group was then analyzed using DAVID online tool~\cite{pmid22543366}, and its enrichment in GO terms computed by comparison with the list of Mitocheck hit genes selected as described in section~\ref{sec:selection_mitocheck}.
 
 %For each group of selected conditions
 \paragraph{Data visualization}
@@ -606,7 +606,7 @@ Hit condition clustering was realized in the same way. The output for the global
 
 Existing knowledge about hit condition targets, as displayed in table~\ref{drug_target}, can be used to evaluate the consistency of clustering results\footnote{Unfortunately, our dose ranges are too different from that of~\cite{pmid15539606} to compare our clustering results to those of~\cite{pmid17401369}.}. Ideally, drugs with similar targets on the one hand, and similar doses from the same drug on the other hand, cluster together. A way to visualize how the different distances perform with regard to that, is to look at the binary maps which are presented on fig.~\ref{binary_map_ps}, \ref{binary_map_transport} and in appendix section~\ref{appendix:hit_heatmaps}. On these binary maps, drugs have been grouped by target similarity as in table~\ref{drug_target}.
 
-The binary map from phenotypic score distance (fig.~\ref{binary_map_ps}) shows little agreement with the literature: conditions seem to randomly belong to the same cluster. On the other hand, the binary map from global Sinkhorn divergence produces a structure which is more in agreement with the current knowledge (fig.~\ref{binary_map_transport}). For example, doses 5 to 10 of Paclitaxel are clustered together with doses 8 to 10 of Nocodazole, which is consistent with their being both targeted at $\beta$-tubulin. Another interesting example is that of Anisomycin. Its doses 5 to 8 constitute a single cluster according to global Sinkhorn divergence. This is consistent with Anisomycin being the only drug in the drug screen to inhibit protein synthesis. The same thing can be observed for doses 3 to 10 of Camptothecin (S,+): they cluster together in an almost pure cluster, which is consistent with Camptothecin (S,+) being the only drug inhibiting topoisomerase I. 
+The binary map from phenotypic score distance (fig.~\ref{binary_map_ps}) shows little agreement with the literature: conditions seem to randomly belong to the same cluster. On the other hand, the binary map from global Sinkhorn divergence produces a structure which is more in agreement with the current knowledge (fig.~\ref{binary_map_transport}). For example, doses 5 to 10 of Paclitaxel are clustered together with doses 8 to 10 of Nocodazole, which is consistent with their being both targeted at $\beta$-tubulin. Another interesting example is that of Anisomycin. Its doses 5 to 8 constitute a single cluster according to global Sinkhorn divergence. This is consistent with Anisomycin being the only drug in the drug screen to inhibit protein synthesis. The same thing can be observed for doses 3 to 10 of Camptothecin (S,+): they cluster together in an almost pure cluster, which is consistent with Camptothecin (S,+) being the only drug inhibiting topoisomerase (DNA) I (TOP1). 
 
 Furthermore, the hierarchy of these clusters is also understandable in the light of the existing literature. Indeed, the highest doses of drugs which are targeted at Aurora kinases (JNJ7706621, MLN8054 and VX680 which are in the dark blue cluster on fig.~\ref{hitcond_clust_transport}) is the closest cluster to the one which contains high Paclitaxel and Nocodazole doses (pink cluster). The latter drugs are targeted at tubulin, when Aurora kinases are linked to microtubules as well (NCBI Gene webpages\cite{pmid24259432}). Hence the cluster hierarchy is consistent, with closer clusters pointing at common biological process target.
 
@@ -641,9 +641,7 @@ Meaningful condition groups were established in the previous section. They enabl
 \item Camptothecine (S,+), doses 6 to 10 (red, top)
 \end{enumerate}
 
-For each condition group, Mitocheck selected hit genes were ordered according to their global distance to this group experiments (as described in section~\ref{sec:other_analyses}). The list of ordered genes for each condition group can be found in the Supplementaries, folder "Gene ranks".
-
-A first result from these lists is the index of known drug targets, as can be seen in table~\ref{target_index}.
+For each condition group, Mitocheck hit genes were ordered according to their global distance to group experiments, as described in section~\ref{sec:other_analyses}. The list of ordered genes for each condition group can be found in the Supplementaries, folder "Gene ranks".
 
 \begin{table}[!ht]
 \centering
@@ -656,20 +654,85 @@ Condition group & Protein target (HUGO gene symbol) & Rank\\
  & HPGDS & 577\\
  & TUBB2A & 548\\
 1 & TUBB4A & \textcolor{red}{over 1,000}\\%1970
- & TUBB4B & 416\\
+Nocodazole & TUBB4B & 416\\
  & TUBB6 & 987\\%
 \hline
  & BCL2 & 389\\
  & TUBB2A & 466\\
 2 & TUBB4A & \textcolor{red}{over 1,000}\\%2005
- & TUBB4B & 317\\
+Paclitaxel & TUBB4B & 317\\
  & TUBB6 & \textcolor{red}{over 1,000}\\%1241
 \hline
 3 & AURKA & 39\\
- & AURKB & 21\\
+VX680 & AURKB & 21\\
 \hline
 4 & RPL19 & \textcolor{red}{over 1,000}\\
- & NHP2L1 & 15\\
+Anisomycin & NHP2L1 & 15\\
+\hline
+5 & na & \\
+\hline
+\end{tabular}
+\end{table}
+
+A first result from these lists is the index of known drug targets in each, as can be seen in table~\ref{target_index}. This result does not enable to assess the predictions for any drug whose known target is not in Mitocheck hit list, such as Camptothecin(S,+). It furthermore only relies on two or three Mitocheck experiments in each case. A solution to this drawback is to consider the closest genes to condition groups, and anlyze significantly representend gene functions using Gene Ontology and DAVID online tools\cite{pmid22543366}. A summary of the results from such an analysis are presented in table~\ref{target_functions} ; the whole results can be found in the Supplementaries folder "Gene ranks".
+
+From both tables, it appears that results from the different condition groups are unequal. On the one hand, functional analysis of the closest genes to the Anisomycin group does not show any terms which are related to ribosomal proteins, whom Anisomycin is mainly targeted at. Functional analysis identifies as the three most import functional clusters for the Anisomycin group one cluster related to cell cycle and microtubule cytoskeleton, one related to chemical homeostasis, and one related to serine/threonine protein kinase - whose enrichment scores range from 1.6 to 1.4. Similarly, functional analysis of Camptothecin(S,+) group shows relation neither with DNA binding nor with DNA topological change. They rather point at cell-cell junctions, cyclic nucleotide binding proteins and ion channel activity. This does not prevent one of Anisomycin targets, NHP2L1 (SNU13 homolog, small nuclear ribonucleoprotein (U4/U6.U5)), of being its 15th closest gene.
+
+On the other hand, functional analysis of the closest genes to the VX680-MLN8054 group is quite consistent with their being targeted at Aurora kinases. Indeed, these cell-cycle regulated proteins are thought to be involved in the formation of microtubules and their stabilization at the spindle pole, which can be retrieved in the two first functional clusters. Furthermore, AURKA and AURKB (Aurora kinases A and B) are respectively the 39th and 21st closest genes to this condition group. %appears to be involved in microtubule formation and/or stabilization at the spindle pole during chromosome segregation. The encoded protein is found at the centrosome in interphase cells and at the spindle poles in mitosis. 
+
+In the middle between these cases, it can be remarked that, although the main targets of Nocodazole and Paclitaxel are not extremely close to these condition groups, functional analysis does retrieve their impact on microtubule-based process. In conclusion, our method provides a list of genes and their similarity to drug exposure, for each group of drug conditions it identifies. Functional analysis of the top 10\% of these lists reveals that our method performs unequally well for retrieving target gene function in all cases. It works very well on drugs which directly act on mitosis-related proteins (e.g. VX680 or Paclitaxel), whereas it is not as helpful on drugs which are targeted at other biological processes (e.g. Anisomycin). 
+
+[FOR DISCUSSION]
+nevertheless it managed to identify those conditions as hits and group them together. Probably one would need new phenotypic classes or other markers. we might think of hcs-derived phenotypic profiling as superpowerful methods, which they are, but it remains that in experimental design some choices are made which pre-reflect the idea we have about the putative drug targets. Cite eggert targeted at cytokinesis. Or we need a lot of markers (check cite Perlman relevant)
+
+%Cluster 0 Nocodazole: kinase activator activity, g-protein coupled receptors, ubiquitin and exonucleases
+%Cluster 1 Paclitaxel: ok, then regulation of cell cycle and ubiquitin
+%Cluster 2 VX680: ok
+%Cluster 3 nothing related to ribosomal proteins or translation
+%Cluster 4 1 : cell junctions, then ok nucleotide binding proteins then ion channel activity?
+
+\begin{table}[!ht]
+\centering
+\caption{Rank of known drug targets, when applicable. Condition group are identical to that in the text.}
+\label{target_functions}
+\begin{tabular}{|C{1.5cm}|L{1.5cm}|L{8cm}|l|}
+\hline
+Condition group& Cluster rank  & Terms from relevant functional annotation clusters & Enrichment score\\
+\hline
+\hline
+1 & 5/66 & Microtubule cytoskeleton organization  & 0.97\\
+& &Microtubule-based process &\\
+& &Cytoskeleton organization &\\
+\hline
+2 & 1/51& Microtubule cytoskeleton &2.24\\
+ &&  Cell division  &\\
+& &Cell cycle &\\
+& &Centromere &\\
+& &Chromosome segregation &\\
+& &Spindle &\\
+& 2/51 & Microtubule cytoskeleton & 1.89\\
+&&  Microtubule cytoskeleton organization &\\
+& &Microtubule organizing center organization &\\
+& &Centrosome cycle &\\
+& &Microtubule-based process &\\
+\hline
+3 &1/66& Regulation of cell cycle & 2.49\\
+& &Mitotic cell cycle checkpoint &\\
+& &Kinetochore &\\
+& &Regulation of cell cycle process &\\
+&2/66 &Cell cycle & 2.19\\
+& &Microtubule cytoskeleton &\\
+&& Spindle &\\
+& &M phase &\\
+& &Centrosome &\\
+ & 3/66& Chromosome, centromeric region &2.13\\
+& &Metaphase &\\
+\hline
+4 & -/62 && \\
+\hline
+5 & -/63 &&\\
+%5 &2/63& Cyclic nucleotide binding & 1.35\\
+% & &Cyclic nucleotide-monophosphate binding domain&\\
 \hline
 \end{tabular}
 \end{table}
@@ -682,36 +745,6 @@ Condition group & Protein target (HUGO gene symbol) & Rank\\
 %\label{gene_rank}
 %\end{figure*}
 %Rang moyen des cibles connues en fonction des differentes distances:
-
-%Taking conditions with 2 or 3 replicate hits
-%(['Normalized\n phenotypic score',
-%  'Phenotypic score',
-%  'Global\n Sinkhorn div.',
-%  'Phenotypic\n trajectory',
-%  'Sum of time\n Sinkhorn div.',
-%  'Max time \n Sinkhorn div.'],
-%MEAN array([ 919.59701493,  697.86567164,  748.67164179,  728.32835821,
-%         730.94029851,  790.94029851]),
-%STD array([ 771.89969304,  697.96328209,  722.39546345,  722.65462918,
-%         818.89530395,  833.70951097]))
-
-%Conditions with 3 replicate hits
-%(['Normalized\n phenotypic score',
-%  'Phenotypic score',
-%  'Global\n Sinkhorn div.',
-%  'Phenotypic\n trajectory',
-%  'Sum of time\n Sinkhorn div.',
-%  'Max time \n Sinkhorn div.'],
-% array([ 858.42105263,  650.49122807,  641.43859649,  645.56140351,
-%         643.21052632,  732.49122807]),
-% array([ 735.60186475,  666.84186618,  629.07743694,  655.08301382,
-%         744.61728629,  800.71350031]))
-
-%=> Pour la suite je me limite a 
-%  'Phenotypic score',
-%  'Global\n Sinkhorn div.',
-%  'Phenotypic\n trajectory',
-%  'Sum of time\n Sinkhorn div.',
 
 \subsection{Discussion [TODO]}
 Regarding the time transport distance, another idea could be to do dynamic time warping on frame correspondence rather than just 1-to-1. Indeed, the effect of the siRNA which we observe, is function of protein half-life, [prot] necessary for the cell to get its function rightly performed, as well as  if the prot has a direct or indirect function to play in cell division (or cell motility or whatever the process is that we consider).
