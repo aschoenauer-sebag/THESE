@@ -354,10 +354,16 @@ Hit conditions are conditions for which stricly more than 50\% of their replicat
 \end{figure*}
 
 \subsubsection{Other analyses}
+\label{sec:other_analyses}
 \paragraph{Proliferation hit detection}
 Proliferation hit detection was realized similarly to hit experiment detection: experiments whose proliferation rate was higher than $Q_3^{ctrl} + 1.5\times IQR^{ctrl}$ or lower than $Q_1^{ctrl} - 1.5\times IQR^{ctrl}$ were considered proliferation hit experiments. Proliferation hit conditions were conditions for which stricly more than 50\% of their replicates are proliferation hit experiments. Interestingly, only one condition (Azacytidin, dose 7) was a proliferation hit without being a hit.
 \paragraph{Hierarchical clustering}
 Condition hierarchical clustering was performed using the median of condition replicates. The Python package fastcluster~\cite{fastcluster} was used to this end. In each case, the clustering method which visually produced the best result was used, from Ward, centroid and single methods.
+
+\paragraph{Target pathway inference and analysis}
+Target pathways were infered for groups of selected conditions following hierarchical clustering. For each group, experiments from all group conditions were pooled together and considered as replicates of one artificial condition. This condition was characterized by all experiment distances to Mitocheck experiments. A way to consider each experiment nearest neighbours consistently accross group experiments is to use rank products~\cite{pmid15327980}. Briefly, the idea is that if a gene is consistently close to all experiments, it will consistently by in the top of each ranked experiment-gene list. The product of its ranks will therefore be small. This is the final variable which was used to compute the nearest neighbours for each condition group. The 200 nearest genes to each condition group was then analyzed using DAVID online tool~\cite{pmid22543366}.
+
+%For each group of selected conditions
 \paragraph{Data visualization}
 A Web-based user interface was designed and implemented for result visualization and result sharing among collaborators. It is described more in details infra, see section~\ref{interface}.
 
@@ -624,55 +630,58 @@ Global and time Sinkhorn divergence results present a second unspecific effect c
 
 From these observations we can conclude that both Sinkhorn divergences (and especially global Sinkhorn divergence) produce drug similarities which better correspond to the existing knowledge. Furthermore, these similarities are easily understandable by going back to the phenotypic scores and the cost matrix, as opposed to the phenotypic trajectory distance. As an example, Anisomycin doses 5-8 cluster is very likely a result of the exclusive high increase in \textit{Apoptosis} nuclei which is observed in these experiments, and of \textit{Apoptosis} being at a cost of 5 from all other phenotypes. Finally, these results also show that for almost all drugs, small doses produce unspecific effects which seem difficult to be robustly linked to any gene silencing experiment. Our focus for target pathway inference will therefore be condition clusters which are not small/medium dose clusters, using global Sinkhorn divergence.
 
-%POINT 2 so we focus on hits detected on phenotypic scores. Here is what we have in terms of hit reproducibility: means it's high. Good sign/ better say in terms of more than 50\% experiments that passed QC
-%Counter({3: 55, 2: 14, 1: 4})
 %Not working well for phenotypic score with other clustering methods as well (not shown, 'single' and 'centroid'). Working better for phenotypic trajectory distance: centroid
-\subsubsection{Target pathway inference [TODO]}
-SO
-- cluster 1. Almost only anisomycin so looking for links to topoisomerase I = DNA binding. Good thing, we get pval $10^-3$ cyclic nucleotide binding from INTERPRO
-- cluster 4 : nothing. Ribosomal prot?
-- cluster 5 : very good 
-%Category	Term	Count	%	PValue	Genes	List Total	Pop Hits	Pop Total	Fold Enrichment	Bonferroni	Benjamini	FDR
-%GOTERM_CC_FAT	GO:0030496~midbody	3	3.0927835051546393	0.006747806003324053	ENSG00000149503, ENSG00000137807, ENSG00000178999	60	4	1706	21.325000000000003	0.5824776171102156	0.5824776171102156	7.571923225882838
-%GOTERM_CC_FAT	GO:0015630~microtubule cytoskeleton	9	9.278350515463918	0.01929609820677492	ENSG00000168397, ENSG00000136861, ENSG00000138778, ENSG00000134779, ENSG00000149503, ENSG00000158296, ENSG00000137807, ENSG00000178999, ENSG00000087586	60	100	1706	2.5589999999999997	0.919017811499282	0.7154263039198493	20.275782328585567
-%GOTERM_BP_FAT	GO:0032355~response to estradiol stimulus	3	3.0927835051546393	0.019998492992519698	ENSG00000163794, ENSG00000073756, ENSG00000087586	71	6	1810	12.746478873239436	0.9999998347000388	0.9999998347000388	26.559147263763283
-%GOTERM_CC_FAT	GO:0044430~cytoskeletal part	11	11.34020618556701	0.020893562835221674	ENSG00000168397, ENSG00000164877, ENSG00000196535, ENSG00000136861, ENSG00000138778, ENSG00000134779, ENSG00000149503, ENSG00000158296, ENSG00000137807, ENSG00000178999, ENSG00000087586	60	142	1706	2.202582159624413	0.9343767317556939	0.5966463865431619	21.7730081784446
-%KEGG_PATHWAY	hsa03040:Spliceosome	5	5.154639175257731	0.0235552467649326	ENSG00000132792, ENSG00000143977, ENSG00000183684, ENSG00000108883, ENSG00000171566	26	34	741	4.1911764705882355	0.6815153868683974	0.6815153868683974	20.34706278145585
-%UP_SEQ_FEATURE	compositionally biased region:Pro-rich	10	10.309278350515463	0.024233857317716975	ENSG00000168874, ENSG00000169379, ENSG00000104946, ENSG00000120685, ENSG00000110237, ENSG00000213079, ENSG00000189132, ENSG00000139266, ENSG00000218891, ENSG00000105321	88	116	2369	2.320728840125392	0.9989857283411681	0.9989857283411681	27.715004462895575
-%SP_PIR_KEYWORDS	cytoskeleton	9	9.278350515463918	0.026537825101213105	ENSG00000164877, ENSG00000196535, ENSG00000136861, ENSG00000138778, ENSG00000134779, ENSG00000149503, ENSG00000137807, ENSG00000178999, ENSG00000087586	88	99	2371	2.4493801652892566	0.9953887759443192	0.9953887759443192	28.61749692602379
-%GOTERM_BP_FAT	GO:0000087~M phase of mitotic cell cycle	6	6.185567010309279	0.038089104316049394	ENSG00000138778, ENSG00000149503, ENSG00000137807, ENSG00000178999, ENSG00000090061, ENSG00000087586	71	49	1810	3.1215866628341478	0.9999999999999081	0.9999996968781568	44.755748335117865
-%GOTERM_BP_FAT	GO:0007067~mitosis	6	6.185567010309279	0.038089104316049394	ENSG00000138778, ENSG00000149503, ENSG00000137807, ENSG00000178999, ENSG00000090061, ENSG00000087586	71	49	1810	3.1215866628341478	0.9999999999999081	0.9999996968781568	44.755748335117865
-%GOTERM_BP_FAT	GO:0000280~nuclear division	6	6.185567010309279	0.038089104316049394	ENSG00000138778, ENSG00000149503, ENSG00000137807, ENSG00000178999, ENSG00000090061, ENSG00000087586	71	49	1810	3.1215866628341478	0.9999999999999081	0.9999996968781568	44.755748335117865
-%GOTERM_BP_FAT	GO:0048285~organelle fission	6	6.185567010309279	0.04108382856607934	ENSG00000138778, ENSG00000149503, ENSG00000137807, ENSG00000178999, ENSG00000090061, ENSG00000087586	71	50	1810	3.0591549295774647	0.9999999999999918	0.9999797940650837	47.326299602180896
+\subsubsection{Target pathway inference}
+Meaningful condition groups were established in the previous section. They enable us to circumscribe the search for drug target to dose ranges which are hoped to show on-target specific effects. Here are precisely the condition groups which will be considered in the following, with their corresponding cluster color in fig.~\ref{cond_clust_transport}:
+\begin{enumerate}
+\item Nocodazole, doses 8 to 10 (pink, top)
+\item Paclitaxel, doses 5 to 9 (pink, bottom)
+\item VX680, doses 8 to 10 and MLN8054, dose 10 (dark blue, top)
+\item Anisomycin, doses 5 to 8 (light blue)
+\item Camptothecine (S,+), doses 6 to 10 (red, top)
+\end{enumerate}
 
-- cluster 6 : also very good
-%Category	Term	Count	%	PValue	Genes	List Total	Pop Hits	Pop Total	Fold Enrichment	Bonferroni	Benjamini	FDR
-%GOTERM_BP_FAT	GO:0031023~microtubule organizing center organization	4	4.166666666666666	0.004429641780725094	ENSG00000181163, ENSG00000138160, ENSG00000175216, ENSG00000174799	66	10	1810	10.96969696969697	0.9689350374024023	0.9689350374024023	6.568575360037476
-%GOTERM_BP_FAT	GO:0051297~centrosome organization	4	4.166666666666666	0.004429641780725094	ENSG00000181163, ENSG00000138160, ENSG00000175216, ENSG00000174799	66	10	1810	10.96969696969697	0.9689350374024023	0.9689350374024023	6.568575360037476
-%GOTERM_BP_FAT	GO:0007017~microtubule-based process	8	8.333333333333332	0.005213316096123827	ENSG00000088727, ENSG00000165731, ENSG00000138778, ENSG00000181163, ENSG00000138160, ENSG00000175216, ENSG00000174799, ENSG00000087586	66	61	1810	3.5966219572776947	0.9832184821175997	0.8704565019678705	7.687812664329852
-%GOTERM_CC_FAT	GO:0015630~microtubule cytoskeleton	10	10.416666666666668	0.007665104072211499	ENSG00000088727, ENSG00000168397, ENSG00000136861, ENSG00000138778, ENSG00000181163, ENSG00000138160, ENSG00000175216, ENSG00000158296, ENSG00000174799, ENSG00000087586	62	100	1706	2.7516129032258063	0.6322316989971262	0.6322316989971262	8.571025121655328
-%GOTERM_BP_FAT	GO:0000226~microtubule cytoskeleton organization	6	6.25	0.00813995448007545	ENSG00000165731, ENSG00000181163, ENSG00000138160, ENSG00000175216, ENSG00000174799, ENSG00000087586	66	36	1810	4.570707070707071	0.9983242476832465	0.8812218355733932	11.757791257737393
-%GOTERM_CC_FAT	GO:0044430~cytoskeletal part	12	12.5	0.00989087934640652	ENSG00000088727, ENSG00000168397, ENSG00000164877, ENSG00000196535, ENSG00000136861, ENSG00000138778, ENSG00000181163, ENSG00000138160, ENSG00000175216, ENSG00000158296, ENSG00000174799, ENSG00000087586	62	142	1706	2.3253066787823715	0.7253383976270503	0.47591832471173956	10.930884525227357
-%GOTERM_CC_FAT	GO:0005813~centrosome	6	6.25	0.016747420691283058	ENSG00000136861, ENSG00000181163, ENSG00000175216, ENSG00000158296, ENSG00000174799, ENSG00000087586	62	43	1706	3.839459864966241	0.8887084311697437	0.5189900189364942	17.85494162864303
-%GOTERM_BP_FAT	GO:0032355~response to estradiol stimulus	3	3.125	0.017353862099464806	ENSG00000163794, ENSG00000073756, ENSG00000087586	66	6	1810	13.712121212121213	0.9999988661057935	0.9673680419436156	23.502903552680266
-%GOTERM_BP_FAT	GO:0007098~centrosome cycle	3	3.125	0.017353862099464806	ENSG00000181163, ENSG00000138160, ENSG00000174799	66	6	1810	13.712121212121213	0.9999988661057935	0.9673680419436156	23.502903552680266
-%SP_PIR_KEYWORDS	ubl conjugation	8	8.333333333333332	0.01866853185470882	ENSG00000170775, ENSG00000138778, ENSG00000179262, ENSG00000181163, ENSG00000136931, ENSG00000175467, ENSG00000167513, ENSG00000087586	86	77	2371	2.8643914225309572	0.9669899399228736	0.9669899399228736	20.732151201231876
-%GOTERM_CC_FAT	GO:0005815~microtubule organizing center	6	6.25	0.023923658661183473	ENSG00000136861, ENSG00000181163, ENSG00000175216, ENSG00000158296, ENSG00000174799, ENSG00000087586	62	47	1706	3.512697323266987	0.9570570168147403	0.5447781989170656	24.571832556495345
-%SP_PIR_KEYWORDS	phosphoprotein	46	47.91666666666667	0.02814144953470771	ENSG00000164877, ENSG00000154040, ENSG00000164081, ENSG00000165731, ENSG00000126895, ENSG00000178764, ENSG00000138778, ENSG00000179262, ENSG00000073756, ENSG00000107779, ENSG00000175467, ENSG00000183684, ENSG00000138092, ENSG00000186517, ENSG00000167513, ENSG00000181163, ENSG00000152457, ENSG00000136931, ENSG00000138160, ENSG00000142875, ENSG00000188493, ENSG00000070756, ENSG00000174799, ENSG00000099864, ENSG00000105321, ENSG00000088727, ENSG00000168397, ENSG00000184611, ENSG00000143393, ENSG00000054148, ENSG00000090061, ENSG00000158023, ENSG00000163191, ENSG00000136861, ENSG00000157637, ENSG00000134255, ENSG00000196535, ENSG00000120685, ENSG00000130725, ENSG00000198646, ENSG00000175216, ENSG00000172922, ENSG00000164076, ENSG00000108883, ENSG00000143337, ENSG00000087586	86	1002	2371	1.2656779464327157	0.9942963370495567	0.9244774010613818	29.66692103142814
-%SMART	SM00129:KISc	3	3.125	0.041875793864220794	ENSG00000088727, ENSG00000138778, ENSG00000138160	39	10	1129	8.684615384615384	0.8193356369004172	0.8193356369004172	32.38741402598828
-%INTERPRO	IPR019821:Kinesin, motor region, conserved site	3	3.125	0.042330902096120344	ENSG00000088727, ENSG00000138778, ENSG00000138160	73	10	2136	8.778082191780822	0.9992705691490504	0.9992705691490504	40.90905867726769
-%INTERPRO	IPR001752:Kinesin, motor region	3	3.125	0.042330902096120344	ENSG00000088727, ENSG00000138778, ENSG00000138160	73	10	2136	8.778082191780822	0.9992705691490504	0.9992705691490504	40.90905867726769
-%SP_PIR_KEYWORDS	Spliceosome	5	5.208333333333334	0.04493156055370322	ENSG00000183684, ENSG00000175467, ENSG00000070756, ENSG00000108883, ENSG00000171566	86	38	2371	3.627600979192166	0.9997566432508358	0.9375669624558921	43.2654392449582
-%UP_SEQ_FEATURE	short sequence motif:Selectivity filter	3	3.125	0.04748645729787534	ENSG00000184611, ENSG00000089558, ENSG00000157542	86	10	2369	8.263953488372092	0.9999980266098107	0.9999980266098107	47.25334874271313
-%UP_SEQ_FEATURE	domain:Kinesin-motor	3	3.125	0.04748645729787534	ENSG00000088727, ENSG00000138778, ENSG00000138160	86	10	2369	8.263953488372092	0.9999980266098107	0.9999980266098107	47.25334874271313
-%GOTERM_CC_FAT	GO:0005681~spliceosome	5	5.208333333333334	0.04777066360520638	ENSG00000183684, ENSG00000175467, ENSG00000070756, ENSG00000108883, ENSG00000171566	62	39	1706	3.5277088502894953	0.99827653515842	0.7199210396532453	43.449681659215344
-%GOTERM_CC_FAT	GO:0005856~cytoskeleton	13	13.541666666666666	0.0489480610232903	ENSG00000164877, ENSG00000168397, ENSG00000088727, ENSG00000154040, ENSG00000138778, ENSG00000196535, ENSG00000136861, ENSG00000181163, ENSG00000138160, ENSG00000175216, ENSG00000158296, ENSG00000174799, ENSG00000087586	62	202	1706	1.770839987224529	0.9985325929765634	0.6629002486071968	44.25862476648472
-\begin{figure*}[ht!]
-\centerline{\includegraphics[scale=0.4]{figures/inference_evaluation_gene_rank.png}
-}
-\caption{Index of known drug targets in function of their closeness to drug screen experiments as measured by the different distances}
-\label{gene_rank}
-\end{figure*}
+For each condition group, Mitocheck selected hit genes were ordered according to their global distance to this group experiments (as described in section~\ref{sec:other_analyses}). The list of ordered genes for each condition group can be found in the Supplementaries, folder "Gene ranks".
+
+A first result from these lists is the index of known drug targets, as can be seen in table~\ref{target_index}.
+
+\begin{table}[!ht]
+\centering
+\caption{Rank of known drug targets, when applicable. Condition group are identical to that in the text.}
+\label{target_index}
+\begin{tabular}{|L{3cm}|L{7cm}|L{4cm}|}
+\hline
+Condition group & Protein target (HUGO gene symbol) & Rank\\
+\hline
+1 & HPGDS & 577\\
+1 & TUBB2A & 548\\
+1 & TUBB4A & over 1,000\\%1970
+1 & TUBB4B & 416\\
+1 & TUBB6 & 987\\%
+
+2 & BCL2 & 389\\
+2 & TUBB2A & 466\\
+2 & TUBB4A & over 1,000\\%2005
+2 & TUBB4B & 317\\
+2 & TUBB6 & over 1,000\\%1241
+
+3 & AURKA & 39\\
+3 & AURKB & 21\\
+
+4 & RPL19 & over 1,000\\
+4 & NHP2L1 & 15\\
+
+5 & na & na\\
+\end{tabular}
+\tend{table}
+
+
+%\begin{figure*}[ht!]
+%\centerline{\includegraphics[scale=0.4]{figures/inference_evaluation_gene_rank.png}
+%}
+%\caption{Index of known drug targets in function of their closeness to drug screen experiments as measured by the different distances}
+%\label{gene_rank}
+%\end{figure*}
 %Rang moyen des cibles connues en fonction des differentes distances:
 
 %Taking conditions with 2 or 3 replicate hits

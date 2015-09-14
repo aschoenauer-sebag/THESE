@@ -38,7 +38,7 @@ As this was a proof of concept experiment, the goal was slightly different than 
 \section{Materials and methods}
 \label{protocoles}
 \subsection{Experimental work}
-\paragraph{Chemicals}
+\subsubsection{Chemicals}
 TCDD was bought from LGC Standards (Molsheim, France), TGF~$\beta$1 from R\&D Systems\texttrademark (Minneapolis, MN, USA), BPA, MeHg and PCB153 from Sigma Aldrich\up{\textregistered} (Saint-Louis, MO, USA). $\alpha$-Endosulfan was bought from Cambridge Isotope Laboratories, Inc. (Tewksbury, MA, USA) and DMSO from Merck Millipore (Billerica, MA, USA).
 
 The following media were used:
@@ -49,9 +49,9 @@ of non-essential amino acids solution (all from Life Technologies\texttrademark)
 of non-essential amino acids solution, and 0.5 $\mu$g/ml fungizone.
 \end{itemize}
 
-\paragraph{Cell culture}
+\subsubsection{Cell culture}
 The human mammary tumor cell line MCF-7 (ATCC\up{\textregistered} Catalog N\up{o}HTB-22\texttrademark)  was maintained in normal medium as defined above. %Forty-eight h before any experiment, the medium was removed and replaced by DMEM without phenol red (Life Technologies\texttrademark) with 3\% charcoal-treated calf serum (i.e. desteroidized calf serum), and the same concentrations of penicillin, streptomycin, and fungizone as described above\footnote{Medium called "experiment medium" in the following.}. 
-\paragraph{Cell transfection and clonal selection}
+\subsubsection{Cell transfection and clonal selection}
 MCF-7 cells were transfected with two plasmids : one containing human histone H2B fused to the gene encoding a red fluorescent protein (mCherry), isolated from Discosoma species (Addgene, plasmid \#21045), one containing human membrane lipid Myr/Palm fused to the gene encoding the green fluorescent protein (GFP) of Aequorea victoria (Addgene, plasmid \#21037). The aim was to generate a stable line constitutively expressing H2B-mCherry and Myr/Palm-GFP.
 
 On the day before transfection, MCF-7 cells were seeded into 10cm dish with normal medium (2 millions per dish). On the day of transfection, cell medium was replaced with 2mL of normal medium and a mix composed of 72$\mu$l Lipofectamin\up{\textregistered} 2000 reagent and 24$\mu$g of total plasmid DNA (either H2B-mCherry alone, Myr/Palm-GFP alone or both), completed to a volume of 3mL with Optimem (Life technologies\texttrademark). Cells were then incubated for 5 hours at 37\up{o}C, after what 5mL of normal medium was added. 
@@ -64,7 +64,7 @@ Following this step, modified cells were maintained in normal medium with 1mg/mL
 %\paragraph{RNA extraction, reverse transcription and RT-qPCR} Total RNAs were extracted using the RNeasy mini kit (Qiagen, Les Ulis, France) and reverse transcription was performed using the cDNA high-capacity archive kit (Applied Biosystems) according to the manufacturer's instructions. The primers used for the real-time PCR are available on request. Quantitative real-time PCR was carried out in a 10-ml reaction volume containing 40 ng of cDNA, 300 nM of each primer and ABsolute QPCR SYBR Green (Abgene, Villebon sur Yvette, France) using an ABI Prism 7900 Sequence Detector system (Applied Biosystems). PCR cycles consisted of the following steps: Taq activation (15 min, $95^\circ$C), denaturation (15 s, $95^\circ$C) and
 %annealing and extension (1 min, $60^\circ$C). The threshold cycle (Ct) was measured as the number of cycles for which the reporter fluorescent emission first exceeds the background. The relative amounts of mRNA were estimated using the DDCt method with the gene RPL13A (coding for 60S ribosomal protein L13a) for normalization.
 
-\paragraph{Production of 96 well-plate for imaging}
+\subsubsection{Production of 96 well-plate for imaging}
 48h prior to imaging, MCF-7 cells were seeded in normal medium into one 96 well-plastic plate, at a density of 6,000 cells per well. The plate was placed back in the incubator at constant temperature ($37^\circ$C) and CO$_2$ pressure (5\%). 24 hours prior to imaging, dilutions (cf table~\ref{dilutions}) of selected compounds with constant solvent percentage were freshly prepared in imaging medium. Cell medium was changed with 198$\mu$L of imaging medium and 2$\mu$L of chemical dilution or solvent dilution per well. Six control wells for each solvent and three wells with cell medium only were put on each plate. Plate design was not random, but control wells were not grouped (see fig~\ref{plate_setup} for an example of a plate setup).
 
 The plate was placed back in the incubator. Immediately before image acquisition, the plate was sealed using an adhesive optical film (\textbf{ref. **}). This procedure is illustrated on figure~\ref{exp_setting}.
@@ -81,11 +81,11 @@ The plate was placed back in the incubator. Immediately before image acquisition
 \caption{Example of a plate setup. \textit{Cl1}: clone number, \textit{Indpt 10}: $CO_2$-independent cell medium with 10\% FCS.}
 \label{plate_setup}
 \end{figure}
-\paragraph{Time-lapse imaging}
+\subsubsection{Time-lapse imaging}
 Images were acquired every 15 minutes in each well for forty-eight hours, with an automated epifluorescence microscope (Axio Observer Z1; Zeiss, Oberkochen, Germany) with motorized objectives in z-axis (resolution 10nm) and using 10x objective (EC Plan-Neofluar;0.3 M27). Each well was imaged 800ms at lengthwave $\lambda = 555nm$ (mCherry) and 300 ms at $\lambda = 470nm$ (GFP).
 
 The microscope is integrated into a microscope incubation chamber to provide constant temperature (+37\up{o}C), which was turned on at least one hour prior to the beginning of image acquisition. Zeiss software ZEN2011 was used for data recording. Focus was done manually, and was updated by definite focus.
-\paragraph{Phototoxicity assays}
+\subsubsection{Phototoxicity assays}
 One plate was prepared with 12 wells following the above-described procedure, except that no chemical was added prior to image acquisition. Images were acquired for 24h, with the four different imaging conditions :
 \begin{itemize}
 \item no imaging
@@ -95,14 +95,14 @@ One plate was prepared with 12 wells following the above-described procedure, ex
 \end{itemize}
 2$\mu$L of \textit{alamarBlue\texttrademark Cell Viability Assay Reagent} (Thermo Scientific, Rockford, IL, USA) were then added to each well. Following 2h of incubation at $37^\circ$C, absorbance was measured at $\lambda = 570nm$ and $600nm$ using an EnSpire\up{\textregistered} (PerkinElmer, Waltham, MS, USA). The index of cell viability was computed following the manufacturer's formula.
 
-\paragraph{Chemical dose choice}
+\subsubsection{Chemical dose choice}
 Doses were chosen so that the lower end is close to human exposure levels, and that the higher end is not cytotoxic.
 
 The first goal was attained through a literature review, whose results can be seen in appendix, section~\ref{literature_review}. The second goal was attained through cytoxicity tests. One plate was prepared with 76 wells as described above, although with 5,000 cells per well. 24h after seeding, cells were exposed either to solvents, either to doses 6 to 10 of selected compounds. 24h after exposure, 2$\mu$L of \textit{alamarBlue\texttrademark Cell Viability Assay Reagent} were added to each well. After 24h of incubation, fluorescence was measured in each well at $\lambda = 555nm$, and cell viability index was computed following the manufacturer's formula. In the end, 9 to 10 doses for each of the five chosen xenobiotics were selected, the total summing to approximately 50 different conditions to which cells were exposed.
 
 \subsection{Bioinformatics methods}
 \label{interface}
-\paragraph{Web-based user interface for result visualization}  A web-based user interface was designed for raw  and quality control data visualization. It is visible at the following address: \href{http://olympia.biomedicale.univ-paris5.fr/plates/}{http://olympia.biomedicale.univ-paris5.fr/plates/} (login: \textit{user}, password: \textit{xbscreen}). It was implemented using \href{https://www.djangoproject.com/}{Django} web framework, the programming language \href{http://www.python.org}{Python 2.7}, and run under Linux-Apache web server and mod\_wsgi module. \href{https://sqlite.org/}{SQLite} was used for storing experimental metadata (plate setups, experimental conditions such as cell medium or the percentage of FCS). The database was built as visible on fig~\ref{db}.
+\subsubsection{Web-based user interface for result visualization}  A web-based user interface was designed for raw  and quality control data visualization. It is visible at the following address: \href{http://olympia.biomedicale.univ-paris5.fr/plates/}{http://olympia.biomedicale.univ-paris5.fr/plates/} (login: \textit{user}, password: \textit{xbscreen}). It was implemented using \href{https://www.djangoproject.com/}{Django} web framework, the programming language \href{http://www.python.org}{Python 2.7}, and run under Linux-Apache web server and mod\_wsgi module. \href{https://sqlite.org/}{SQLite} was used for storing experimental metadata (plate setups, experimental conditions such as cell medium or the percentage of FCS). The database was built as visible on fig~\ref{db}.
 
 Briefly, each well is linked to a unique plate, a unique condition (medium and percentage of FCS) and a unique treatment (xenobiotic and dose). As the data was (crudely) password-protected, a second database contains logins and passwords, as well as admin permissions.
 
@@ -140,14 +140,14 @@ By clicking on a particular well on any image of the plate page, one accesses pe
 %back to web server coded by Python and Django for user
 %download.
 
-\paragraph{Quality controls}
+\subsubsection{Quality controls}
 Due to microscope hardware and/or software instability, images showed mean intensity variation on both channels. Hence, images $t$ whose mean intensity on the mCherry channel $I_t$ verified the following inequality were not considered for further analysis, where $\sigma_I $ is the standard deviation of $(I_t)_{t=1\ldots T}$:
 \[ |I_t- \dfrac{\sum_{i=0\ldots 10} I_{t+i} }{10}| > 3\sigma_I  \]
 
 Furthermore, a threshold of $c$ cells at the beginning of the movie, and maximum $p$\% out-of-focus objects were used to further remove unexploitable movies. Visual inspection enabled the selection of $c=23$ and $p=37$. Out-of-focus objects and cells that were neither artefacts nor out-of-focus objects were identified following segmentation, feature extraction and classification as described below.
 %image quality control, experiment quality control
 
-\paragraph{Object segmentation}
+\subsubsection{Object segmentation}
 Object segmentation was done using a newly-designed plugin implemented in the open-source software CellCognition~\cite{cellcognition}. It had to be newly designed, because the two segmentation algorithms which were mentioned infra (see sections~\ref{sec:motiw_seg} and~\ref{sec:DS_seg}) were not optimal at close nuclei separation, which are very common among MCF-7 cells. Its layout is common to most methods for identifying nuclei in microscopy images: image prefiltering, background estimation and substraction, residue image thresholding. This latter step can produce under-segmented images, depending on the problem at hand. In the current context, it had indeed to be followed by a fourth step to split close nuclei that had been segmented together.
 
 A median filter is used for image prefiltering. Background estimation is performed using a local adaptative threshold : background intensity level is computed on a sliding window, and pixels are retained if they have a minimum constrast with respect to this local background level.
@@ -175,7 +175,7 @@ Finally, an object filter is applied to eliminate the objects that are (or whose
 %ii. background substraction. Low frequency signal (in space)
 %iii. Watershed distance to merge objects
 %iv. 
-\paragraph{Object feature extraction}
+\subsubsection{Object feature extraction}
 Object feature extraction was done using the open-source software CellCognition~\cite{cellcognition}, as previously described~\cite{Walter2010}. Briefly, for each object on each image, approximately 240 features are extracted, characterizing their shape and texture. These features enable to classify nuclei in user-defined nuclear phenotypic classes and to track them over time.
 
 \begin{table}[!ht]
@@ -207,7 +207,7 @@ Object feature extraction was done using the open-source software CellCognition~
 \end{tabular}
 \end{table}
 
-\paragraph{Object classification}
+\subsubsection{Object classification}
 Object classification was also performed using CellCognition, as described in table~\ref{classexamples}. Phenotypic classes are the morphologies which are observable given the time resolution. To the usual mitotic classes, as well as technical problem classes, any aberrant phenotype that can be observed in a visual inspection of the dataset should be added. This can be a problem in a high-througput setup. In the case at hand, circa 50 conditions were studied : an almost exhaustive inspection of the dataset was therefore possible, which makes it unlikely that an aberrant nuclear phenotype was missed.
 %By default, phenotypic classes are the mitotic classes which the time-lapse permits to observe with a sufficient precision : \textit{interphase}, \textit{pro-metaphase}, \textit{metaphase} and \textit{anaphase} in our case, to which \textit{apoptosis} as well as \textit{out-of-focus} objects and \textit{artefacts} are added. The latter classes are indeed present to various extents in all videos. To these shall be added any aberrant phenotype that can be observed in a visual inspection of the dataset. 
 
@@ -223,7 +223,7 @@ Maxima are less robust to outlier points which could arise in any of the two tim
 
 Due to the visual similarities between \textit{Micronucleated} and \textit{Polylobed} nuclei in our dataset, these classes were pooled together for computing distances. The corresponding distance is named \textit{Micronucleated} in the following.
 
-\paragraph{Object tracking and trajectory feature extraction} Those steps were performed as described in the methodological article~\cite{motiw}.
+\subsubsection{Object tracking and trajectory feature extraction} Those steps were performed as described in the methodological article~\cite{motiw}.
 
 
 \begin{table}[!ht]
@@ -264,6 +264,7 @@ Due to the observed high variability in control trajectory statistics on the dif
 \end{figure}
 
 \subsection{Motility study}
+\label{sec:xb_motility}
 MotIW was applied to this dataset, which as described in~\cite{motiw} enabled to go from a set of nuclear trajectories to a single statistic for each experiment. However, this statistic was not evenly distributed with respect to the plates. This was measured by a Mann-Whitney U test comparing the list of statistics for one plate with the list of statistics for all remaining plates. Indeed, plates 271214 and 271114 respectively output p-values of 0.06 and 0.02 at this test.
 
 In the Mitocheck study, all experiments from all plates were ranked together ; a p-value threshold was set ; conditions which were more than 50\% of the time under that threshold were considered as significantly modifying nuclear motility. 
