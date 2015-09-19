@@ -369,7 +369,7 @@ A Web-based user interface was designed and implemented for result visualization
 
 \subsection{Phenotypic profile distances}
 \label{sec:distances}
-Screening experiments provide us with temporal sequences of information. They can be seen as sequences of intensity two-dimensional distributions~\cite{pmid22743764}, sequences of object feature distributions or sequences of phenotypic class distributions. In our case, we chose to summarize each experiment by a set of temporal evolutions of phenotypic classes, that is, we chose to represent our experiments by their phenotypic profile. The question remains to know how to compute divergences between these representations of the information.
+Screening experiments provide us with temporal sequences of information. They can be seen as sequences of intensity two-dimensional distributions~\cite{pmid22743764}, sequences of object feature distributions or sequences of phenotypic class distributions. In our case, we chose to summarize each experiment by a set of temporal evolutions of phenotypic classes, that is, we chose to represent our experiments by their phenotypic profile. The question remains to know how to measure the similarity between two instances of this representation of the information.
 
 %\subsubsection{Investigated distances}
 We decided to test the following distances on the question to know whether we can apply phenotypic profiling for drug target inference from parallel drug and siRNA screens:
@@ -396,7 +396,7 @@ This distance does not take explicitly time into account, but it respects the or
 \paragraph{Motivations}
 Finally, we wanted to test a distance which would enable us to use some prior biological knowledge of phenotypic class relationships. If we consider the two previous distances, they implicitly consider each phenotypic class to be independent of the others, and equally biologically far away from all. Indeed, the phenotypic score distances operate in $\mathbb{R}^p$ to sum the squared differences of phenotypic scores, hence treating the different phenotypes independently of eachother. Nevertheless, \textit{binucleated}, \textit{polylobed} and \textit{grape} nuclei are for example three different outcomes of cytokinesis defects. Hence the biological intuition is that a chemical causing a great increase in \textit{polylobed} nuclei has probably a closer mode of action to that of another one causing an increase in \textit{binucleated} nuclei than it is to that of a third one causing a strict increase in apoptosis.
 
-Ideally, the idea is then that the distance of $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei is smaller than that to $b\%$ \textit{apoptosis} nuclei, or that it "costs" less to go from $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei than to $b\%$ \textit{apoptosis}. This is precisely the idea behind the Earth Mover's distance (or transportation distance, or Wasserstein distance). This distance was developed in the first place to compute the cost to move a certain number of piles of dirt into a certain numer of holes. To do so, one needs to take into account the distance between piles and holes.
+Ideally, the idea is then that the distance of $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei is smaller than that to $b\%$ \textit{apoptosis} nuclei, or that it "costs" less to go from $a\%$ \textit{binucleated} nuclei to $b\%$ \textit{polylobed} nuclei than to $b\%$ \textit{apoptosis}. This is precisely the idea behind the Earth Mover's distance (or transportation distance, or Wasserstein distance). This distance was developed in the first place to compute the cost to move a certain number of piles of dirt into a certain numer of holes. To optimally do so, one needs to take into account the distance between piles and holes.
 \paragraph{Definitions}
 Let us formalize this intuition and briefly introduce transportation distance\footnote{References and proofs can be found in~\cite{sinkhorn}.}. We note $\Sigma_d = \{ x \in \mathbb{R}^d_+ | x^T \mathbf{1}_d = 1\}$ the probability simplex. In our case, $d=13$: we can consider either the distributions of phenotypes in a given experiment over all time-points, or this distribution in a specific frame.
 
@@ -424,42 +424,40 @@ d_{M, \alpha}(r,c) = \min_{\substack{P\in U_\alpha (r,c)}} <M,P>
 
 This will produce less deterministic optimal solutions, which will converge to $P^*$ as $\alpha$ increases, while $d_{M, \alpha}(r,c)$ converges to $d_{M}(r,c)$. In practice, there exists an efficient method for solving the dual of this problem, Sinkhorn fixed-point algorithm~\cite{sinkhorn_original}. 
 
-The solution for obtaining a faster computation of an approximate transportation distance is therefore to solve the dual problem of formula~\ref{emd}. Its solution will be used to compute the Sinkhorn divergence. For any $\alpha >0$, there exists $\lambda >0$ such that $d_{M, \alpha}(r,c) = d_{M, \lambda}(r,c)$, with
+The solution for obtaining a faster computation of an approximate transportation distance is therefore to solve the dual problem of~\ref{emd}. Its solution will be used to compute the Sinkhorn divergence. For any $\alpha >0$, there exists $\lambda >0$ such that $d_{M, \alpha}(r,c) = d_{M, \lambda}(r,c)$, with
 \[
 d_{M, \lambda}(r,c) = <M,P^\lambda>,~~ P^\lambda = \argmin_{\substack{P\in U (r,c)}} <M,P> - \dfrac{1}{\lambda} h\left( P\right)
 \]
 
 The use of this divergence will enable us to take into account prior biological knowledge while computing distances between phenotypic distributions. This knowledge will be encoded in the cost matrix M. Its choice as well as $\lambda$'s is described infra. Practically, Sinkhorn fixed-point algorithm was implemented in Python to compute Sinkhorn divergences.
 
-Finally, there are two ways to apply Sinkhorn divergence to the problem at hand with the parameters $M,~ \lambda$ as defined above. Let us consider two experiments $i$ and $j$ of duration $T$: 
+Finally, there are two ways to apply Sinkhorn divergence to the problem at hand. Let us consider two experiments $i$ and $j$ of duration $T$: 
 
 \begin{itemize}
-\item one can pool all nuclei from all frames by representing the experiments in $\Sigma_d$. This distance will be called \textbf{global Sinkhorn divergence} in the following (formula~\ref{global}),
-\item one can choose to keep the temporal information by representing the experiments in $\left(\Sigma_d\right) ^T$. We will define two distances from this:
-\subitem \textbf{max time Sinkhorn divergence}, which is the maximum of all timepoints Sinkhorn divergences (as detailed formula~\ref{max}),
-\subitem \textbf{sum of time Sinkhorn divergence}, which is the sum of all timepoints Sinkhorn divergences (as detailed formula~\ref{int}).
-\end{itemize}
+\item one can pool all nuclei from all frames by representing the experiments in $\Sigma_d$. This distance will be called \textbf{global Sinkhorn divergence} in the following:
 \begin{equation}
 D_{M,\lambda}(i,j)= d_{M,\lambda}((\%_{k,i})_{k},(\%_{k,j})_{k})
 \label{global}
 \end{equation}
-
+\item one can choose to keep the temporal information by representing the experiments in $\left(\Sigma_d\right) ^T$. We will define two distances from this:
+\subitem \textbf{max time Sinkhorn divergence}, which is the maximum of all timepoints Sinkhorn divergences:
 \begin{equation}
 D_{M,\lambda}^{max}(i,j)= \max_t d_{M,\lambda}((\%_{k,i,t})_{k},(\%_{k,j,t})_{k})
 \label{max}
 \end{equation}
-
+\subitem \textbf{sum of time Sinkhorn divergence}, which is the sum of all timepoints Sinkhorn divergences: 
 \begin{equation}
 D_{M,\lambda}^{sum}(i,j)= \sum_t d_{M,\lambda}((\%_{k,i,t})_{k},(\%_{k,j,t})_{k})
 \label{int}
 \end{equation}
+\end{itemize}
 
 \paragraph{Choice of phenotypic cost matrix}
 The phenotypic cost matrix summarizes our biological knowledge about the phenotypes which were observed in the Mitocheck dataset (they include those which were observed in the drug screen). We made the choice to set inter-phenotypic costs according to the cellular process which is perturbed when they appear, or which they represent. The phenotypic cost matrix which we chose is illustrated fig.~\ref{cost}.
 
-To resume our previous example, \textit{Polylobed}, \textit{Grape} and \textit{Binucleated} nuclei were considered to be closer to eachother than to any other phenotype, as they all result from cytokinesis defect. Nevertheless, \textit{Binucleated} nuclei were set slightly further apart from \textit{Polylobed} and \textit{Grape} nuclei than those two from eachother. This is because [EXPLANATION AGAIN ??].
+To resume our previous example, \textit{Polylobed}, \textit{Grape} and \textit{Binucleated} nuclei were considered to be closer to eachother than to any other phenotype, as they all result from cytokinesis defect. Nevertheless, \textit{Binucleated} nuclei were set slightly further apart from \textit{Polylobed} and \textit{Grape} nuclei than those two from eachother. This is because [EXPLANATION AGAIN ??]. Hence we set a cost of 1 between \textit{Grape} and \textit{Polylobed}, and 2 between \textit{Polylobed} and \textit{Binucleated}, and \textit{Grape} and \textit{Binucleated}. The three classes then have a cost of 3 between them and normal and abnormal mitotic, and interphase phases (e.g. \textit{Anaphase} or \textit{Large}), and 5 to \textit{Apoptosis}. Finally, they are at a cost 4 of abnormal interphases which do not result from cytokinesis defects (such as \textit{Hole} or \textit{Folded}).
 
-Let us consider another example and take the group of \textit{Interphase}, \textit{Elongated} and \textit{Large} nuclei. They were set closer to eachother than to any other phenotype because they represent normal and abnormal versions of interphase nuclei.
+%Let us consider another example and take the group of \textit{Interphase}, \textit{Elongated} and \textit{Large} nuclei. They were set closer to eachother than to any other phenotype because they represent normal and abnormal versions of interphase nuclei. Hence we set a cost of 1 between them.
 
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.4]{figures/transportation_cost.png}
@@ -558,7 +556,7 @@ From 89\% to 100\% of (drug screen) hit conditions are clustering together, depe
 
 We have chosen to summarize experiments by their nuclear phenotypic profiles, that is, the temporal sequence of nuclear phenotype distributions. Mitotic hits are conditions which alter cell mitosis. Hence they perturb the basal distribution of nuclei between normal nuclear phenotypes such as \textit{Interphase}, \textit{Metaphase}, etc., and strongly increase the basal percentage of abnormal nuclear phenotypes such as \textit{Polylobed}, \textit{Large}, etc. By construction, they are easily detected by our approach if they act within the experiment duration. More generally, any substance which cause an increase in the phenotypic classes from table~\ref{ds_classifier} will be detected.
 
-It was not clear at the beginning that other type of hits could not be detected in our approach. From these clusterings, it nevertheless seems that chemicals which have an impact on different cellular processes (and does not conduct to any changes among the chosen phenotypic classes) in less than 48 hours cannot be detected. One could think of the example of thalidomide whose known teratogenic effects might be linked to an inhibition of ubiquitin ligase~\cite{pmid20223979}. It could also be that these chemicals do not have any effect on HeLa cells, that they would need more exposure time for an effect on nuclear morphology to be detected, or that their effect on nuclear morphology is not represented in the phenotypic classes which are considered.
+It was not clear at the beginning that other type of hits could not be detected in our approach. From these clusterings, it nevertheless seems that chemicals which have an impact on different cellular processes (and does not conduct to any changes among the chosen phenotypic classes in less than 48 hours) cannot be detected. One could think of the example of thalidomide whose known teratogenic effects might be linked to an inhibition of ubiquitin ligase~\cite{pmid20223979}. It could also be that these chemicals do not have any effect on HeLa cells, that they would need more exposure time for an effect on nuclear morphology to be detected, or that their effect on nuclear morphology is not represented in the phenotypic classes which are considered.
 %The precise mechanism of action for thalidomide is unknown, but possible mechanisms include anti-angiogenic and oxidative stress-inducing effects.[22]
 
 The conclusion of these clusterings is that our information representation is suitable for detecting and infering knowledge regarding mitotic hit conditions and conditions which modify nuclear morphology as described by the phenotypic classes which were chosen, whereas it is not for other conditions. In the following, we therefore restrict ourselves to the hit conditions which we have detected as described in section~\ref{sec:selection_ds}.
@@ -682,9 +680,6 @@ On the other hand, functional analysis of the closest genes to the VX680-MLN8054
 
 In the middle between these cases, it can be remarked that, although the main targets of Nocodazole and Paclitaxel are not extremely close to these condition groups, functional analysis does retrieve their impact on microtubule-based process. In conclusion, our method provides a list of genes and their similarity to drug exposure, for each group of drug conditions it identifies. Functional analysis of the top 10\% of these lists reveals that our method performs unequally well for retrieving target gene function in all cases. It works very well on drugs which directly act on mitosis-related proteins (e.g. VX680 or Paclitaxel), whereas it is not as helpful on drugs which are targeted at other biological processes (e.g. Anisomycin). 
 
-[FOR DISCUSSION]
-nevertheless it managed to identify those conditions as hits and group them together. Probably one would need new phenotypic classes or other markers. we might think of hcs-derived phenotypic profiling as superpowerful methods, which they are, but it remains that in experimental design some choices are made which pre-reflect the idea we have about the putative drug targets. Cite eggert targeted at cytokinesis. Or we need a lot of markers (check cite Perlman relevant)
-
 %Cluster 0 Nocodazole: kinase activator activity, g-protein coupled receptors, ubiquitin and exonucleases
 %Cluster 1 Paclitaxel: ok, then regulation of cell cycle and ubiquitin
 %Cluster 2 VX680: ok
@@ -746,13 +741,19 @@ Condition group& Cluster rank  & Terms from relevant functional annotation clust
 %\end{figure*}
 %Rang moyen des cibles connues en fonction des differentes distances:
 
-\subsection{Discussion [TODO]}
-Regarding the time transport distance, another idea could be to do dynamic time warping on frame correspondence rather than just 1-to-1. Indeed, the effect of the siRNA which we observe, is function of protein half-life, [prot] necessary for the cell to get its function rightly performed, as well as  if the prot has a direct or indirect function to play in cell division (or cell motility or whatever the process is that we consider).
+\subsection{Discussion}
+In this section, we were interested by evaluating drug similarity and drug target from time-lapse HC-HT drug screening data. To this end, we introduced a new divergence, the Sinkhorn divergence, from which we derived three different flavours, and which we compared to a simple Euclidean distance on phenotypic scores, and a state-of-the-art measure, the phenotypic trajectory distance.
 
-Furthermore, the phenotypic onset of the siRNA can be rather different than that of the drug because the drug directly acts on its target rather than get the mRNAs of this target destructed.
+Distance quality evaluation on our drug screening dataset showed that all distances were affected by batch effect to the same extent. Interestingly enough, this is also the case for global Sinkhorn divergence, which should be more robust as it pools a temporal sequence of phenotype distributions into a single set of phenotype distributions. In order to reduce the impact of batch effect, one could think of normalizing all experiment phenotype distributions from one batch by the median of control distributions from this batch. This should compensate batch effects which modify basal cell state. However, it could also be the case that batch effects impact how cells respond to drug exposure. If response timing is different, one could think of applying dynamic time warping when evaluating time Sinkhorn divergence, and possibly phenotypic trajectory distance. However, if the phenotypic response itself varies from batch to batch, this might be an interesting information about the drug: cell response might be stochastic in the same measure as is gene expression[CITE].
 
-Something else for the discussion: can have more than one target, and also not to forget are off-target effects
+Drug similarity evaluation showed that our information representation is only suitable for drugs which show an impact on nuclear phenotypes as measured by chosen classes in less than 48 hours. Hence, drugs which have an impact on nuclear texture such as the number of nucleolus, or on other biological processes with no nuclear consequences within 48 hours, will not be detected. In the first case, new phenotypic classes could be added to the existing set, or hit experiment detection should be done directly from object feature distributions (e.g. nuclear perimeter, nuclear excentricity, etc.) rather than phenotypic distributions, such as in~\cite{pmid18066055}. In the second case, one would need more fluorescent markers in order to quantify cytoplasmic morphology. However, it is likely that all drug effects will not be identified by one or two markers. Optimal drug screen design might then include the choice of a large cellular process, e.g. cytokinesis, a set of relevant markers for this process, before testing putative drugs in this orientation.
 
-Also: penetrance of phenotypes always higher in the drug screen than in siRNA experiments
+Drug similarity evaluation on hit conditions performed well, with Sinkhorn divergences performing better than all other distances. This was measured by the grouping of drugs with similar targets and mode-of-actions, as could be found in the literature. Furthermore, not only were similar drugs grouped together, but the hierarchical clustering performed using global Sinkhorn divergences also proved to be biologically meaningful. Indeed, it grouped microtubule-related drugs JNJ7706621, MLN8054 and VX680, and Paclitaxel and Nocodazole in the same cluster, which was further refined in two different clusters as they are respectively targeted at Aurora kinases and tubulin. Finally, hierarchical clustering also identified conditions which produced non-specific effects (with and without apoptosis), enabling to restrict drug target inference to drug doses which showed specific effects. This restriction has already been searched for~\cite{pmid17401369}, as results from drug target inference on small doses will probably not be robust and/or meaningful.
 
-\cite{pmid18066055} work directly on feature distributions from the experiments (we work on nuclear phenotypes which are already an information summary of each image). Idea, we should check what we get by staying at the feature level on each image.
+Finally, we used global Sinkhorn divergence between Mitocheck hit experiment and meaningful condition groups to perform drug target inference. Although it should theoretically be possible to identify drug targets from drug and genetic screen comparison, it is generally only providing a list of putative targets, which remain to be tested~\cite{pmid23508189}. This is due to the fact that drugs do not have a single target in general. It is also explained by the fact that drug exposure and siRNA exposure do not strictly have the same impact on the targeted protein. Indeed, siRNA phenotypic onset can be rather different than that of the drug, because drug directly act on their target, whereas siRNAs cause the destruction of target mRNAs. Furthermore, phenotype penetrance in drug screen experiments is always higher than that in siRNA experiments.
+
+This is precisely what was experienced in this analysis, with known drug targets never being \textit{the} closest gene to drug experiments. Furthermore, one can observe that due to the fact that we are using mitotic classes and a nuclear marker only, drug target inference performed well on mitotic hits \textit{per se}, such as VX680. For other drugs such as Anisomycin, our method identifies closest genes based on their impact on the nucleus when silenced, which could explain that they were not related to translation. Hence the whole workflow (fluorescent markers and bioinformatics analysis) fails to identify the original drug target, but rather indicates which biological processes in mitosis and cell death are impacted down the stream of the original drug target. Nevertheless, our method managed to identify those non-mitotic conditions as hits and group them together. As for dealing with missed effects, identifying non-mitotic hit target probably demands new phenotypic classes or other markers as well. 
+%we might think of hcs-derived phenotypic profiling as superpowerful methods, which they are, but it remains that in experimental design some choices are made which pre-reflect the idea we have about the putative drug targets. Cite eggert targeted at cytokinesis. Or we need a lot of markers (check cite Perlman relevant)
+%Regarding the time transport distance, another idea could be to do dynamic time warping on frame correspondence rather than just 1-to-1. Indeed, the effect of the siRNA which we observe, is function of protein half-life, [prot] necessary for the cell to get its function rightly performed, as well as  if the prot has a direct or indirect function to play in cell division (or cell motility or whatever the process is that we consider).
+%Also: penetrance of phenotypes always higher in the drug screen than in siRNA experiments
+%\cite{pmid18066055} work directly on feature distributions from the experiments (we work on nuclear phenotypes which are already an information summary of each image). Idea, we should check what we get by staying at the feature level on each image.
