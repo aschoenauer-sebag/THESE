@@ -46,12 +46,23 @@ After evaluating MotIW on simulated data, we then apply it to the whole genome-w
 
 The application of MotIW to the Mitocheck dataset enabled the identification of the experiments which significantly deviate from controls ($5\%$; $7,153$ out of $144,909$). It amounts to $1,180$ genes (out of $17,816$), which are available as a supplementary to this thesis (see Supp. table 1).%http://cbio.ensmp.fr/~aschoenauer/qvalues_motility_Mitocheck.csv
 
-\paragraph{Intersection with other published motility gene lists}
-Some of these genes are well known to be involved in cellular motility, such as RhoA (Ras homolog family, member A) or CDK5 (cyclin-dependent kinase 5). However, the list is not overall significantly enriched in genes which are linked to cell motility according to the Gene Ontology database. This is also the case for all recent screens, regardless of their throughput.~\cite{pmid19160483} describes a study of 1,081 genes regarding cell motility in human breast cells (MCF-10A cell line). Using wound healing, they identify 66 high confidence genes of which only 24 were previously associated with cell motility. Similarly,~\cite{pmid21423205} is focused on the involvement of kinases (779 genes) in cell motility of human lung cancer cells (A549 cell line). Using single cell tracking, they identify 70 hit genes, of which only 13 were previously linked to cell motility. Finally,~\cite{pmid25774502} study 1,429 genes using phago-kinetic tracks in human lung cancer cells (H1299 cell line), finding 136 hits. Thanks to a personal communication of the authors, we could access their hit list and see that only 13 of their hit genes are functionally linked to cell motility (Gene Ontology biological process GO:0048870). 
+
+\paragraph{Functional analysis} Some of these genes are well known to be involved in cellular motility, such as RhoA (Ras homolog family, member A) or CDK5 (cyclin-dependent kinase 5). However, the list is not overall significantly enriched in genes which are linked to cell motility according to the Gene Ontology database and DAVID online analysis tools~\cite{pmid22543366}. 
+
+The three first functional annotation clusters which were found on MotIW's hit list are respectively related to protein kinases and ATP-binding proteins, G-protein coupled receptors, and neurotransmitter receptor activity. Nevertheless, the fourth functional annotation cluster which was found using DAVID tools is composed of three "Cellular components" GO terms: \textit{integral to plasma membrane} (GO:0005887), \textit{intrinsic to plasma membrane} (GO:0031226) and \textit{plasma membrane part} (GO:0044459). This is consistent with what has already been observed~\cite{pmid18213366}: changes in cell adhesion to the extra-cellular matrix and to neighbouring cells are bound to have major impacts on cell motility. As an example, cell motility processes are involved when cells divide as they detach from the plate surface, or as they probe their close environment. Perturbing cell adhesion or cell protrusion mechanisms, which involve numerous membrane proteins, will therefore modify cell motility. This explains that our hit list is enriched in genes which are related to cell membrane.
+%
+%This is consistent with the fact that cell motility is a lot more general than cell migration and . As an example, cells are observed to be motile when they divide as they detach from the plate surface, but it has nothing to do with directed motion. 
+
+Our non-enrichment in motility genes is also the case for all recent screens, regardless of their throughput.~\cite{pmid19160483} describes a study of 1,081 genes regarding cell motility in human breast cells (MCF-10A cell line). Using wound healing, they identify 66 high confidence genes of which only 24 were previously associated with cell motility. Similarly,~\cite{pmid21423205} is focused on the involvement of kinases (779 genes) in cell motility of human lung cancer cells (A549 cell line). Using single cell tracking, they identify 70 hit genes, of which only 13 were previously linked to cell motility. Finally,~\cite{pmid25774502} study 1,429 genes using phago-kinetic tracks in human lung cancer cells (H1299 cell line), finding 136 hits. Thanks to a personal communication of the authors, we could access their hit list and see that only 13 of their hit genes are functionally linked to cell motility (Gene Ontology biological process GO:0048870). 
 
 Hence it seems that medium- to HT approaches to cell motility study tend to complement the older ones, rather than abide by them. In fact, this seems to be a more general trend of genetic screen hit lists. For example, Mitocheck mitotic hit list contains more than 50\% genes which were not functionally linked to cell division before~\cite{pmid20360735};~\cite{pmid15547975}'s cytokinesis-linked gene list contains only 20\% genes which were previously known to be involved in this cellular process. Modern systematic and automatic approaches to gene functional inference are indeed likely to detect genes whose involvement in the cellular process at hand was too subtle to be detected by lower-throughput and more ancient methods.
 
-A question which arises next is to know the extent of the intersection between gene lists from published medium- to high-throughput studies about cell motility. They are detailed in table~\ref{details_biblio}.
+%
+%\textcolor{blue}{Wait for Piel's lists and then at least do two paragraphs here to discuss the results using Gene Ontology and his lists with this kind of statement}:  As an example, cells are observed to be motile when they divide as they detach from the plate surface, but it has nothing to do with directed motion. Hence it is normal that we find more than just cell migration. Think about~\cite{pmid18213366} "these data indicate that changes in cell migratory behavior caused by the different candidate migration genes are largely dominated by changes in cell matrix adhesion dynamics."
+%
+%ZRANB1: found to produce stress fibers in \cite{pmid21834987} and inhibit wound closure in PC3 cells. If I look at intersections with other screens, I can also cite them as saying their genes were not found by Collins et al 2006.
+
+\paragraph{Intersection with other published motility gene lists }A question which arises next is to know the extent of the intersection between gene lists from published medium- to high-throughput studies about cell motility. They are detailed in table~\ref{details_biblio}.
 
 \begin{table}[!ht]
 \centering
@@ -98,11 +109,6 @@ Us & 10 & 4 & 4 & 13 &1,180&6 \\%Us
 
 Following the information which is presented in table~\ref{intersection}, there is little intersection between the hit genes which were obtained by the existing medium- to high-throughput studies of cell motility. This can be explained by the fact that all studies use distinct assays and/or cell lines. On top of the experimental differences which could partly explain such little overlap, one could think about the following biological explanations. First of all, it is likely that (at least partly) different cellular processes are at play in collective and single cell migration. Second, it could be the case that each cellular model (such as normal breast epithelial cells, lung cancer epithelial cells, cervix cancer epithelial cells) is depending on specific and partly distinct machineries for cell motility. All these reasons would explain that all studies find such "stars" of cell motility as RhoA, but have little intersection otherwise. As for hit list enrichment in previously known genes, little overlap is generally observed between medium- to HT screen outputs~\cite{pmid20360735}.
 
-\paragraph{Detailed functional analysis [TODO]}
-\textcolor{blue}{Wait for Piel's lists and then at least do two paragraphs here to discuss the results using Gene Ontology and his lists with this kind of statement}:  As an exemple, cells are observed to be motile when they divide as they detach from the plate surface, but it has nothing to do with directed motion. Hence it is normal that we find more than just cell migration. Think about~\cite{pmid18213366} "these data indicate that changes in cell migratory behavior caused by the different can-
-didate migration genes are largely dominated by changes in cell matrix adhesion dynamics."
-
-ZRANB1: found to produce stress fibers in \cite{pmid21834987} and inhibit wound closure in PC3 cells. If I look at intersections with other screens, I can also cite them as saying their genes were not found by Collins et al 2006.
 
 \subsection{Cell trajectory ontology}
 \label{sec:ontology}
@@ -150,8 +156,8 @@ In the second place, it shows that there is more than speed for differentiating 
 \caption{Characterization of our ontology of trajectories. Each column is a single cell trajectory ; trajectories are grouped by cluster label. 1,000 trajectories were randomly selected per trajectory cluster.}
 \label{heatmap}
 \end{figure*}
-\subsection{Discussion [TODO eventually]}
-discussion\clearpage
+%\subsection{Discussion [TODO eventually]}
+%discussion\clearpage
 \section{Cell cycle length study}
 \label{sec:cellcycle}
 The combination of the Mitocheck dataset and of our methodological workflow is also very well suited to study cell cycle genes. Indeed, one only needs to combine tracking and nucleus classification to recover a set of complete trajectories in each experiment, that is, trajectories which start with a mitosis and end with a mitosis. Using the methodological procedure described in~\ref{sec:stats}, it is then possible to detect the experiments in which cell cycle length distribution is significantly different than that in control experiments, resulting in a list of genes.
