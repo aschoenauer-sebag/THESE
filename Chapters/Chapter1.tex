@@ -1,5 +1,5 @@
 \lhead{\emph{Introduction}} % Set the left side page header to "List of Figures"
-\chapter{Introduction [TODO]}
+\chapter{Introduction}
 What is the topic and why is it important? State the problem(s) as simply as you can. How does it fit into the broader world of your discipline? 
 Where did the problem come from? What is already known about this problem? What other methods have been tried to solve it? 
 
@@ -10,27 +10,37 @@ What are the challenges and questions that come up in such a setting => pour que
 
 Not necessarily very long. Just prepare the reader to know what screens are, their scope. Also give a reasoning fil rouge for the rest, for it to be clear for the reader
 \section{Data sets}
+Four time-lapse datasets were used in our work, which will briefly be presented in this section: the Mitocheck dataset, which is the first genome-wide siRNA time-lapse screen, a PCNA dataset for the study of cell cycle phases, an unpublished drug screen in similar settings to those of the Mitocheck dataset, and an unpublished xenobiotic screen.
+
 \subsection{Mitocheck data set}
 
-We used a previously published genome-wide data set of time-resolved
+The main dataset which we used is a previously published genome-wide data set of time-resolved
 records of cellular phenotype responses to gene silencing, which
 were generated for virtually all protein-coding genes~\cite{pmid20360735}. It is publicly available at
 \href{http://www.mitocheck.org}{mitocheck.org}. 
 
-For this, arrays of transfection cocktails containing small interfering RNA (siRNA) were spotted directly into live cell-imaging chambers in a 384 format. HeLa cells (ATCC\up{\textregistered} CCL-2\texttrademark) stably expressing the core histone 2B tagged with GFP were seeded on top of the arrays, and imaged 18 h after the transfection for 48 h with a time-lapse of 30 min (Plan10x, NA 0.4; Olympus). Each microarray contained 8 negative controls (scrambled: not targeting any gene) and 12 positive controls showing different phenotypes. 
+For this, arrays of transfection cocktails containing small interfering RNA (siRNA) were spotted directly into live cell-imaging chambers in a 384 format. HeLa cells (ATCC\up{\textregistered} CCL-2\texttrademark) stably expressing the core histone 2B tagged with GFP were seeded on top of the arrays, and imaged 18 h after the transfection for 48 h with a time-lapse of 30 min (Plan10x, NA 0.4; Olympus). Imaging chambers were sealed during imaging. Each microarray contained 8 negative controls (scrambled: not targeting any gene) and 12 positive controls showing different phenotypes. 
 22,612 protein-coding genes have been targeted by at least 2 siRNAs each, in total 51,767 siRNAs. For each siRNA, there is data from at least 3 technical replicates, which created 182,191 quality controlled time-lapse experiments in total. Due to updates in the genome annotation, some reagents could not be mapped to the current ENSEMBL version. In total, the data set contains data for 17,816 protein-coding genes in 144,909 quality controlled time-lapse
 experiments.  
 
 HeLa cells are epithelial cancer cells which were derived from the adenocarcinoma of Henrietta Lacks in 1951. Being the first human cell line to survive \textit{ex vivo} for more than a few days, they are very appreciated from cell biologists as they are easy to grow and transfect. Indeed, this cell line is mentioned in approximately 0.3\% of PubMed abstracts although 64\% of its genome has a copy number greater than three~\cite{pmid23925245}. It is not motile as can be the case of other cell lines which are widely used in migration studies such as the epithelial metastatic breast-cancer derived MDA-MB-231 cell line (ATCC\up{\textregistered} HTB-26\texttrademark), or the epithelial metastatic lung-cancer derived NCI-H1299 (ATCC\up{\textregistered} CRL-5803\texttrademark). Indeed, it was the 16\up{th} slowest out of 54 in the first World Cell Race~\cite{pmid22974990}. Gene silencing in this background therefore makes it easier to identify migration suppressors, that is, genes whose silencing will enhance cell motility, rather than migration enhancers, given that HeLa basal cell motility is rather low.
 
 \subsection{PCNA data set}
-\subsection{Drug screen}
-\subsection{Xenobiotic screen}
-\section{Software}
+In section~\ref{sec:cellcycle}, another published dataset is mentioned, which is related to the study of cell cycle phases. It was published with~\cite{cellcognition} and is publicly available with annotations \href{http://www.cellcognition.org/downloads/data}{here}.
 
-We use CellCognition
-\cite{cellcognition} (\href{http://cellcognition.org}{cellcognition.org}) for segmentation and feature
-extraction and CPlex \\ (\href{http://www-01.ibm.com/software/commerce/optimization/cplex-optimizer/}{http://www-01.ibm.com/software/commerce/optimization/cplex-optimizer/}) for optimization in the tracking procedure. To store, manage and access the
-screening data, we use a previously published data format CellH5
-\cite{Sommer2013}. All scripts are written in the programming language \href{http://www.python.org}{Python 2.7}
-using scipy~(\cite{scipy}), statsmodels, scikit-learn, rpy2 and numpy, and all plots were generated by matplotlib~(\cite{matplotlib}).
+Briefly, HeLa cells were stably transfected for a red fluorescent chromatin protein (histone 2B fused to mCherry, H2B-mCherry) and a green fluorescent DNA replication factory (proliferating nuclear antigen fused to GFP, PCNA-mEGFP). Cells were seeded on LabTek chambered coverslips for live microscopy, and imaged for 48h with a time-lapse of 6 min (Plan10x, NA 0.5; Nikon). Cells were maintained at $37^\circ$C in humidified atmosphere of 5\% CO2 during imaging. Following this, cell nuclei were segmented using local adaptative thresholding, improved by a split-and-merge approach as described, and samples for the different cell cycle phases were manually annotated using the open-source software Cell Cognition~\cite{cellcognition}.
+%
+%Automated microscopy with reflection-based laser auto focus was performed on a Molecular Devices ImageXpressMicro screening microscope equipped with a 10× 0.5 numerical aperture (NA) and 20× 0.8 NA S Fluor dry objectives (Nikon) and recorded as two-dimensional time series. The microscope was controlled by in-house–developed Metamorph macros (PlateScan software package, available at http://www.bc.biol.ethz.ch/people/groups/gerlichd). Cells were maintained in a microscope stage incubator at 37 °C in humidified atmosphere of 5% CO2 throughout the entire experiment. 
+\subsection{Drug screen}
+In section~\ref{target_inference}, we analyze an unpublished time-lapse drug screen\footnote{Manuscript in preparation}. In this dataset, 25 drugs were screened for their effect on HeLa cells in similar experimental settings to that of the Mitocheck dataset.
+
+Experiments were performed at the Advanced Light Microscopy facility of the EMBL (Heidelberg, Germany). Briefly, HeLa cells were stably transfected for a green fluorescent chromatin protein (H2B-GFP). Cells were seeded on 384-well plates for live microscopy **h prior to imaging. Drug exposure occurred ***h prior to imaging. Finally, cells were imaged for 48h with a time-lapse of 30 min (Plan10x, ** NA; [MICROSCOPE BRAND]). Cells were maintained at $37^\circ$C in humidified atmosphere of 5\% CO2 during imaging.
+
+\subsection{Xenobiotic screen}
+In chapter 4, we analyze an unpublished time-lapse xenobiotic screen, for which we performed the experiments. In this dataset, 5 xenobiotics were screened for their effect on MCF-7 cells.
+
+Briefly, MCF-7 cells (ATCC\up{\textregistered} Catalog N\up{o}HTB-22\texttrademark) were stably transfected for a red fluorescent chromatin protein (H2B-mCherry) and a green fluorescent membrane protein (myrPalm fused to GFP, myrPalm-GFP). Cells were seeded on 96-well plates 24h prior to exposure, and they were exposed to xenobiotics 24h prior to imaging. Finally, cells were imaged for 48h with a time-lapse of 15 min (Plan10x, 0.3 M27; Zeiss). Imaging plates were sealed during imaging. Our experimental procedures will be detailed in section~\ref{protocoles}.
+\section{Software}
+We use CellCognition \cite{cellcognition} (\href{http://cellcognition.org}{cellcognition.org}) for segmentation and object feature extraction in all projects. To store, manage and access
+screening data, we use a previously published data format CellH5~\cite{Sommer2013}. All scripts are written in the programming language \href{http://www.python.org}{Python 2.7}
+using scipy~(\cite{scipy}), numpy, scikit-learn, fastcluster~\cite{fastcluster}, rpy2 and statsmodels, and all plots were generated by matplotlib~(\cite{matplotlib}). The R statistical function stats.p\_adjust was used for adjusting p-values according to the Benjamini-Hochberg procedure~\cite{Benjamini1}. Finally, CPlex \\ (\href{http://www-01.ibm.com/software/commerce/optimization/cplex-optimizer/}{http://www-01.ibm.com/software/commerce/optimization/cplex-optimizer/}) was used for optimization in the tracking procedure.
