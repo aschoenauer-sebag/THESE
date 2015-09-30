@@ -4,7 +4,7 @@
 
 Environmental health consists in studying the impact of Man's environment on his health. This can be done following either one of two major paradigms: \textit{Epidemiology} and \textit{Toxicology}. The former deals with human populations, looking for significant link between past exposure and present pathologies. Toxicology can itself be \textit{in vivo}, \textit{in vitro} or \textit{in silico}, depending whether one chooses to study the impact of a precise exposure on a population of living organisms, a population of cells, or based on chemical descriptors of the exposure.
 
-Causal links can be quite delicate to establish in Epidemiology. There is a great number of variables which are involved (e.g. genetic or behavioral) ; the effects can have a weak penetration and are often delayed of a certain number of years with respect to the exposure. To mitigate these effects, Toxicology enables to select the chemical (or xenobiotic\footnote{A xenobiotic is, with regard to a species, any compound which was not produced by an individual of this species.}) of interest, as well as precisely control the experimental settings.
+Causal links can be quite delicate to establish in Epidemiology. There is a great number of variables which are involved (e.g. genetic or behavioral) ; the effects can have a weak penetration and are often delayed by a certain number of years with respect to the exposure. To mitigate these effects, Toxicology enables to select the chemical (or xenobiotic\footnote{A xenobiotic is, with regard to a species, any compound which was not produced by an individual of this species.}) of interest, as well as precisely control the experimental settings.
 
 However, Toxicology is currently facing two major challenges:
 \begin{itemize}
@@ -12,19 +12,22 @@ However, Toxicology is currently facing two major challenges:
 \item European regulations are stricter and stricter with animal testing, hence the need for novel \textit{in vitro} toxicity tests.
 \end{itemize}
 \paragraph*{}	
-This led us to think of importing the technique of drug screening from pharmacological Toxicology, replacing prospective drugs with xenobiotics (hence the title of this chapter). The basic idea of screening is to perform a given assay on hundreds of compounds in parallel.
+This led us to think of importing the technique of drug screening from pharmacological Toxicology, replacing prospective drugs with xenobiotics. The basic idea of screening is to perform a given assay on hundreds of compounds in parallel.
 
 Classical \textit{in vitro} toxicological screening procedures have been in use for some time, such as the Comet assay for DNA damage, which is known since 1984~\cite{pmid6477583}. This type of test is now routinely done in a HT setup. However, it provides very crude information compared to what high content (HC) assays would indicate regarding for example, cell cycle modulation following BPA exposure. Subtler tests are being developed in a HT setup, either endpoint~\cite{pmid24772387},~\cite{pmid24610750} or real-time assays~\cite{pmid21516415}, \cite{pmid24141454}. This was recently made possible  by technical and computational progresses.
 
-Nevertheless, the majority of new \textit{in vitro} toxicological methods are not HC\footnote{3 out of 10 on the relevant results of the PubMed searches "environmental AND cellular AND (screening[Other Term] OR High throughput/high content assays[Other Term])" and "time-lapse AND toxicology" on the 3/19/2015.}. Time-lapse experiments are a specific type of HC experiment which deals with cell videos rather than fixed images, and is about to become a common procedure in Molecular Biology. This type of experiment is still rarely used in Environmental Toxicology - regardless of the throughput. When it is, data is manually analyzed most of the time (e.g.~\cite{pmid17949680},~\cite{pmid15388243}, or~\cite{pmid24263567}).
+Nevertheless, the majority of new \textit{in vitro} toxicological methods are not HC \textcolor{red}{\bf [*** I do not understand the footnote. ***]} \footnote{3 out of 10 on the relevant results of the PubMed searches "environmental AND cellular AND (screening[Other Term] OR High throughput/high content assays[Other Term])" and "time-lapse AND toxicology" on the 3/19/2015.}, i.e. they do not allow detailed observation of phenotypes at the single cell level. Moreover, there are many biological processes which are best studied with time-lapse microscopy. Such methods are common practice in molecular biology and have been even scaled up to be applicable in a HC setup. Surprisingly, this type of experiment is still rarely used in Environmental Toxicology - regardless of the throughput. When it is, data is manually analyzed most of the time (e.g.~\cite{pmid17949680},~\cite{pmid15388243}, or~\cite{pmid24263567}).
 
-However, time-lapse experiments would be a significant improvement over endpoint ones, as they enable for example to assess event sequences following exposure rather than record cell death. Environmental Toxicology time-lapse data was therefore newly generated, in order to assess whether HC time-lapse screening is applicable in this context : is this approach relevant for toxicity detection and characterization of environmentally relevant compounds? Time-lapse HCS usability in this context would lead to the potential development of a time-lapse HC-HT assay for Environmental Toxicology. %Indeed, until recently, Toxicology experiments were either HC and low-throughput, or low-content and HT.
+%whose study not only requires access to single cell phenotypes, but 
+%Time-lapse experiments are a specific type of HC experiment which deals with cell videos rather than fixed images, and is about to become a common procedure in Molecular Biology. This type of experiment is still rarely used in Environmental Toxicology - regardless of the throughput. When it is, data is manually analyzed most of the time (e.g.~\cite{pmid17949680},~\cite{pmid15388243}, or~\cite{pmid24263567}).
+
+However, time-lapse experiments would be a significant improvement over endpoint assays, as they enable for example to assess event sequences following exposure rather than record cell death. Environmental Toxicology time-lapse data was therefore newly generated, in order to assess whether HC time-lapse screening is applicable in this context : is this approach relevant for toxicity detection and characterization of environmentally relevant compounds? Time-lapse HCS usability in this context would lead to the potential development of a time-lapse HC-HT assay for Environmental Toxicology. %Indeed, until recently, Toxicology experiments were either HC and low-throughput, or low-content and HT.
 
 Hence five well-known xenobiotics were selected and screened for their effects on nuclear motility and nuclear morphology. The whole pipeline is illustrated fig.~\ref{xbsc_workflow} (and the experimental settings are detailed fig.~\ref{exp_setting}). Briefly, cells were chemically exposed prior to image acquisition over time. Cells were segmented on each image of each experiment using the open-source software CellCognition~\cite{cellcognition}. Object features were extracted using the same software, for two purposes: nuclear tracking and nuclear morphology classification. 
 
 Nuclear tracking was performed as described in the methodological article~\cite{motiw}. This step was followed by trajectory feature extraction, and statistical hit detection, as described in the same article.
 
-On the other hand, nuclear morphology classification was done using CellCognition for training set annotation, classifier learning and class prediction. This allowed the characterization of each experiment by a set of class percentage time series, whose comparison with control time series enable to detect significant differences.
+CellCognition was used to establish a training set of annotated nuclear morphologies, to train a classifier and apply this classifier to each nucleus in the data set. This allowed us to describe each experiment by a set of class percentage time series, whose comparison with control time series allow us to detect significant differences.
 
 As this was a proof of concept experiment, the goal was slightly different than that when applying MotIW on the Mitocheck dataset. In the latter case the goal was to select relevant genes for nuclear motility with high confidence, which explains why an ad hoc statistical procedure had to be developed to make sure that p-values were not over-estimated. In the case at hand, the goal was rather to select experimental conditions with mild-to-high confidence for performing confirmatory experiments. Our goal was therefore to obtain a ranking of all conditions with respect to the tested endpoint (motility or cell cycle) rather than computing absolute p-values.
 
@@ -102,11 +105,11 @@ The first goal was attained through a literature review, whose results can be se
 
 \subsection{Bioinformatics methods}
 \label{interface}
-\subsubsection{Web-based user interface for result visualization}  A web-based user interface was designed for raw  and quality control data visualization. It is visible at the following address: \href{http://olympia.biomedicale.univ-paris5.fr/plates/}{http://olympia.biomedicale.univ-paris5.fr/plates/} (login: \textit{user}, password: \textit{xbscreen}). It was implemented using \href{https://www.djangoproject.com/}{Django} web framework, the programming language \href{http://www.python.org}{Python 2.7}, and run under Linux-Apache web server and mod\_wsgi module. \href{https://sqlite.org/}{SQLite} was used for storing experimental metadata (plate setups, experimental conditions such as cell medium or the percentage of FCS). The database was built as visible on fig~\ref{db}.
+\subsubsection{Web-based user interface for result visualization}  A web-based user interface was designed for raw  and quality control data visualization. It is accessible at the following address: \href{http://olympia.biomedicale.univ-paris5.fr/plates/}{http://olympia.biomedicale.univ-paris5.fr/plates/} (login: \textit{user}, password: \textit{xbscreen}). It was implemented using \href{https://www.djangoproject.com/}{Django} web framework, the programming language \href{http://www.python.org}{Python 2.7}, and runs under Linux-Apache web server and mod\_wsgi module. \href{https://sqlite.org/}{SQLite} was used for storing experimental metadata (plate setups, experimental conditions such as cell medium or the percentage of FCS). The database was built as visible on fig~\ref{db}.
 
 Briefly, each well is linked to a unique plate, a unique condition (medium and percentage of FCS) and a unique treatment (xenobiotic and dose). As the data was (crudely) password-protected, a second database contains logins and passwords, as well as admin permissions.
 
-After logging in, any user has access to the list of plates in anti-chronological order. A plate page displays the plate setup, as well as a certain number of information such as the initial number of objects or the proliferation rate in each well. This enables to see a significant geographical bias, which could be due to chemical exposure or the experimental settings. In the latter case, the plate should not be used for analysis and the experimental protocol modified ; such visualization tools were useful for designing the protocol. 
+After logging in, any user has access to the list of plates in anti-chronological order. A plate page displays the plate setup, as well as some overall features of the experiments, such as initial number of objects or the proliferation rate in each well. This enables to see a significant geographical bias, which could be due to chemical exposure or the experimental settings. In the latter case, the plate should not be used for analysis and the experimental protocol modified ; such visualization tools were useful for designing the protocol. 
 
 By clicking on a particular well on any image of the plate page, one accesses per-well information: well experimental conditions, well raw movies, and time evolutions of mean intensity, percentage of out-of-focus objects, number of cells, number of objects, and percentage of objects in all classes (as detailed below).
 
@@ -140,24 +143,80 @@ By clicking on a particular well on any image of the plate page, one accesses pe
 %back to web server coded by Python and Django for user
 %download.
 
-\subsubsection{Quality controls}
+\subsubsection{Quality control}
 Due to microscope hardware and/or software instability, images showed mean intensity variation on both channels. Hence, images $t$ whose mean intensity on the mCherry channel $I_t$ verified the following inequality were not considered for further analysis, where $\sigma_I $ is the standard deviation of $(I_t)_{t=1\ldots T}$:
 \[ |I_t- \dfrac{\sum_{i=0\ldots 10} I_{t+i} }{10}| > 3\sigma_I  \]
 
-Furthermore, a threshold of $c$ cells at the beginning of the movie, and maximum $p$\% out-of-focus objects were used to further remove unexploitable movies. Visual inspection enabled the selection of $c=23$ and $p=37$. Out-of-focus objects and cells that were neither artefacts nor out-of-focus objects were identified following segmentation, feature extraction and classification as described below.
+Furthermore, a threshold of $c$ cells at the beginning of the movie, and maximum $p$\% out-of-focus objects were used to further remove unexploitable movies.   
+We fixed the threshold after visual inspection to $c=23$ and $p=37$. Out-of-focus objects and cells that were neither artefacts nor out-of-focus objects were identified following segmentation, feature extraction and classification as described below.
 %image quality control, experiment quality control
 
 \subsubsection{Object segmentation}
-Object segmentation was done using a newly-designed plugin implemented in the open-source software CellCognition~\cite{cellcognition}. It had to be newly designed, because the two segmentation algorithms which were mentioned infra (see sections~\ref{sec:motiw_seg} and~\ref{sec:DS_seg}) were not optimal at close nuclei separation, which are very common among MCF-7 cells. Its layout is common to most methods for identifying nuclei in microscopy images: image prefiltering, background estimation and substraction, residue image thresholding. This latter step can produce under-segmented images, depending on the problem at hand. In the current context, it had indeed to be followed by a fourth step to split close nuclei that had been segmented together.
 
-A median filter is used for image prefiltering. Background estimation is performed using a local adaptative threshold : background intensity level is computed on a sliding window, and pixels are retained if they have a minimum constrast with respect to this local background level.
+Object segmentation was done using a newly-designed plugin implemented
+in the open-source software CellCognition~\cite{cellcognition}. MCF-7
+cells are smaller than HeLa cells and tended to form clusters in our
+experiments. While the method described in ~\ref{sec:motiw_seg}
+and previously published in several papers, e.g. in
+\cite{cellcognition}, is in principle capable of splitting clustered
+nuclei, we felt that the filtering of the distance transform, 
+which ultimately influences the decision on whether to split or not, was suboptimal. 
+Here, we used morphological dynamics to improve the splitting step of
+this segmentation method.
 
-The last step is performed using the Watershed transform of the inverse distance map, whose results are filtered using morphological dynamics. The Watershed transform of the inverse distance map is a standard technique to divide close convex objects after segmentation~\cite[Chapter Geodesic segmentation]{lantuejoul}. This technique tends to over-segment images, as it identifies as many objects as there are local minima in the inverse distance map of the image. A popular method to solve this problem is the use of morphological dynamics~\cite{Soille:2003:MIA:773286}.
+The first steps of the method are therefore identical to what we have
+presented in ~\ref{sec:motiw_seg}: images are prefiltered (here by a
+median filter) and we assign to each pixel the difference of its value
+to the average in a window centered in the pixel. This average value
+can be efficiently calculated with integral images. By applying a
+global threshold to the residue image, we obtain a first segmentation
+result which gives accurate results for isolated nuclei, but which
+tends to segment close nuclei together as a single object. 
 
-Morphological dynamics assign to each local minimum the value at which it fuses to a region coming from a minimum with lower value. As the watershed algorithm iterates through the values in an ordered way, this value is identical to the minimum height that has to be passed to reach a lower minimum. Let $p_{i,j}$ be a path that joins minima $i$ and $j$, the dynamic of minimum $i$ is the following:
+The last step is to calculate the Watershed transformation on the
+inverse distance map which is a
+standard technique to divide close convex objects after
+segmentation~\cite[Chapter Geodesic segmentation]{lantuejoul}. This
+method splits the binary segmentation
+result in as many objects as there are local minima in the inverse
+distance map. As small irregularities in the contours can lead to such
+minima, it is often necessary to apply a filter on the distance map in
+order to avoid oversegmentation. One option is to use a simple
+Gaussian filter, as proposed in ~\cite{Wahlby2002} and
+~\cite{cellcognition}. However, this does not give you an intuitive
+control over which minima are really kept, and even worse: it is not
+even guaranteed that larger filters suppress necessarily more minima. 
+Here, we propose to use morphological dynamics for this
+purpose~\cite{Soille:2003:MIA:773286}.  While this technique is widely
+used in the morphology community, it is to our knowledge not used for
+the splitting of cells, even though it perfectly applies to this
+problem. 
+
+Morphological dynamics assign to each local minimum the value at which
+it fuses to a region coming from a minimum with lower value (the
+dynamic of the lowest minimum is set to $\infty$). As the watershed
+algorithm iterates through the values in an ordered way, this value is
+identical to the minimum height that has to be passed to reach a lower
+minimum. Let $p_{i,j}$ be a path that joins minima $i$ and $j$, the dynamic of minimum $i$ is the following:
 \[ dyn(i) = \min_{\substack{p_{i,j} \\ f (j)<f (i)}} \max_{\substack{x\in p_{i,j}}} (f(x) - f(i))\]
 
-Hence the solution to the usual over-segmentations of the wathershed technique is the setting of a minimum morphological dynamic for each local minimum to be considered a valid one. 
+Hence, to avoid the usual over-segmentation produced by the watershed
+algorithm, we only use the subset of minima with dynamic larger than a
+certain threshold. The number of objects decreases as this threshold
+increases, and the control is intuitive: small concavities produce
+local minima with relatively low dynamic (independently from their
+spatial arrangement or the size of the objects). 
+
+The computational cost of the morphological dynamics is the same as
+the watershed algorithm. Depending on the size of the data sets, this
+is not negligible, even though it compares favorably to 
+smoothing filters, as they were used in this context. In order to optimize this still further, we
+implemented the dynamic filter in such a way that it is directly
+combined with the watershed algorithm, thus further reducing the
+computational complexity. Indeed, the criterion can be checked each
+time a pixel is about to be assigned to the watershed line, and
+consequently no additional flooding step is necessary. 
+
 %Briefly, the inverse distance map of a binary image $X$ assigns to each of its points $x$ the inverse of the distance to the nearest background point: 
 %\[ D(x) = \dfrac{1}{\min_{\substack{y\not\in X}} d(x, y)}\]
 %d can be any arbitrary metric, for which popular choices are $\parallel\cdot\parallel_\infty$ (the maximum distance), $\parallel\cdot\parallel_1$ (the $L_1$ distance) or $\parallel\cdot\parallel_2$ (the Euclidean distance). 
@@ -172,7 +231,7 @@ Hence the solution to the usual over-segmentations of the wathershed technique i
 Finally, an object filter is applied to eliminate the objects that are (or whose mean intensity is) too small.
 
 %i. pre-filtering of noise. High frequency signal (in space)
-%ii. background substraction. Low frequency signal (in space)
+%ii. background subtraction. Low frequency signal (in space)
 %iii. Watershed distance to merge objects
 %iv. 
 \subsubsection{Object feature extraction}
@@ -208,10 +267,32 @@ Object feature extraction was done using the open-source software CellCognition~
 \end{table}
 
 \subsubsection{Object classification}
-Object classification was also performed using CellCognition, as described in table~\ref{classexamples}. Phenotypic classes are the morphologies which are observable given the time resolution. To the usual mitotic classes, as well as technical problem classes, any aberrant phenotype that can be observed in a visual inspection of the dataset should be added. This can be a problem in a high-througput setup. In the case at hand, circa 50 conditions were studied : an almost exhaustive inspection of the dataset was therefore possible, which makes it unlikely that an aberrant nuclear phenotype was missed.
+Object classification was also performed using CellCognition. The
+class definitions are illustrated in table~\ref{classexamples}. The
+set of morphological classes is supposed to cover the morphological
+variability of the screen. The set therefore contains wildtype
+morphological classes, such as the morphologies corresponding to the
+different mitotic phases and aberrant morphologies indicating the
+presence of a phenotype. As our screen consisted in 50 conditions, we
+almost exhaustively inspected the dataset and are therefore confident
+that no aberrant nuclear phenotype was missed. 
+
 %By default, phenotypic classes are the mitotic classes which the time-lapse permits to observe with a sufficient precision : \textit{interphase}, \textit{pro-metaphase}, \textit{metaphase} and \textit{anaphase} in our case, to which \textit{apoptosis} as well as \textit{out-of-focus} objects and \textit{artefacts} are added. The latter classes are indeed present to various extents in all videos. To these shall be added any aberrant phenotype that can be observed in a visual inspection of the dataset. 
 
-\textit{Clusters} are clustered nuclei which the segmentation algorithm failed to split and \textit{Folded} nuclei elongated round nuclei which present two shades of grey. \textit{Frozen} nuclei are nuclei whose DNA is heterogeneously and persistently over time, condensed, leading only to \textit{apoptosis} in case of class change. They are most probably dying nuclei and resemble nuclei experiencing phototoxicity (as kindly pointed out by Beate Neumann, EMBL, Heidelberg, Germany). We chose the names "\textit{cluster}", "\textit{folded}" and "\textit{frozen}" following our visual observations ; they do not bear any biological meaning.
+In detail, \textit{Clusters} are clustered nuclei which the
+segmentation algorithm failed to split. \textit{Folded} nuclei
+represent elongated or round nuclei with two shades of
+grey. \textit{Frozen} nuclei are nuclei whose DNA shows a
+heterogeneous condensed pattern, persistent over time. Frozen nuclei
+either remain in the same class or lead to 
+\textit{apoptosis}. 
+
+%They are most probably
+%dying nuclei and resemble nuclei experiencing phototoxicity (as kindly
+%pointed out by Beate Neumann, EMBL, Heidelberg, Germany). 
+%We chose the
+%names "\textit{cluster}", "\textit{folded}" and "\textit{frozen}"
+%following our visual observations. 
 
 A training set was annotated, containing 2,576 nuclei. Support Vector Machines (SVMs) were used for classification, as they work well for nucleus phenotypic classification (\cite{kovalev} for a comparison of classification algorithms in this context, and for application e.g.~\cite{cellcognition},~\cite{Walter2010}). An RBF (Radial Base Function) kernel SVM was trained, whose parameters were obtained by grid search, using Cell Cognition's interface ($\gamma=2^{-7}$, $C=8$).% The overall classifier accuracy is 65.5\% (10-fold cross validation). 
 
@@ -219,7 +300,11 @@ This step provides us with a representation of each video as a set of time-serie
 \[
 d^{obj}_{i,j} = \int_0^{T} (\% obj_{i,t} - \% obj_{j,t} )~dt
 \]
-Maxima are less robust to outlier points which could arise in any of the two time series than integrals. Therefore, we chose to replace the maximal difference between the two time series which is used in phenotypic scores~\cite{Walter2010} by the integral of all differences, as the xenobiotic screen data set is noisier than the Mitocheck one. 
+Maxima are less robust to outlier points which could arise in any of
+the two time series than integrals. Therefore, we chose to replace the
+maximal difference between the two time series which is used in
+phenotypic scores~\cite{Walter2010} by the integral of all
+differences, as the xenobiotic screen data set is relatively noisy. 
 
 Due to the visual similarities between \textit{Micronucleated} and \textit{Polylobed} nuclei in our dataset, these classes were pooled together for computing distances. The corresponding distance is named \textit{Micronucleated} in the following.
 
@@ -298,11 +383,27 @@ PCB,9 & $50\mu M$ &0.048&\\
 %MeHg_9 	0.0416
 %PCB_9 		0.0475
 
-Rather than peculiar movement types, according to our approach, the consistent results are conditions which are so strong as to freeze any nuclear motion (cf. supplementary movies 1 and 2). We therefore conclude that motility is significantly altered, albeit not primarily: measured motility alterations result from potent effects on cell viability. This is to be compared with our findings on the Mitocheck dataset. Motility alterations in Mitocheck are not coupled to cell death or cell division effects. This allows us to infer that the concerned genes could be involved in cell motility: they do not trigger motility alterations as a secondary effect of other alterations, as seems to be the case here.
+Rather than peculiar movement types, according to our approach, the
+consistent results are conditions which are so strong as to freeze any
+nuclear motion (cf. supplementary movies 1 and 2). We therefore
+conclude that motility is significantly altered, albeit not primarily:
+measured motility alterations result from potent effects on cell
+viability. In contrast, motility alterations in Mitocheck are not coupled to cell
+death or cell division phenotypes. Consequently, this confirms that
+the identified genes are candidates for cell motility regulators: they do not
+trigger motility alterations as a secondary effect of other
+alterations, as it seems to be the case here. 
 
 \subsection{Phenotypic study}
 \paragraph{Phenotypic class selection}
-Phenotypic classes were chosen after an almost exhaustive visual inspection of the dataset. The first result is that except \textit{frozen} nuclei which were observed in medium and high dose experiments only, no other striking phenotypes was observed following xenobiotic exposure only. Indeed \textit{micronucleated} and \textit{polylobed} nuclei are present in all wells at a non-negligible base level, and do not significantly appear following xenobiotic exposure.
+Phenotypic classes were chosen after an almost exhaustive visual
+inspection of the dataset. The first result is that except
+\textit{frozen} nuclei which were observed in medium and high dose
+experiments only, no other striking phenotypes were observed following
+xenobiotic exposure only. Indeed \textit{micronucleated} and
+\textit{polylobed} nuclei are present in all wells at a non-negligible
+base level, and do not significantly appear following xenobiotic
+exposure. 
 
 \paragraph*{}
 As opposed to the motility case, no specific plate distance distribution for any of the classes is significantly different to that of all other plate distance distribution. Hence distinct plate distances can be directly compared. 
@@ -353,7 +454,20 @@ PCB,1 & $0.1 nM$ & 0.015 & Supp. movie 4 \\ %1212 w 48, others nothing
 
 \section{Discussion}
 
-A workflow is established, which is accompanied by a Web interface, to enable the analysis of time-lapse xenobiotic screening experiments. However, on the panel of xenobiotics and doses which were chosen for our set of experiments, it was not possible to detect subtler effects than a toxic effect at the highest doses. This is probably due to a combination of the following reasons: a high noise level in terms of problematic cell divisions, a certain amount of noise due to technical issues (notably microscope intensity variations and low cell intensity emission), and the sensitivity of our trajectory measurements. It might also be that the screening approach is not suited for Environmental predictive Toxicology. However, before supporting this opinion, it might be wise to consider the following points.
+A workflow is established, which is accompanied by a Web interface, to
+enable the analysis of time-lapse xenobiotic screening
+experiments. However, on the panel of xenobiotics and doses which were
+chosen for our set of experiments, it was not possible to detect
+subtler effects than a toxic effect at the highest doses.
+This is
+probably due to a combination of the following reasons: we observed a
+relatively high level of experimental noise, even in negative
+controls, which might be due to the biological variability of the used
+cell line, which showed many aberrant divisions, to experimental noise due to microscope intensity
+variations and low intensity of the fluorescence signal and the sensitivity of our
+trajectory measurements. Even though our results are not conclusive on
+this project, we feel that it would be premature to conclude that the screening approach
+is not suited for Environmental predictive Toxicology. 
 
 As a general remark, it should not be forgotten that it is very likely that a xenobiotic screen will never be as visually extraordinary as a siRNA or drug screen. Most xenobiotics are not - at sub-toxic doses - targeted at one single vital cellular process, as opposed to some siRNAs (especially those which were enlighted by the Mitocheck project, whose goal was to study cell division). Hence, they are less specific, and their effects can be slower. Nevertheless, previous results had let one hope that, e.g., significant cell division defects could be obtained following TCDD exposure (\cite{pmid20089886},~\cite{pmid18640100},~\cite{pmid11479202}).
 
