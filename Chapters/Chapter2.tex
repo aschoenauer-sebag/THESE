@@ -1,3 +1,5 @@
+%\newcommand{\tw}[1]{\textcolor{red}{\bf [TW:~#1]}}
+
 \lhead{Chapter 2 - \emph{A generic methodological framework for studying single cell motility}} % Set the left side page header to "List of Figures"
 \chapter{A generic methodological framework for studying single cell motility}
 \section{Studying single cell motility in a HT setup}
@@ -8,15 +10,25 @@ Cell \textit{migration} describes "any directed cell movement within the body", 
 
 % Assays for cell motility
 \paragraph{Cell motility assays}
-Many \textit{in vitro} assays have been specifically designed to study cell motility~\cite{pmid16888756},~\cite{pmid22940039}. The most classic methods are wound healing assay, cell exclusion zone assay, and trans-well migration assay. They measure the ability of cells to migrate into some free space (the wound, the exclusion zone) or a new chamber, in a limited amount of time. These assays have the advantage of being widely known; as an example, the Boyden assay is a trans-well migration assay which was introduced in 1962~\cite{pmid13872176}. More recently, particle-coated plates were developed, in which particles are phagocyted by cells as they move~\cite{pmid329998}. The analysis of cell imprint is equivalent to that of its trajectory. %This method was recently adapted to be used in a HT setup~\cite{pmid18213366}. STUDY ONLY ON 55 GENES
+Many \textit{in vitro} assays have been specifically designed to study cell motility~\cite{pmid16888756},~\cite{pmid22940039}. The most classic methods are wound healing assay, cell exclusion zone assay, and trans-well migration assay. They measure the ability of cells to migrate into some free space (the wound, the exclusion zone) or a new chamber, in a limited amount of time. These assays have the advantage of being widely known; as an example, the Boyden assay is a trans-well migration assay which was introduced in 1962~\cite{pmid13872176}. More recently, particle-coated plates were developed, in which particles are phagocyted by cells as they move~\cite{pmid329998}.
+In this assay, a single picture is taken at the end of the experiment,
+showing the path that was cleared by the moving cell. Analysis of
+these images is therefore equivalent to the analysis of the temporal
+projection of single cell trajectories.  
+% The analysis of cell imprint is equivalent to that of its trajectory. 
+%This method was recently adapted to be used in a HT setup~\cite{pmid18213366}. STUDY ONLY ON 55 GENES
 
 \paragraph*{}
 Live-imaging data can be obtained from experiments using any of these methods (except the trans-well migration assay in its classical version). Data at single cell level could therefore theoretically be obtained. But the classic assays are most of the time used as endpoint assays: the experimenter is focused on getting aggregated data at the level of the cell population (e.g. wound closure time or percentage of cells staying in the upper compartment of the well).
 
-However, single cell characteristics are relevant: they enable to detect patterns which are not visible at the population level, such as the existence of cell subpopulations with regard to their motility behaviours~\cite{pmid24324630},~\cite{pmid25129619},~\cite{pmid25799384},~\cite{motiw}. This finds an application in drug design, as one might want to target specific populations~\cite{pmid15539606},~\cite{pmid20461076}. The little use of single cell motility assays is probably due to both cultural and technical reasons: people are used to proceeding at population level, and univariate analysis is easier than multivariate analysis. Furthermore, single cell motility studies in live cell imaging data have so far been limited to low-to-medium throughput~\cite{pmid21423205},~\cite{pmid25799384}. On top of the technical and cultural reasons which were mentioned supra, a third bottleneck can be added: acquiring large-scale data is expensive. 
+However, single cell characteristics are relevant: they enable to detect patterns which are not visible at the population level, such as the existence of cell subpopulations with regard to their motility behaviours~\cite{pmid24324630},~\cite{pmid25129619},~\cite{pmid25799384},~\cite{motiw}. This finds an application in drug design, as one might want to target specific populations~\cite{pmid15539606},~\cite{pmid20461076}. The little use of single cell motility assays is probably due to both cultural and technical reasons: people are used to proceeding at population level, and univariate analysis is easier than multivariate analysis. Furthermore, single cell motility studies in live cell imaging data have so far been limited to low-to-medium throughput~\cite{pmid21423205},~\cite{pmid25799384}. While this limitation has in principle be alleviated recently~\cite{pmid20360735}, live cell imaging still remains a relatively expensive technique and produces large amounts of data, thus requiring an appropriate infrastructure, both for imaging and IT. 
+%On top of the technical and cultural reasons which were mentioned supra, a third bottleneck can be added: acquiring large-scale data is expensive. 
+% Neumann ~\cite{pmid20360735}
 
 \paragraph*{HT motility studies}
-As a consequence, very little completely automatic workflow, from tracking to statistical analysis, were developed for the analysis of single cell trajectories in 2 dimensions: only ours and~\cite{pmid25774502} could be found\footnote{\cite{pmid24324630} is based on manual tracking.}. The latter approach works on cell imprints as described earlier. It enables them to study membrane dynamics which are recorded in cell imprints; however they do not get any detailed temporal information such as speed, curvature, or more importantly resting time and speed variations.
+As a consequence, there are only few automatic workflows for the comprehensive analysis of single cell trajectories including tracking, statistical analysis and data mining, applicable to HCS data: ~\cite{pmid25774502} analyses temporal projections of single cell trajectories, as observed by cell imprints (see above). Information on membrane dynamics is indirectly inferred from these data, but the data is not informative about direct movement features, such as instantaneous speed, curvature or, more importantly, resting time and speed variations. The methods published in \cite{pmid24324630} are based on manual tracking and do therefore not scale easily to HCS. 
+
+%very little completely automatic workflow, from tracking to statistical analysis, were developed for the analysis of single cell trajectories in 2 dimensions: only ours and~\cite{pmid25774502} could be found\footnote{\cite{pmid24324630} is based on manual tracking.}. The latter approach works on cell imprints as described earlier. It enables them to study membrane dynamics which are recorded in cell imprints; however they do not get any detailed temporal information such as speed, curvature, or more importantly resting time and speed variations.
 
 In this chapter, we present MotIW (\textbf{Mot}ility study \textbf{I}ntegrated \textbf{W}orkflow). A generic methodological framework, MotIW enables to quantitatively study cell motility at single cell resolution in HT time-lapse data in an unsupervised way. It consists of cell tracking, cell trajectory mapping to an original feature space, and outlier experiment detection according to a new statistical procedure (cf figure~\ref{workflow}). We show the power of our method in section~\ref{sec:simulation} by applying MotIW to simulated data, which allows us to estimate recall and precision to be expected on real data. We then apply this workflow to a previously published genome-wide
 screen by RNA interference (RNAi) and live cell imaging, the Mitocheck dataset, in chapter~\ref{chap:reuse}.
@@ -35,7 +47,7 @@ time-lapse microscopy-based screens. Figure~\ref{workflow} summarizes
 its different steps. 
 Briefly, for each video nuclei are segmented and features are
 extracted as published previously \cite{Walter2010},\cite{cellcognition}. Cells are tracked using a
-new machine-learning based tracking procedure, described in
+machine-learning based tracking procedure, described in
 section~\ref{sec:celltracking}. The trajectories are then mapped to a
 feature space described in section~\ref{sec:features}. Presented in
 section~\ref{sec:stats}, an original statistical procedure then
@@ -44,23 +56,123 @@ significantly different than that in control movies. Finally,
 section~\ref{sec:simulation} describes the simulation of trajectories
 which allows us to validate the performance of the workflow.
 
-\subsection{Object segmentation}
+%\subsection{Object segmentation}
+\subsection{Segmentation and tracking}
 \label{sec:motiw_seg}
-\textcolor{blue}{See with Thomas how it differs from the one of the xenobiotic screen}
-Since we are interested in cell motility, a different segmentation algorithm is needed than that which was used for mitotic hit detection in the Mitocheck project~\cite{Walter2010}. In the latter case, binucleated nuclei had to be segmented together to be satisfactorily detected. However, the current study focuses on single cell motility, henceforth the need for a different segmentation algorithm.
-
-\subsection{Cell tracking}
 \label{sec:celltracking}
-%\paragraph{mettre ou pas ?}
-There are two main parameters governing the design of a cell tracking algorithm. The first parameter is discrete and linked to the algorithm input. The deformable model approach is based on the images themselves. It relies on identifying and modeling objects on the first frame, and linking them to objects in consecutive frame by updating the models, e.g. \cite{pmid12585703}. On the other hand, the object association approach associates pre-segmented objects in consecutive frames, e.g. \cite{lou}.  
 
-The second parameter is continuous and describes how much prior knowledge is hard-coded in the tracking model. For example,~\cite{pmid18656418} assumes that there are three types of cell motion: Brownian motion, migration at a constant speed, and migration at a constant acceleration. At the other extreme,~\cite{pmid16043363} defines a cost function which particle matching should minimize, which is based on distance and intensity moments.
+%
+The first step of the workflow is the establishment of single cell
+trajectories: we want to follow individual cells over time and record
+their spatial displacements. Many methods have been proposed in the
+image analysis and computer vision communities for the automatic
+tracking of individual objects. When it comes to the tracking of
+biological objects, such as cells or particles (e.g.
+single molecules or vesicles), there are two main approaches in the
+literature: (1) the object-association approach associates
+pre-segmented objects in consecutive frames, e.g. ~\cite{lou},
+~\cite{citeulike:11229467}, ~\cite{Chenouard2014}. (2) the deformable
+model approach relies on identifying and modeling objects in the first
+frame, and linking them to objects in consecutive frames by updating
+the models, e.g. \cite{pmid12585703}. Also, methods differ in the
+amount or prior knowledge hard-coded in the tracking model. For
+example,~\cite{pmid18656418} assumes that there are three types of
+cell motion: Brownian motion, migration at a constant speed, and
+migration at a constant acceleration. At the other
+extreme,~\cite{pmid16043363} formulates tracking as an optimization
+problem, where a cost function of particle matches, typically depending on distance and
+intensity moments, is minimized.  
+In particular, no constraint - except for maximal speed - on
+the type of movement is imposed. 
+
+Here, we prefer to keep segmentation and tracking
+steps independent, i.e. objects are first 
+identified and in a second step, temporal correspondences between objects are
+found by the tracking procedure. 
+While the deformable model approach is in principle appealing as it jointly
+solves segmentation and tracking, it relies on a high time
+resolution and is therefore less generally applicable. Also, as
+segmentation is not solved independently from tracking and vice versa,
+the resulting method is necessarily less modular.  
+
+% Segmentation
+\paragraph*{Segmentation}
+Segmentation of nuclei is in principle a relatively simple problem, as
+nuclei appear as bright objects on a dark background. The
+main difficulty arises when two or more nuclei come in close proximity
+to each other and are therefore segmented as one single object. Classically,
+this problem is solved by splitting objects after the first
+segmentation, e.g. \cite{cellcognition}. 
+In brief, a distance map of the binary segmentation is
+calculated, where we assign to each pixel its distance to the closest
+background pixel. If objects are touching, this typically generates
+important concavities in the resulting binary shape, thereby producing
+prominent maxima in the distance map. The final split is generated by
+calculating the Watershed transformation on the inverted distance
+map. To avoid false splits, the distance map is typically preprocessed
+by either morphological or linear filtering. The problem of this
+strategy is that non-convex shapes may be also split, and consequently
+the detection of multi-nucleated morphologies will be more
+difficult \cite{Walter2010}. Nevertheless, we chose to start from this segmentation
+strategy, as implemented in CellCognition, as the main purpose of this
+study is to track nuclei and to analyze spatial trajectories, which
+will be eased by splitting the nuclei. 
+
+%\subsection{Cell tracking}
+%\label{sec:celltracking}
+%\paragraph{mettre ou pas ?}
+%There are two main parameters governing the design of a cell tracking
+%algorithm. The first parameter is discrete and linked to the algorithm
+%input. The deformable model approach is based on the images
+%themselves. It relies on identifying and modeling objects on the first
+%frame, and linking them to objects in consecutive frame by updating
+%the models, e.g. \cite{pmid12585703}. On the other hand, the object
+%association approach associates pre-segmented objects in consecutive
+%frames, e.g. \cite{lou}.   
+
+%The second parameter is continuous and describes how much prior knowledge is hard-coded in the tracking model. For example,~\cite{pmid18656418} assumes that there are three types of cell motion: Brownian motion, migration at a constant speed, and migration at a constant acceleration. At the other extreme,~\cite{pmid16043363} defines a cost function which particle matching should minimize, which is based on distance and intensity moments.
 %We are willing to apply the current workflow to multiple screens. Since specific biological data may demand specific segmentation algorithms, the second approach was chosen. Indeed, it enables the workflow to remain as modular as possible.
 
-Cell tracking should also be able to face several challenges which are common in videos from high content screens like Mitocheck. They include high population density in each picture, high phenotypic inter-cell variability, and possibly low time resolution between successive images. Furthermore, the algorithm has to handle apparitions, disparitions, divisions and fusions. This latter event results from occlusion or segmentation errors; it can also be observed following the formation of chromosome bridges.
-\paragraph*{Learning cell tracking}
-Different data sets usually require different segmentation algorithms. For sake of modularity, we therefore prefer to keep
-segmentation and tracking steps independent. Furthermore, to be applicable in a screening context, we cannot \textit{a priori} model cell motion, as such hypotheses are bound to break in the presence of phenotypes. Indeed, the impact of chemical exposure on cell motion is not known. In order to also avoid dependence on manual parameter tuning, we have extended a non-parametric structured learning approach from~\cite{lou}. Briefly, tracking cells in two consecutive frames can be seen as a bi-partite graph matching problem: two sets of nodes have to be connected, which are characterized using a set of appropriate features, under the constraint that all nodes should have a parent/child. The information which will be learned from a set of user-annotated cell associations is the relative importance of node features in determining the right matching.
+\paragraph*{Cell tracking by supervised learning}
+Cell tracking should be able to face several challenges which are
+common in videos from high content screens. They
+include high population density in each picture, high phenotypic
+inter-cell variability, and possibly low time resolution between
+successive images. Furthermore, the algorithm has to handle
+apparitions, disparitions, divisions and fusions. Disparitions
+correspond to cells moving outside the field of view, to cells that
+detach from the cover slip due to a loss of adhesion (for instance
+after death) or - very rarely - to cells losing their
+marker. Apparitions correspond to cells entering the field of view,
+or - more rarely - adhering cells (coming from a different focal
+plane) or cells with an increase in expression of the fused
+protein. Fusions correspond to touching nuclei which were
+not correctly split by the segmentation algorithm, nuclei moving on
+top of each other, or segregation problems, where nuclei seem to be
+separated but are in reality still connected by chromosome bridges,
+which becomes apparent a few timepoints later when the nuclear
+envelope has reformed. 
+
+%This latter event results from occlusion or segmentation errors; it can also be observed following the formation of chromosome bridges.
+
+%Different data sets usually require different segmentation algorithms. For sake of modularity, we therefore prefer to keep
+%segmentation and tracking steps independent. 
+
+To be applicable in a screening context, we cannot \textit{a priori}
+model cell motion, as such hypotheses are bound to break in the
+presence of phenotypes. Indeed, the impact of chemical exposure on
+cell motion is not known. In order to also avoid dependence on manual
+parameter tuning, we have extended a non-parametric structured
+learning approach from~\cite{lou}. Briefly, tracking cells in two
+consecutive frames can be seen as a bi-partite graph matching problem:
+two sets of nodes have to be connected. Each node is
+characterized by a set of features, allowing for the definition of a
+cost function for linking two nodes. The solution can therefore by
+found by finding the node association with minimal cost under the
+constraint that all nodes have been appropriately considered. 
+The information which will be learned from
+a set of user-annotated cell associations is the relative importance
+of node features in determining the right matching. 
 
 We first characterize each cell nucleus in each image by a set of 239 shape and texture features on the one hand (~\cite{Walter2010}, ~\cite{cellcognition}), and geometric features on the other hand (its distance to the border, its position in the image, and the orientation of its main axis). The goal of cell tracking in this approach is to match cells in successive images, by assigning
 them the most likely instant temporal behaviour in the set $\mathbf{E}$ = \{\textit{move},~\textit{appear},~\textit{disappear},~\textit{split in 2 or 3},~\textit{merge at 2 or 3}\}. All possible matches between
@@ -69,36 +181,130 @@ distance thresholding. Match features are:
 \begin{itemize}
 \item the absolute difference of shape and texture features if the event is \textit{move}, \textit{split}, \textit{merge}, the object features otherwise
 \item the geometrical distance between object at time $t$, $Obj_{i, t}$ and object at time $t+1$, $Obj_{j, t+1}$, if the event is \textit{move}, \textit{split}, \textit{merge}, the minimal distance to the image border otherwise,
-\item the maximal angle between $Obj_{i, t}$ and the elements of $Obj_{j, t+1}$, if the event is a \textit{split}
-\item the angle between the main axis of $Obj_{i, t}$ and $Obj_{j, t+1}$ weighted by their average excentricity, if the event is a \textit{move}
+\item \textcolor{red}{\bf [*** BE MORE SPECIFIC ***]} the maximal angle between $Obj_{i, t}$ and the elements of $Obj_{j, t+1}$, if the event is a \textit{split}
+\item  \textcolor{red}{\bf [*** BE MORE SPECIFIC ***]} the angle between the main axis of $Obj_{i, t}$ and $Obj_{j, t+1}$ weighted by their average eccentricity, if the event is a \textit{move}
 \end{itemize}
 
 %The optimal matching is defined as the one that maximizes a likelihood function, which depends on match features and on weights for each feature:
 The optimal object matching $\widehat{z}(t)$ comes down to bi-partite graph matching: it is solved by maximizing a likelihood function $L$ which depends on the weights $w$ of match features and the match features $f^e_{i, j}$, subject to the constraint that all objects are matched in both frames (cf equation~\ref{formulation}).
-\begin{equation}
-\widehat{z}(t) = \argmax_{\substack{z(t)}}~ \mathbf{L}(z(t) ; w) 
-\label{formulation}
-\end{equation}
-where 
-\begin{align*}
-\mathbf{L}(z(t) ; w) & = \sum_{\substack{e\in \mathbf{E}\\Obj_{i, t}\\Obj_{j, t+1}}} <w^e, f^e_{i, j}> z^{e}_{i, j}(t)\\
+%\begin{equation}
+%\widehat{z}(t) = \argmax_{\substack{z(t)}}~ \mathbf{L}(z(t) ; w) 
+%\label{formulation}
+%\end{equation}
+%where 
+%\begin{align*}
+%\mathbf{L}(z(t) ; w) & = \sum_{\substack{e\in \mathbf{E}\\Obj_{i, t}\\Obj_{j, t+1}}} <w^e, f^e_{i, j}> z^{e}_{i, j}(t)\\
+% & s.t.\ \ \forall i \sum_{\substack{e\\Obj_{j, t+1}}} z^{e}_{i, j}(t) = 1\ \\ 
+% & and\ \ \forall j \sum_{\substack{e\\Obj_{i, t}}} z^{e}_{i, j}(t) = 1
+%\end{align*}
+
+\begin{align}
+\widehat{z}(t) = \argmax_{\substack{z(t)}}~ \mathbf{L}(z(t) ; w) \\
  & s.t.\ \ \forall i \sum_{\substack{e\\Obj_{j, t+1}}} z^{e}_{i, j}(t) = 1\ \\ 
  & and\ \ \forall j \sum_{\substack{e\\Obj_{i, t}}} z^{e}_{i, j}(t) = 1
-\end{align*}
- The weights $w$ are learned by a structured support vector machine using annotated trajectories, following the formulation of~\cite{lou} (drawing on~\cite{Tsochantaridis}). The likelihood maximization, an integer linear programming (ILP) problem, is solved by IBM Cplex.
+\label{formulation}
+\end{align}
+where 
+\begin{equation*}
+\mathbf{L}(z(t) ; w) & = \sum_{\substack{e\in \mathbf{E}\\Obj_{i, t}\\Obj_{j, t+1}}} <w^e, f^e_{i, j}> z^{e}_{i, j}(t)\\
+\end{equation*}
+
+The weights $w$ are learned by a structured support vector machine using annotated trajectories, following the formulation of~\cite{lou} (drawing on~\cite{Tsochantaridis}). The likelihood maximization, an integer linear programming (ILP) problem, is solved by IBM Cplex.
 % This results in a bi-partite graph matching problem; it is solved by an integer linear program. The weights are learned by a support vector machine using annotated trajectories, following the formulation of~\cite{lou}.
 
-The extension compared to~\cite{lou} lies in the choice of match features. We also implemented a more efficient computation of match hypotheses using kd-trees. Furthermore, we enabled the tracking model to learn from partial annotations of different experiments\footnote{However, this is not learning from partial annotations in the sense of~\cite{loupartial}. Indeed, in our implementation of~\cite{lou}, the user chooses a subset of cells which has to be annotated on all movie frames. In~\cite{loupartial}, the user can choose both a subset of movie frames and a subset of cells (s)he wishes to annotate on those frames.}. This permits the user to integrate examples from both control and non-control experiments in the training set, which is crucial to guarantee that the model can efficiently track cells in all conditions. We also added three object division and fusion to $\mathbf{E}$. This is important in a screening context, where aberrant cell divisions may occur. In the future, it could be interesting to couple object segmentation and tracking to correct for missing detections and/or under- or over-segmentation.
+The extension compared to~\cite{lou} lies in the choice of match
+features. Furthermore, we enabled the tracking model to learn from
+partial annotations of different experiments\footnote{However, this is
+  not learning from partial annotations in the sense
+  of~\cite{loupartial}. Indeed, in our implementation of~\cite{lou},
+  the user chooses a subset of cells which has to be annotated on all
+  movie frames. In~\cite{loupartial}, the user can choose both a
+  subset of movie frames and a subset of cells (s)he wishes to
+  annotate on those frames.}. This permits the user to integrate
+examples from both control and non-control experiments in the training
+set, which is crucial to guarantee that the model can efficiently
+track cells in all conditions. We also added three object division and
+fusion to $\mathbf{E}$. This is important in a screening context,
+where aberrant cell divisions may occur. In order to still perform the
+tracking in reasonable time, we  implemented a more efficient computation of match hypotheses
+using kd-trees.
 
 \paragraph*{}
 To validate MotIW's cell tracking procedure, we compare it to Cell Cognition's constrained nearest-neighbour (CNN) tracking algorithm, and to~\cite{jaqaman} as implemented in Cell Profiler \cite{Carpenter2006}. We have chosen these two approaches for benchmarking, as they are available in popular High Content Screening software. \cite{jaqaman} views tracking as a linear assignment problem (LAP). It starts by computing 1-to-1 matches in consecutive frames, which produces tracklets. It then connects these tracklets by solving an optimization problem which is global both in time and space (2D-space and time duration of the experiment). For performing this optimization, that is, for choosing when to perform tracklet merges, splits, appearances and disappearances, it uses user-defined costs. 
 
 Our training set consists of approximately 32,000 matches, among which
 0.5\% \textit{appear}, 0.5\% \textit{disappear}, 1\% \textit{merge}
-and 2\% \textit{split}. They come from the Mitocheck dataset. Furthermore, they were taken from both control experiments, and experiments as selected by~\cite{pmid20360735} for being significantly different from controls regarding nuclear morphology. This ensures that the algorithm also works in the presence of phenotypes. One may nevertheless be willing to perform cell tracking before having performed any statistical analysis. In this case, learning from control experiments only slightly diminishes the cell tracker performances, albeit non significantly.
+and 2\% \textit{split}. Data was taken from both the Mitocheck data
+set, and in particular from (1) control experiments and (2)
+experiments as selected by~\cite{pmid20360735} for being significantly
+different from controls regarding nuclear morphology. This ensures
+that the algorithm also works in the presence of phenotypes. One may
+nevertheless be willing to perform cell tracking before having
+performed any statistical analysis. In this case, learning from
+control experiments only slightly diminishes the cell tracker
+performances, albeit non significantly. 
+
+To establish the data set, we first performed tracking with
+CellCognition's CNN tracking and manually corrected for mistakes made
+by the algorithm. As in most cases, even such a simple tracker is able
+to find the correct assignment, we found this procedure much less time
+consuming than annotating all correspondences from scratch. 
+As shown in Table~\ref{accuracy}, MotIW outperforms the other two
+methods as measured by the average accuracy on the five movement
+types. Note that these are not the overall accuracies of correct
+assignments, which are much higher for all three methods. 
+As can be seen on fig.~\ref{details}, all three methods show similarly good
+performances on \textit{move} events and have therefore similar
+overall (pooled) accuracies. The contribution of the learning approach
+is most important for the other events, such as cell division, when
+object matching is less trivial. 
+
+In particular, it is interesting to see that this method even outperforms
+~\cite{jaqaman}, which relies on an optimization scheme in space and
+time, i.e. optimizes not only the assignments between two consecutive
+frames, but on the entire video sequence. While this might seem
+surprising at first sight, it is explicable by the fact that the
+latter approach was developed for particle tracking, where the single
+objects to be tracked have only few distinguishing features, such as
+intensity and size. The
+method allows the user to manually define and tune a cost function for
+assignments between objects, a procedure which is hardly feasible for
+a larger feature set. However, using such a more comprehensive feature
+set seems to become important when the objects to be tracked are more
+complex in terms of texture and shape. In this case, similarity
+between objects becomes a more important parameter for finding the
+correct correspondences. 
 
 
-The training set was annotated using Cell Cognition's CNN tracking algorithm followed by manual correction. As shown in Table~\ref{accuracy}, MotIW outperforms the other two methods as measured by the average accuracy on the five movement types. As can be seen on fig.~\ref{details}, they show similar performances on \textit{move} events and have therefore similar overall (pooled) accuracies. The contribution of the learning approach is most important for the other events, such as cell division, when object matching is less trivial. In the latter case, it cannot be based on user-defined costs without considering any characteristics of the object as in~\cite{jaqaman}. Indeed, the latter approach was developed for particle tracking, where one is not able to quantitatively describe, e.g., the object's mean intensity or area. Therefore, although the~\cite{jaqaman} approach performs an optimization which is global in time and space, using object quantitative characteristics and learning their importances on the data proves to be even more efficient for the final tracking accuracy.
+%Even though larger feature sets seem to be more important than
+%optimization 
+
+In the future, it will be interesting to see whether this result can
+still be improved by an optimization scheme in time. Another promising
+strategy for future investigation will be to couple segmentation
+with tracking without relying on a deformable model approach. In
+particular, we could argue that split algorithms can provide us with
+alternative hypotheses on segmentation. The best combination of
+segmentation and tracking can then be found by global optimization in
+time. 
+
+Altogether, we conclude that the tracking procedure is sufficiently
+accurate to generate single cell trajectories. 
+
+%Nevertheless, an optimization in time might still be applicable and
+%still improve the tracking result. 
+
+
+%In the latter case, it cannot be based on user-defined costs without
+%considering any characteristics of the object as
+%in~\cite{jaqaman}. 
+%Indeed, the latter approach was developed for
+%particle tracking, where one is not able to quantitatively describe,
+%e.g., the object's mean intensity or area. Therefore, although
+%the~\cite{jaqaman} approach performs an optimization which is global
+%in time and space, using object quantitative characteristics and
+%learning their importances on the data proves to be even more
+%efficient for the final tracking accuracy. 
 
 \begin{table}[!ht]
 \centering
@@ -119,11 +325,29 @@ MotIW  & 91.1 & 91.5 \\
 \end{figure}
 
 
+
 \subsection{Trajectory features}
 \label{sec:features}
-Once cell tracking has been performed, each experiment is summarized as a set of cell trajectories in the two-dimensional space over time. Cell speed is an important characteristic of cell motion, and it is one of the most studied. However, if we consider the example trajectory of fig.~\ref{fig:01}, one might also be interested in quantifying the percentage of time which is spent in each englobing blue ball, or whether diffusion would have been an appropriate model for this particular cell. A multivariate study of cell trajectories is therefore relevant to capture all the information which they contain. A set of 15 features was partly taken from previous publications on quantitative motility analysis, partly newly designed. 
+Once cell tracking has been performed, each experiment is summarized
+as a set of cell trajectories in the two-dimensional space over
+time. Instead of analyzing these point sequences directly, we
+calculate for each trajectory a set of relevant features which will allow us to
+represent each trajectory to a point in this feature space. 
+For instance, cell speed is an important characteristic of cell motion, and it
+is certainly the most studied one. However, it makes sense to also
+describe other aspects of movement. For instance, if we consider the example
+trajectory of fig.~\ref{fig:01}, one might also be interested in
+quantifying the percentage of time which is spent in each englobing
+blue ball, or whether diffusion would have been an appropriate model
+for this particular cell. A multivariate study of cell trajectories is
+therefore relevant to capture all the information which they
+contain. For this, a set of 15 features was assembled, partly from previous
+publications on quantitative motility analysis, partly newly
+designed. 
 
-Robust and precise features are needed to account for the partial stochasticity of cell migratory behaviour. We use three types of features, as detailed in table~\ref{features}.
+Robust and precise features are needed to account for the partial
+stochasticity of cell migratory behaviour. We use three types of
+features, as detailed in table~\ref{features}. 
 \begin{figure}[!tpb]%figure1
 \centerline{\includegraphics[scale=0.22]{figures/Walter_295_fig_3.png}}
 \caption{A cell trajectory with notations}
@@ -166,12 +390,16 @@ encompasses the diffusion coefficient and the movement type, which
 were in the first place used to study particle motion
 (see~\cite{ferrari},~\cite{pmid16043363} for one of its applications to single particle motion in Biology).  
 
-Let us note $<d^p>$ the moment of order $p$ of a particle or a group
-of particles:
+Let $m_t$ be the position at timepoint $t$ and $<d^p>$ the moment of
+order $p$ of a particle or a group of particles: 
 \[
 <d^p>=\sum \|m_{t}-m_{t-1}\|_2^p
 \]
- For large $t$, it is proportionate to $t^{\gamma_p}$ for
+\textcolor{red}{\bf [*** First, <d^p> is an expectation, not a
+  sum. Either you write 1/N or E(). Second, it is not clear on what
+  you average. On particles or on different time points for the same
+  particle. I know that this is one weakness of these features, but
+  still you need to tell what you do.***]} For large $t$, it is proportionate to $t^{\gamma_p}$ for
 most dispersive processes~\cite{ferrari}. Assuming that $\gamma_p$ is
 proportionate to $p$ (i.e. that the particle movement is strongly
 self-similar), the constant $\gamma = \gamma_p /p$ (hereafter the particle's
@@ -183,7 +411,9 @@ is called sub-diffusive.
 
 Furthermore, assuming $ \gamma = 0.5 $, the constant linking $<d^2>$ (that is, the mean squared displacement) and $t$ can be computed: it is the \textit{Diffusion coefficient}. The \textit{Diffusion adequation} is the correlation coefficient between $<d^2>$ and $t$, hence measuring how well the diffusive model applies to the track at hand.
 \paragraph*{}
-We have furthermore created two new features, to characterize the alternance between periods of diffusive motion and periods of directed motion: the track entropy and the englobing ball number.
+Here, we present two newly designed features to characterize the
+alternance between periods of diffusive motion and periods of directed
+motion: the track entropy and the englobing ball number. 
 
 It has been observed that cell motion in 2D alternates between
 diffusive and directed motions (in the absence of any perturbation or
@@ -226,12 +456,22 @@ m$. In the following, the features \textit{Entropy $i$} and
                                 %dataset. 
 
 \paragraph{Other global features \\}
-This group of features encompasses further global descriptors of the
-cell trajectory: the cell \textit{Largest move} , its track \textit{Convex hull area} and its average \textit{Track curvature}. The track \textit{Convex hull area} is the area of the convex hull containing all track points, as coloured in green on fig.~\ref{convexhull}. It is normalized by the square root of the track time-length. Following~\cite{pmid18213366}, this feature enables us to have an idea of the area which the cell has visited during its trajectory, although it does not exactly indicate the area which its cytoplasm has covered. The average \textit{Track curvature}, which we designed as follows for each trajectory: for each position $t$, an
+We further defined the following global descriptors of cell
+trajectories: the cell's \textit{Largest move} along the trajectory, its track
+\textit{Convex hull area} and its average \textit{Track
+  curvature}. The track \textit{Convex hull area} is the area of the
+convex hull containing all track points, as coloured in green on
+fig.~\ref{convexhull}. It is normalized by the square root of the
+track time-length. Following~\cite{pmid18213366}, this feature enables
+us to have an idea of the area which the cell has visited during its
+trajectory, although it does not exactly indicate the area which its
+cytoplasm has covered. Also, this feature is similar to what can be
+obtained from temporal projection studies on cell imprints. The average \textit{Track curvature}, which we designed as follows for each trajectory: for each position $t$, an
 orthogonal regression is performed on $\{(x_i, y_i) | i \in \{t,\ldots, t+\Delta_t\} \}$ using orthogonal distance regression ($\Delta_t=10$). The mean curvature of the trajectory is the average of all regression sums of squares. 
 \paragraph{Averaged local features\\}
 Finally, two features are averaged local features, which are the cell
-\textit{MSD} and its \textit{Mean signed turning angle} (see table~\ref{features} for the formulae). 
+means squared displacement
+(\textit{MSD}) and its \textit{Mean signed turning angle} (see table~\ref{features} for the formulae). 
 \begin{figure*}[!ht]%figure1
 \centerline{\includegraphics[scale=0.25]{figures/convex_hull.png}}
 \caption{Convex hull of the example track from figure~\ref{fig:01}}
@@ -276,7 +516,11 @@ the variance is explained by the first seven principal components.
  Prior to statistical analysis, a trajectory quality control is performed. First of all, trajectories resulting from object fusion are discarded. Indeed, trajectories resulting from a fusion are most of the times cell cluster trajectories, rather than cell trajectories. Furthermore, trajectories which are
 shorter than 10 frames are discarded, to ensure that features such as the diffusion coefficient are computed on a sufficiently large number of points. Finally, because we are interested by single cell motility rather than collective motility, all trajectories with more than 5 neighbours in a perimeter of 50 pixels were deleted. This trajectory quality control ensures that cell clusters are not considered, and increases the dataset robustness. This quality controls eliminates $11.6\pm 13.3 \%$ (median$\pm$interquartile range) of cell trajectories per experiment, as estimated on a random subset of 1,000 experiments from the Mitocheck dataset.
 \paragraph*{}
-HT screening data is organized in batches of experiments which have been performed simultaneously. Each batch includes a set of negative controls, i.e. conditions where no effect is expected. Due to a non-negligible batch effect, an experiment can only be compared with controls of the same batch in most of the cases.
+HT screening data is organized in batches of experiments which have
+been acquired simultaneously. Each batch includes a set of negative
+controls, i.e. conditions where no effect is expected. Due to a
+non-negligible batch effect, an experiment can only be compared with
+controls of the same batch in most of the cases. 
 
 Let us consider an experiment $i$. Following to trajectory feature extraction, it can be summarized as a set of $\Theta$ feature distributions ($\Theta = 15$). The comparison of these distributions with those of controls from the same batch $B_i$, using Kolmogorov-Smirnov 2-sample test, provides a list of p-values $(p_\theta)_{\theta=1\ldots\Theta} $. 
 
@@ -302,7 +546,10 @@ This procedure is repeated $n$ times to ensure that the final p-value of an expe
 \item {\bf Compute a sample of statistic (\ref{FisherFormula})  under null hypothesis from control-control comparisons.}\\ For each batch $b$,
 \item[] \ \ \
  For k in $\{1,\ldots,C_b(C_b-1)/2\}$, where $C_b$ is the number of controls of batch $b$ that passed the quality control
-\item[] \ \ \ \ \ a. Randomly split the control experiments in two groups $A_{b,k}$ of cardinal $2$, and $B_{b,k}$ of cardinal $C_b-2$
+\item[] \ \ \ \ \ a. Randomly split the control experiments in two
+  groups $A_{b,k}$ of cardinal $2$, and $B_{b,k}$ of cardinal $C_b-2$
+  \textcolor{red}{\bf [Actually, I only see this now, but strictly
+    speaking, they are not random splits. ]}
 \item[] \ \ \ \ \ b. For each control $j$ of $A_{b,k}$, compute the statistic $S^{0}_{b,k,j}$ (\ref{FisherFormula}) by comparing it to the pooled group of controls $B_{b,k}$
 
 \item {\bf Compute statistics from experiment-control comparisons.} For computation time feasibility, only $n=5$ repetitions corresponding to $n$ splits of the controls set $(A_{b,k}, B_{b,k})$ are selected on each batch for experiment-control comparisons. 
@@ -433,4 +680,34 @@ Trajectory clustering & $91.4\pm2.1$ &  $89.4\pm4.8$\\
 \end{table}
 
 Our simulation pipeline was also used to estimate how useful the trajectory feature set is to capture the differences between different types of trajectory motion. %The same procedure as for real data was followed. 
-500 samples of each trajectory type were simulated, and their features extracted. A PCA was performed, after which we retained the eigth first principal components, which explain approximately $95\%$ of the data set variance. Finally, k-means was applied to the data set with $k=5$. Many simulation parameters (e.g. each track length) are chosen at random, and k-means' results depend on its initialization: the procedure was therefore repeated 10 times. The results are presented in table~\ref{simu_results}. Although distinguishing trajectory types is subject to some errors, it shows that the whole pipeline is robust enough to identify experiments in which cell motility is significantly different. A reasonable accuracy in terms of trajectory types is also obtained. 
+500 samples of each trajectory type were simulated, and their features
+extracted. A PCA was performed, after which we retained the eigth
+first principal components, which explain approximately $95\%$ of the
+data set variance. Finally, k-means was applied to the data set with
+$k=5$. Many simulation parameters (e.g. each track length) are chosen
+at random, and k-means' results depend on its initialization: the
+procedure was therefore repeated 10 times. The results are presented
+in table~\ref{simu_results}. Although distinguishing trajectory types
+is subject to some errors, it shows that the whole pipeline is robust
+enough to identify experiments in which cell motility is significantly
+different. 
+
+We therefore conclude that MOTIW is capable of identifying trajectory
+clusters in an unsupervised way. Hence, we are confident that this
+methodological workflow will allow us to identify migratory behaviors
+from large live cell imaging data sets. Moreover, we believe that the general
+strategy of identifying hit experiments prior to cluster analysis
+might be a useful strategy for unsupervised approaches for HCS
+data. 
+
+This strategy can also be seen as a way of downsampling the data to a
+reasonable size. Compared to random sampling for instance, this method
+has the advantage of enriching the data set in extreme cases. In a
+supervised settings, this is a normal procedure: when we annotate data
+to establish a training set, it is common sense that the number of
+samples in each class do not reflect their proportion in the real
+data. In most cases, the training set is enriched in rare
+classes. This seems also to be beneficial for unsupervised learning. 
+
+
+
