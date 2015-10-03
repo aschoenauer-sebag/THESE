@@ -181,9 +181,16 @@ distance thresholding. Match features are:
 \begin{itemize}
 \item the absolute difference of shape and texture features if the event is \textit{move}, \textit{split}, \textit{merge}, the object features otherwise
 \item the geometrical distance between object at time $t$, $Obj_{i, t}$ and object at time $t+1$, $Obj_{j, t+1}$, if the event is \textit{move}, \textit{split}, \textit{merge}, the minimal distance to the image border otherwise,
-\item \textcolor{red}{\bf [*** BE MORE SPECIFIC ***]} the maximal angle between $Obj_{i, t}$ and the elements of $Obj_{j, t+1}$, if the event is a \textit{split}
-\item  \textcolor{red}{\bf [*** BE MORE SPECIFIC ***]} the angle between the main axis of $Obj_{i, t}$ and $Obj_{j, t+1}$ weighted by their average eccentricity, if the event is a \textit{move}
+\item the angle between $Obj_{i, t}$ and the elements of $Obj_{j, t+1}$, if the event is a \textit{split} (angle $\alpha$ on fig.~\ref{fig:angles}),
+\item the angle between the main axis of $Obj_{i, t}$ and $Obj_{j, t+1}$ weighted by their average eccentricity, if the event is a \textit{move} (angle $\beta$ on fig.~\ref{fig:angles}).
 \end{itemize}
+
+\begin{figure}[ht]
+\centerline{\includegraphics[scale=0.27]{figures/angles_description.png}}
+\caption{Illustration of angular match features.}
+\label{fig:angles}
+\end{figure}
+
 
 %The optimal matching is defined as the one that maximizes a likelihood function, which depends on match features and on weights for each feature:
 The optimal object matching $\widehat{z}(t)$ comes down to bi-partite graph matching: it is solved by maximizing a likelihood function $L$ which depends on the weights $w$ of match features and the match features $f^e_{i, j}$, subject to the constraint that all objects are matched in both frames (cf equation~\ref{formulation}).
@@ -199,14 +206,14 @@ The optimal object matching $\widehat{z}(t)$ comes down to bi-partite graph matc
 %\end{align*}
 
 \begin{align}
-\widehat{z}(t) = \argmax_{\substack{z(t)}}~ \mathbf{L}(z(t) ; w) \\
+\widehat{z}(t) & = \argmax_{\substack{z(t)}}~ \mathbf{L}(z(t) ; w) \\
  & s.t.\ \ \forall i \sum_{\substack{e\\Obj_{j, t+1}}} z^{e}_{i, j}(t) = 1\ \\ 
  & and\ \ \forall j \sum_{\substack{e\\Obj_{i, t}}} z^{e}_{i, j}(t) = 1
 \label{formulation}
 \end{align}
 where 
 \begin{equation*}
-\mathbf{L}(z(t) ; w) & = \sum_{\substack{e\in \mathbf{E}\\Obj_{i, t}\\Obj_{j, t+1}}} <w^e, f^e_{i, j}> z^{e}_{i, j}(t)\\
+\mathbf{L}(z(t) ; w) = \sum_{\substack{e\in \mathbf{E}\\Obj_{i, t}\\Obj_{j, t+1}}} <w^e, f^e_{i, j}> z^{e}_{i, j}(t)\\
 \end{equation*}
 
 The weights $w$ are learned by a structured support vector machine using annotated trajectories, following the formulation of~\cite{lou} (drawing on~\cite{Tsochantaridis}). The likelihood maximization, an integer linear programming (ILP) problem, is solved by IBM Cplex.
@@ -390,16 +397,13 @@ encompasses the diffusion coefficient and the movement type, which
 were in the first place used to study particle motion
 (see~\cite{ferrari},~\cite{pmid16043363} for one of its applications to single particle motion in Biology).  
 
-Let $m_t$ be the position at timepoint $t$ and $<d^p>$ the moment of
-order $p$ of a particle or a group of particles: 
+Let us consider a particle, and note $m_t$ its position at timepoint $t$. The moment of
+order $p$ of this particle, $<d^p>$, can be computed according to the following formula: 
 \[
-<d^p>=\sum \|m_{t}-m_{t-1}\|_2^p
+<d^p>= < \|m_{t}-m_{t-1}\|_2^p >_t
 \]
-\textcolor{red}{\bf [*** First, <d^p> is an expectation, not a
-  sum. Either you write 1/N or E(). Second, it is not clear on what
-  you average. On particles or on different time points for the same
-  particle. I know that this is one weakness of these features, but
-  still you need to tell what you do.***]} For large $t$, it is proportionate to $t^{\gamma_p}$ for
+%\textcolor{red}{\bf First, $<d^p>$ is an expectation, not a   sum. Either you write 1/N or E(). Second, it is not clear on what   you average. On particles or on different time points for the same   particle. I know that this is one weakness of these features, but   still you need to tell what you do.} 
+For large $t$, it is proportionate to $t^{\gamma_p}$ for
 most dispersive processes~\cite{ferrari}. Assuming that $\gamma_p$ is
 proportionate to $p$ (i.e. that the particle movement is strongly
 self-similar), the constant $\gamma = \gamma_p /p$ (hereafter the particle's
