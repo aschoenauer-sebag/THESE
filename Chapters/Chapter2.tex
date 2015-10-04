@@ -392,7 +392,7 @@ Track curvature & See text \\
 \end{tabular}}{}
 \end{table}
 
-\paragraph{Particle motion features\\} This group of features
+\paragraph{Particle motion features}~\\ This group of features
 encompasses the diffusion coefficient and the movement type, which
 were in the first place used to study particle motion
 (see~\cite{ferrari},~\cite{pmid16043363} for one of its applications to single particle motion in Biology).  
@@ -459,7 +459,7 @@ m$. In the following, the features \textit{Entropy $i$} and
                                 %$12$ microm on the Mitocheck
                                 %dataset. 
 
-\paragraph{Other global features \\}
+\paragraph{Other global features}~\\
 We further defined the following global descriptors of cell
 trajectories: the cell's \textit{Largest move} along the trajectory, its track
 \textit{Convex hull area} and its average \textit{Track
@@ -472,7 +472,7 @@ trajectory, although it does not exactly indicate the area which its
 cytoplasm has covered. Also, this feature is similar to what can be
 obtained from temporal projection studies on cell imprints. The average \textit{Track curvature}, which we designed as follows for each trajectory: for each position $t$, an
 orthogonal regression is performed on $\{(x_i, y_i) | i \in \{t,\ldots, t+\Delta_t\} \}$ using orthogonal distance regression ($\Delta_t=10$). The mean curvature of the trajectory is the average of all regression sums of squares. 
-\paragraph{Averaged local features\\}
+\paragraph{Averaged local features}~\\\\
 Finally, two features are averaged local features, which are the cell
 means squared displacement
 (\textit{MSD}) and its \textit{Mean signed turning angle} (see table~\ref{features} for the formulae). 
@@ -485,7 +485,7 @@ means squared displacement
 \centerline{\includegraphics[scale=0.45]{figures/Walter_295_fig_4.png}}
 \caption{Heatmap showing trajectory feature similarities on a subset of the Mitocheck dataset (1.1 million trajectories coming from detected motility hit experiments according to MotIW). The dengrograms were obtained using the \textit{Ward} method and the euclidean distance between feature correlations.}\label{correlations}
 \end{figure*}
-\paragraph{Feature set evaluation\\}
+\paragraph{Feature set evaluation}~\\
 Track time-length is an irrelevant random variable for studying single cell motility, which could bias some features. Therefore, we ensured that they are not significantly correlated with this parameter: the correlation between track time-lengths and features is maximal for the \textit{Effective space length}, where it is equal to approximately $30\%$ (on a subset of the Mitocheck dataset, data not shown).
 %\alcomment{leave next paragraph here or put it in results?? leave the plot ?? leave pca info to corroborate ?}
 %\twcomment{True: it is a result of the analysis to the mitocheck
@@ -536,7 +536,7 @@ As shown on fig.~\ref{correlations}, the features are not independent. Therefore
 
 In the absence of an explicit form for the null distribution, this sample allows to quantify the intra-batch variations of single cell motility features. The variations can be due to technical artefacts or biological variability. Then, the comparison of the distribution of $S$ statistics obtained from control-experiment comparisons, to the distribution obtained from control-control comparisons, permits the computation of empirical p-values. This enables the detection of hit experiments with regard to single cell motility.  
 
-\paragraph{False discovery rate control\\}
+\paragraph{False discovery rate control}~\\
 \label{sec:fdr}
 False discoveries are controlled using the Benjamini-Hochberg procedure~\cite{Benjamini1}. Indeed, in the current case, approximately 150,000 statistical tests will be performed. Selecting experiments whose p-value is below 0.05 rigorously means that there will be 5\% false discoveries. Without any adjustment, 150,000 tests will produce 7,500 false discoveries, which is not acceptable. 
 
