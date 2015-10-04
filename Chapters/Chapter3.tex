@@ -11,14 +11,7 @@ amounts of biological data, and it relies on advanced data mining
 methods in order to infer the biological information from these large
 and heterogeneous data sets. 
 
-Imaging experiments are no exception to this. Indeed, the advent of
-HCS has led to the generation of extremely large and
-complex image datasets. In particular for genetic screens,
-computational analysis of such data sets helped to identify the genes
-required for cellular processes as diverse and as fundamental as 
-protein secretion~\cite{simpson2012genome},
-endocytosis~\cite{collinet2010systems} and cell division
-~\cite{pmid20360735} and allowed for the phenotypic annotation of many
+Imaging experiments are no exception to this. The advent of HCS has indeed led to the generation of extremely large and complex image datasets. Computational analysis of such data, and of genetic screens in particular, has helped to identify the genes required for cellular processes as diverse and as fundamental as protein secretion~\cite{simpson2012genome}, endocytosis~\cite{collinet2010systems} and cell division~\cite{pmid20360735}, and allowed for the phenotypic annotation of many
 genes.  
 
 On the other hand, producing such comprehensive and high quality data
@@ -26,107 +19,61 @@ sets is a major investment in terms of time, manpower and money. The
 resulting data sets are extremely rich in information and usually,
 their information content goes beyond what is typically published in
 articles. It seems therefore more than reasonable to provide access to
-these data sets. 
-Indeed, this has been recognized already by the
-scientific community in the sense that some of these large scale
+these data sets. Indeed, this has been recognized already by the
+scientific community: some of these large scale
 projects have made the initial image data publicly available as a
 scientific resource. For instance, ~\cite{pmid20360735} generated a
-data set published on mitocheck.org where scientists can check the
+data set published on mitocheck.org. There, scientists can check the
 loss-of-function phenotype for genes they are interested in, both in
-terms of raw data and in terms of analysis results. On the same
-platform, there are several other screens published, in order to make
-searches across different phenotypic aspects possible. 
+terms of raw data and analysis results. On the same
+platform, several other phenotypic screens are published, which makes it possible to search across different phenotypic aspects. 
+
 
 While the utility as a resource for consultation has thus been shown, we
 believe that the usefulness of such data sets goes beyond single gene
-queries and visual inspection of the recorded image data. 
-
-While most of the time, such data sets are generated  by a laboratory
-or a consortium in order to answer a specific question, the acquired
+queries and visual inspection of the recorded image data. Indeed, although such data sets are mostly generated  by a laboratory or a consortium in order to answer a specific question, the acquired
 data is usually informative about many different aspects of cellular
-phenotypes. Consequently, one single analysis, typically performed by
-the groups that performed the screen do not exploit all information
+phenotypes. Therefore, one single analysis - typically performed by
+the groups that performed the screen - do not exploit all information
 contained in these rich datasets. 
 
-%Most of the time, biological data is produced by a laboratory or a consortium thereof in order to answer a specific question. As an example, the Mitocheck dataset~\cite{pmid20360735} was produced by the Mitocheck consortium to identify the human genes which are involved in cell division. 
-
-%However, there is never a single paradigm to look at a specific
-%dataset. To go further, most datasets should be treated as a
-%scientific resource to their parent laboratory and to the community,
-%rather than a one-article commitment. 
-
-Here, we advocate the re-use of HCS data by data-mining of the raw
-image data. This can be done in order to perform more detailed
-analyses of the same data regarding the same biological process, or in
-view of finding answers to different biological questions
-(e.g. cellular nuclei can be analyzed regarding the mitotic phase or
-regarding the number of nucleoli, or phenotypic heterogeneity can be
-assessed for different biological processes). Second, the
-genome-wide data sources provide us with a reference data set, to
-which other experimental data can be compared. 
-Third, availability and re-use
-of easy-to-access biological data sets enable method
-comparison. Finally, as pointed out by~\cite{pmid24904347}, data
-accessibility and reuse is well
-in harmony with the current trend of general transparency in
-science. Indeed, there are several examples in particular in the gene expression
-literature, where re-analysis of data
-has led to a debate on the stability and validity of reported
-results. 
+Here, we advocate the re-use of HCS data by raw image data re-mining. This can be aimed at performing more detailed analyses of the same biological process, or in view of finding answers to different biological questions. For example, cell nucleus images can be used to analyze mitotic phases, the number of nucleoli, or even to assess phenotypic heterogeneity for different biological processes. Second,
+genome-wide data sources provide us with reference datasets, to which other experimental data can be compared. Third, availability and re-use of easy-to-access biological data sets enable method
+comparison. Finally, as pointed out by~\cite{pmid24904347}, data accessibility and reuse is well
+in harmony with the current trend of general transparency in science. Indeed, there are several examples in particular in the gene expression literature, where re-analysis of data has led to a debate on the stability and validity of reported results. 
 
 While the use of annotated data sets for method comparison have become
 increasingly important to the computer vision community
 (see ~\cite{pmid24904347} for a list of benchmark data sets) and are
-indeed used frequently, studies trying to reanalyze such rich
-data sources are still very sparse. Regarding the mitocheck data set
-for example, three articles have
-been re-using it since the original paper ~\cite{pmid20360735} was
-published:~\cite{ostaszewski2012evolutionary} \textcolor{red}{\bf [***
-  summarize this publication which was omitted ***]}
-~\cite{pmid25255318} searches for evidence of
-protein-protein interactions in siRNA experiment similarity,
-whereas~\cite{pmid24131777} dynamically models nuclear phenotypes. 
+indeed used frequently, re-mining data studies are still very sparse in this field. Regarding the Mitocheck data set for example, three articles only have been re-using it since the original paper ~\cite{pmid20360735} was published:~\cite{ostaszewski2012evolutionary} is interested by linking phenotype and genotype in the context of cell cycle,~\cite{pmid25255318} searches for evidence of
+protein-protein interactions in siRNA experiment similarity, and ~\cite{pmid24131777} dynamically models nuclear phenotypes. 
+
+%\paragraph*{}
+%In \textit{Bioimage informatics}, initiatives remain isolated. 
+I see various reasons for the little data re-use which is currently experienced in \textit{Bioimage informatics}. First, the general issues associated to dara sharing and re-use do apply to the case at hand: data and metadata should be of optimal quality, in order to ease re-analysis and make the data structure understandable. Laboratories should also share controlled vocabularies~\cite{pmid18603566}, as well as formats, for data to be easily accessed and understood by all parties. Data re-use should be born in mind while acquiring it~\cite{pmid23047157}, since post-experimental data re-organization is harder and likely to never happen. %Hence data re-use should never be a project afterthought. 
+Finally, data should be persistent, which demands time, fundings, and incentive.  %\paragraph*{}
+%However big the advantages of data re-use, its requirements are not
+%light. First of all, data and metadata should be of optimal quality,
+%in order to ease re-analysis and make the data structure
+%understandable. Laboratories should also share vocabularies, as well as
+%formats, for data to be easily accessed and understood by all
+%parties. Data re-use should be born in mind while acquiring
+%it~\cite{pmid23047157}, since post-experimental data re-organization
+%is harder and likely to never happen. Hence data re-use should never
+%be a project afterthought. Finally, data should be persistent, which
+%demands time, fundings, and incentive. Indeed, if web servers are used
+%for data storage and access, their maintenance will need time and
+%fundings. If individuals are contacted for information about data
+%access, their responding will demand time and
+%incentive~\cite{pmid18636105}. 
+% First, there is the need for shared controlled vocabularies~\cite{pmid18603566} in order to allow comparisons between phenotypic responses and meta-analyses combining several screens. Yet phenotypic ontologies are starting to appear  ~\cite{hoehndorf2012semantic}, ~\cite{kirsanova2015cellular}. 
+Second, HCS data set tend to be large. While many institutes have the IT infrastructure to both store these data and to computationally analyze them using compute clusters, it is still a challenge to actually transfer the data. The only working solution today is to actually send hard disks by mail. More appealing solutions such as a common computing cloud where people could perform their analysis directly without transferring entire data sets, would require an important funding effort, which might not be straightforward to obtain. The third reason is that so far, the usefulness of re-mining existing image data sets has not yet been shown sufficiently. Once the scientific community is aware of the potential data mining of HCS data sets provides us with, the technical challenges might be properly addressed. 
+
+%
+%\paragraph*{} The current state of data re-use in Bioinformatics depends much on the subfield, for maturity and culture reasons~\cite{pmid24904347}. Indeed, rather mature subfields have been sharing and re-using their experimental data for some time, whereas others only experiment isolated initiatives yet. If we consider the example of genomics,~\cite{pmid24109559} finds that this field sees quite a high level of third-party dataset re-use, since they expect 40 (resp. more than 150) PubMed papers re-using data by year 2 (resp. year 5) if 100 datasets were deposited at time 0\footnote{However, this meta-study suffers from some limitations, one of which is to not define data re-use.}. This is permitted by the existence of well-known servers where to deposit and search for functional genomics data, such as the Gene Expression Omnibus,  GEO\footnote{\href{http://www.ncbi.nlm.nih.gov/geo/}{http://www.ncbi.nlm.nih.gov/geo/}}. On the other hand, if we consider the example of Neuroscience,~\cite{pmid24904347} precisely suggests to learn from data sharing in genomics, and more specifically the Human Genome Project, in the context of the BRAIN Initiative. %QSAR models,~\cite{pmid24910716} proposes an approach for the digital organization and archiving of QSAR model information (although there are already two existing). 
+%%Does not define data reuse (does it mean they produced new results from published data, or that they compared their results/tried their methods on the existing datasets?). High level of third-party dataset reuse (if data deposited on GEO) : "for 100 datasets deposited in year 0, we estimate that 40 papers in PubMed reused a dataset by year 2, 100 by year 4, and more than 150 by year 5." (but data reuse is simply measured by presence of dataset number in text body).
 
 
-\paragraph*{}
-However big the advantages of data re-use, its requirements are not
-light. First of all, data and metadata should be of optimal quality,
-in order to ease re-analysis and make the data structure
-understandable. Laboratories should also share vocabularies, as well as
-formats, for data to be easily accessed and understood by all
-parties. Data re-use should be born in mind while acquiring
-it~\cite{pmid23047157}, since post-experimental data re-organization
-is harder and likely to never happen. Hence data re-use should never
-be a project afterthought. Finally, data should be persistent, which
-demands time, fundings, and incentive. Indeed, if web servers are used
-for data storage and access, their maintenance will need time and
-fundings. If individuals are contacted for information about data
-access, their responding will demand time and
-incentive~\cite{pmid18636105}. 
-
-\paragraph*{} The current state of data re-use in Bioinformatics depends much on the subfield, for maturity and culture reasons~\cite{pmid24904347}. Indeed, rather mature subfields have been sharing and re-using their experimental data for some time, whereas others only experiment isolated initiatives yet. If we consider the example of genomics,~\cite{pmid24109559} finds that this field sees quite a high level of third-party dataset re-use, since they expect 40 (resp. more than 150) PubMed papers re-using data by year 2 (resp. year 5) if 100 datasets were deposited at time 0\footnote{However, this meta-study suffers from some limitations, one of which is to not define data re-use.}. This is permitted by the existence of well-known servers where to deposit and search for functional genomics data, such as the Gene Expression Omnibus,  GEO\footnote{\href{http://www.ncbi.nlm.nih.gov/geo/}{http://www.ncbi.nlm.nih.gov/geo/}}. On the other hand, if we consider the example of Neuroscience,~\cite{pmid24904347} precisely suggests to learn from data sharing in genomics, and more specifically the Human Genome Project, in the context of the BRAIN Initiative. %QSAR models,~\cite{pmid24910716} proposes an approach for the digital organization and archiving of QSAR model information (although there are already two existing). 
-%Does not define data reuse (does it mean they produced new results from published data, or that they compared their results/tried their methods on the existing datasets?). High level of third-party dataset reuse (if data deposited on GEO) : "for 100 datasets deposited in year 0, we estimate that 40 papers in PubMed reused a dataset by year 2, 100 by year 4, and more than 150 by year 5." (but data reuse is simply measured by presence of dataset number in text body).
-
-\paragraph*{}
-In \textit{Bioimage informatics}, initiatives remain isolated. I see
-three reasons for this. First, there is the need for shared controlled
-vocabularies~\cite{pmid18603566} in order to allow comparisons between
-phenotypic responses and meta-analyses combining several screens. Yet
-phenotypic ontologies are only starting to appear 
-~\cite{hoehndorf2012semantic}, ~\cite{kirsanova2015cellular}. 
-Second, HCS data set tend to be large. While many institutes have the
-IT infrastructure to both store these data and to computationally
-analyze them using compute clusters, it is still a challenge to
-actually transfer the data. The only working solution today is to
-actually send hard disks by mail. More appealing solutions such as a
-common computing cloud where people could perform their analysis
-directly without transferring entire data sets, would require an
-important funding effort, which might not be straightforward to
-obtain. The third reason is that so far, the usefulness of re-mining
-existing image data sets has not yet been shown sufficiently. Once the
-scientific community is aware of the potential data mining of
-HCS data sets provides us with, the technical challenges might be
-properly addressed. 
 
 % I do not like this editor bashing. It always sound as the
 % "Beleidigte Leberwurst" that did got their paper through. So I would
@@ -258,11 +205,11 @@ analysis tools~\cite{pmid22543366}.
 The three first functional annotation clusters which were found on
 MotIW's hit list are respectively related to protein kinases and
 ATP-binding proteins, G-protein coupled receptors, and
-neurotransmitter receptor activity. Nevertheless, the fourth
+neurotransmitter receptor activity (respective enrichment scores: 6.69, 4.86 and 4.56). Nevertheless, the fourth
 functional annotation cluster which was found using DAVID tools is
 composed of three "Cellular components" GO terms: \textit{integral to
   plasma membrane} (GO:0005887), \textit{intrinsic to plasma membrane}
-(GO:0031226) and \textit{plasma membrane part} (GO:0044459). This is
+(GO:0031226) and \textit{plasma membrane part} (GO:0044459) (enrichment score: 3.33). This is
 consistent with what has already been observed~\cite{pmid18213366}:
 changes in cell adhesion to the extra-cellular matrix and to
 neighbouring cells are bound to have major impacts on cell
@@ -291,14 +238,9 @@ phago-kinetic tracks in human lung cancer cells (H1299 cell line),
 finding 136 hits. Thanks to a personal communication of the authors,
 we could access their hit list and see that only 13 of their hit genes
 are functionally linked to cell motility (Gene Ontology biological
-process GO:0048870). \textcolor{red}{\bf [*** you need to give the
-  p-values for each of these results. ***]}
+process GO:0048870). %\textcolor{red}{\bf [*** you need to give the   p-values for each of these results. ***]}
 
-\textcolor{red}{\bf [*** I guess I am not entirely convinced. Of
-  course, you wish to find new genes, that's the whole point. But not
-  having an enrichment is not a general trend. 50\% and 20\% are
-  certainly acceptable scores, but there we actually have an
-  enrichment. So, I guess you need to change this paragraph. ***]}
+%\textcolor{red}{\bf [*** I guess I am not entirely convinced. Of   course, you wish to find new genes, that's the whole point. But not having an enrichment is not a general trend. 50\% and 20\% are   certainly acceptable scores, but there we actually have an   enrichment. So, I guess you need to change this paragraph. ***]}
 Hence it seems that medium- to HT approaches to cell motility study
 tend to complement the older ones, rather than abide by them. 
 In fact, this seems to be a more general trend of genetic screen hit lists. For
@@ -321,13 +263,11 @@ next step is to analyse the intersections between different published
 medium- to high-throughput studies 
 about cell motility. They are detailed in table~\ref{details_biblio}. 
 
-\textcolor{red}{\bf [*** Could you fix the table? ***}
-
 \begin{table}[!ht]
 \centering
 \caption{Existing medium- to high-throughput studies of cell motility}
 \label{details_biblio}
-\begin{tabular}{|l|l|l|l|l|}
+\begin{tabular}{|L{4cm}|l|l|L{1.4cm}|L{1.4cm}|}
 \hline
 Study & Assay & Cell line & Gene list & Hit gene list \\
 \hline
@@ -392,8 +332,7 @@ RhoA are identified by all studies. As for hit list enrichment in
 previously known genes, little overlap is generally observed between
 medium- to HT screen outputs~\cite{pmid20360735}. 
 
-\textcolor{red}{\bf [*** There are also the MAR genes. Did you relook
-  at them? ***}
+%\textcolor{red}{\bf [*** There are also the MAR genes. Did you relook   at them? ***} Yes and it was not to our advantage. Sorry
 
 \subsection{Cell trajectory ontology}
 \label{sec:ontology}
@@ -407,17 +346,14 @@ e.g.~\cite[Chapter~8]{Tan:2005:IDM:1095618}, or~\cite{Halkidi}). As an
 example, two common indices to evaluate the output of k-means are the
 intra-cluster cohesion $C(K)$ and the silhouette score $S(K)$. They
 both compare intra-cluster distances to inter-cluster distances, if
-$N$ is the number of data points centered in $c_{data}$
-\textcolor{red}{\bf [*** Here $c_k$ is both the cluster average for
-  cluster $k$ and the cluster itself (set of points). ***}
-:
+$N$ is the number of data points centered in $c_{data}$:
 
 \[
-C(K) = \sum_{\substack{k}} \sum_{\substack{x \in c_k}} \dfrac{d(x, c_k)^2}{d(x, c_{data})^2}\]
+C(K) = \sum_{\substack{k}} \sum_{\substack{x \in \mathbb{C}_k}} \dfrac{d(x, c_k)^2}{d(x, c_{data})^2}\]
 
 \[
 S(K) = \dfrac{1}{N} \sum_{\substack{x}} \dfrac{b_x-a_x}{\max (a_x, b_x)}\]
-where \[ a_x = mean \{d(x,y) | y \in c_{k_x} \},\ \ b_x = \min_{\substack{k\neq k_x}} mean \{d(x,y) | y \in c_k \}
+where \[ a_x = mean \{d(x,y) | y \in \mathbb{C}_{k_x} \},\ \ b_x = \min_{\substack{k\neq k_x}} mean \{d(x,y) | y \in \mathbb{C}_k \}
 \]
 
 A slope change in $C(k)$ and a maximum in $S(k)$ are expected at the appropriate number of clusters, if it exists. Other interesting measures of clustering quality encompasses for example the Bayesian Information Criterion or clustering stability~\cite{pmid11928511}.
@@ -461,10 +397,8 @@ The cluster characteristics are illustrated in fig.~\ref{heatmap}. Each
 column in the heatmap corresponds to one cell trajectory, for which
 the rows show the standard scores of a subset of features. The single
 cell trajectories are arranged according to the cluster to which they
-belong. For each cluster, we have selected the same number (1000) of
-trajectories.  \textcolor{red}{\bf [***I
-  do not remember exactly: are they really randomly selected or are
-  they particularly close to the cluster center ? ***}
+belong. For each cluster, we randomly selected the same number (1000) of
+trajectories. 
 
 A result about single cell motility patterns is obtained from
 experiments which were selected on the basis of their trajectory
@@ -483,9 +417,7 @@ Supplementary movie, where cells whose trajectory belongs to cluster 2
 (red). In this video, cells whose trajectory passed the trajectory
 quality control have a dot, whose colour corresponds to its cluster as
 indicated in fig.~\ref{heatmap}. 
-
-\textcolor{red}{\bf [*** I guess that if I was a rapporteur, I would
-  like to know more about these modes of movement. ***}
+%\textcolor{red}{\bf [*** I guess that if I was a rapporteur, I would   like to know more about these modes of movement. ***}
 
 \begin{figure*}[t!]
 \centerline{\includegraphics[scale=0.3]{figures/Walter_295_fig_7.png}}
@@ -561,8 +493,7 @@ However, the only marker available in the Mitocheck dataset is the
 core histone 2B (H2B). The question is then to know whether it is
 possible to use this marker for $S$ detection.~\cite{pmid16765323},
 using cell size and H2B-GFP fluorescence, managed to FACS-purify RKO
-cells in $G_1$, $S$ and $G_2$. \textcolor{red}{\bf [*** stably
-  expressed? Then I would think that this is a bad study. ***}
+cells in $G_1$, $S$ and $G_2$. %\textcolor{red}{\bf [*** stably expressed? Then I would think that this is a bad study. ***}
 Furthermore,~\cite{pmid17401369} uses a "cell cycle heuristic" to
  separate between the different phases of the cell cycle using DNA
  size and intensity as provided by Hoechst 33342 as a DNA marker
@@ -841,7 +772,7 @@ each other. However, different morphological classes do not all point
 to entirely different phenotypic situations. For example,
 \textit{Hole}, \textit{Folded} and \textit{small irregular} all point
 to problems in nuclear stability. Accumulations in \textit{Metaphase Alignment Problems
-  (MAP)} and \texit{Prometaphase} are observed if the mitotic spindle
+  (MAP)} and \textit{Prometaphase} are observed if the mitotic spindle
 is not capable of aligning chromosomes in the metaphase plate. 
 And \textit{binucleated}, \textit{polylobed} and
 \textit{grape} nuclei arise as secondary consequence of mitotic
@@ -1071,11 +1002,11 @@ cluster on fig.~\ref{cond_clust_transport}). This means that non-hit
 conditions as described by their distance to Mitocheck hit experiments
 are not distinguishable, whereas hit conditions are. 
 
-\textcolor{red}{\bf [*** Pour les deux paragraphes suivants, je
-  n'etais pas du tout d'accord avec da conclusion. La limitation est
-  bien ``morphologie nucleaire'' et non pas ``mitose''. Si une drogue
-  a un effet sur la croissance du noyau ou bien sa stabilite, on la
-  detecte aussi. J'ai change les paragraphes en accord avec ca. ***}
+%\textcolor{red}{\bf [*** Pour les deux paragraphes suivants, je
+%  n'etais pas du tout d'accord avec da conclusion. La limitation est
+%  bien ``morphologie nucleaire'' et non pas ``mitose''. Si une drogue
+%  a un effet sur la croissance du noyau ou bien sa stabilite, on la
+%  detecte aussi. J'ai change les paragraphes en accord avec ca. ***}
 
 We have chosen to summarize experiments by their nuclear phenotypic
 profiles, that is, the temporal sequence of nuclear phenotype
@@ -1373,11 +1304,9 @@ Condition group& Cluster rank  & Terms from relevant functional annotation clust
 \subsection{Discussion}
 In this section, we were interested in evaluating drug similarity and drug target from time-lapse HC-HT drug screening data. To this end, we introduced a new divergence, the Sinkhorn divergence, from which we derived three different flavours, and which we compared to a simple Euclidean distance on phenotypic scores, and a state-of-the-art measure, the phenotypic trajectory distance.
 
-\textcolor{red}{\bf [*** I missed the batch effect study. You studied
-  reproducibility and separability. This is not the same as batch
-  effects. ***} 
+%\textcolor{red}{\bf [*** I missed the batch effect study. You studied   reproducibility and separability. This is not the same as batch   effects. ***} I guess it depends on how you define batch effect but OK.
 Distance quality evaluation on our drug screening dataset showed that
-all distances were affected by batch effect to the same
+all distances were affected by a medium experimental reproducibility to the same
 extent. Interestingly enough, this is also the case for global
 Sinkhorn divergence, which should be more robust as it pools a
 temporal sequence of phenotype distributions into a single set of
@@ -1392,9 +1321,7 @@ evaluating time Sinkhorn divergence, and possibly phenotypic
 trajectory distance. However, if the phenotypic response itself varies
 from batch to batch, this might be an interesting information about
 the drug: cell response might be stochastic in the same measure as is
-gene expression[CITE]. \textcolor{red}{\bf [*** We tested time
-  warping and it did not work any better than trajectory clustering,
-  but anyway, I do not see why time warping should help. ***} 
+gene expression~\cite{pmid12183631}. %\textcolor{red}{\bf [*** We tested time   warping and it did not work any better than trajectory clustering, but anyway, I do not see why time warping should help. ***} 
 
 Drug similarity evaluation showed that our information representation
 is only suitable for drugs which show an impact on nuclear phenotypes

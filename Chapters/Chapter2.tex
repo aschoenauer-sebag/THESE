@@ -553,8 +553,6 @@ This procedure is repeated $n$ times to ensure that the final p-value of an expe
  For k in $\{1,\ldots,C_b(C_b-1)/2\}$, where $C_b$ is the number of controls of batch $b$ that passed the quality control
 \item[] \ \ \ \ \ a. Randomly split the control experiments in two
   groups $A_{b,k}$ of cardinal $2$, and $B_{b,k}$ of cardinal $C_b-2$
-  \textcolor{red}{\bf [Actually, I only see this now, but strictly
-    speaking, they are not random splits. ]}
 \item[] \ \ \ \ \ b. For each control $j$ of $A_{b,k}$, compute the statistic $S^{0}_{b,k,j}$ (\ref{FisherFormula}) by comparing it to the pooled group of controls $B_{b,k}$
 
 \item {\bf Compute statistics from experiment-control comparisons.} For computation time feasibility, only $n=5$ repetitions corresponding to $n$ splits of the controls set $(A_{b,k}, B_{b,k})$ are selected on each batch for experiment-control comparisons. 
