@@ -340,7 +340,7 @@ TCDD & Nonane &$3.2~10^{-2} $ & 0.001, 0.01,	0.025, 0.1, 0.25,\\
 \end{tabular}
 \end{table}
 \section{Results}
-\paragraph{Preliminary choices}
+\subsection{Preliminary choices}
 After testing a few clones for the expected behaviour in response to TCDD exposure, one clone was selected and five plates were imaged following the described procedure, producing 415 videos. In the following, each plate is named after the day image acquisition was launched. The quality control eliminated 22\% of the experiments, leaving 324 experiments for analysis with three biological replicates per condition minimum.
 
 Due to the observed high variability in control trajectory statistics on the different plates (cf fig.~\ref{control_heatmap}), the reference was chosen to be the whole plate as opposed to control wells only. This is a valid choice as long as (1) there is no bias in the distribution of chemical conditions (and possibly results) on distinct plates, and (2) most wells do not show any effect~\cite{pmid19644458}. 
@@ -398,7 +398,7 @@ trigger motility alterations as a secondary effect of other
 alterations, as it seems to be the case here. 
 
 \subsection{Phenotypic study}
-\paragraph{Phenotypic class selection}
+\subsubsection{Phenotypic class selection}
 Phenotypic classes were chosen after an almost exhaustive visual
 inspection of the dataset. The first result is that except
 \textit{frozen} nuclei which were observed in medium and high dose
@@ -408,7 +408,7 @@ xenobiotic exposure only. Indeed \textit{micronucleated} and
 base level, and do not significantly appear following xenobiotic
 exposure. 
 
-\paragraph{Results}
+\subsubsection{Results}
 As opposed to the motility case, no specific plate distance distribution for any of the classes is significantly different to that of all other plate distance distribution. Hence distinct plate distances can be directly compared. 
 
 When no effect is expected, most cells are in interphase. Therefore, strong effects will be visible in a decrease of \textit{interphase} percentage. A preliminary step consists in looking at conditions for which \textit{interphase} distance is especially low. The \textit{interphase} distances are represented on fig.~\ref{interphase}. One can observe that only high doses (plain red dots) are consistently under the rest of the scatter plot. This depletion of interphases is explained by an increase in \textit{frozen} and \textit{apoptotic} nuclei (cf. the \textit{frozen} distance scatter plot on fig.~\ref{interphase}).
@@ -477,7 +477,7 @@ is not suited for Environmental Toxicology.
 
 As a general remark, it should not be forgotten that it is very likely that a xenobiotic screen will never be as visually extraordinary as a siRNA or drug screen. Most xenobiotics are not - at sub-toxic doses - targeted at one single vital cellular process, as opposed to some siRNAs (especially those which were enlighted by the Mitocheck project, whose goal was to study cell division). Hence, they are less specific, and their effects can be slower. Nevertheless, previous results had let one hope that, e.g., significant cell division defects could be obtained following TCDD exposure (\cite{pmid20089886},~\cite{pmid18640100},~\cite{pmid11479202}).
 
-\paragraph{Dose choices}~\\
+\paragraph*{Dose choices}~\\
 Ten doses were chosen for each xenobiotic, spanning from four to six orders of magnitude. Dose ranges were selected in order to be non-toxic, as well as to include real human exposure dose (following a literature survey, see appendix~\ref{literature_review}). This may not have been the surest way to detect an effect. Indeed, depending on their mechanisms of action, xenobiotics are going to be active in a smaller range, which we could easily have missed in the current setting.
 
 In the future, dose choices could be improved in two ways. First of all, although human exposure doses are extremely relevant, they may be too small for an exploratory screen, where effects should be observed for the screen to be an efficient proof of concept. Rather, if previous similar studies exist, the doses which they find to be effective on cell division or cell motility should be used. However, given the novelty of the current approach in Environmental Toxicology, such previous similar studies are extremely rare. Previous studies using different cell lines or different measures for evaluating the same process should be considered with caution\footnote{As an example, although there exists several studies about measuring the impact of TCDD exposure on MCF-7 cell motility (e.g.~\cite{pmid16619036},~\cite{pmid22266097}), it is not clear at all that the same parameters are measured by MotIW (single cell motility versus cell population migration).}.
@@ -488,7 +488,7 @@ This is precisely the approach which was chosen by~\cite{pmid24691702}. Willing 
 
 In summary, dose choices should be chosen according to pratical reasons (significant effect observed with local experimental parameters) instead of theoretical reasons (human exposure). Another parameter which should be set in this way is the time-lapse between cell exposure and screen start.
 
-\paragraph{Cell line choice}~\\
+\paragraph*{Cell line choice}~\\
 A second parameter of importance is the cell line. Although MCF-7 cells are often chosen as a model for breast cancer, they exhibit a significant basal heterogeneity with regard to oestrogen receptor status and cell area~\cite{pmid11153613}. Screening is already subject to a certain amount of variance in its results, due to cell sensitivity to experimental parameters such as cell local confluence level~\cite{pmid19710653} or passage number, and gene expression stochasticity (\cite{pmid12183631},~\cite{pmid18957198}). For a proof of concept, it may therefore be relevant to choose a cell line which is inherently as homogeneous as possible.
 
 In the current case, MCF-7 cells were genetically modified for incorporating H2B-mCherry and myrPalm-GFP. It appears that the chosen clone exhibits a high basal level of micronuclei. In the future, genetically modified clones should be checked both for a normal response to TCDD exposure and normal cell division.

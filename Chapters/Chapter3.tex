@@ -197,7 +197,7 @@ too many false negatives.
 The application of MotIW to the Mitocheck dataset enabled the identification of the experiments which significantly deviate from controls ($5\%$; $7,153$ out of $144,909$). It amounts to $1,180$ genes (out of $17,816$), which are available as a supplementary to this thesis (see Supp. table 1).%http://cbio.ensmp.fr/~aschoenauer/qvalues_motility_Mitocheck.csv
 
 
-\paragraph{Functional analysis} Some of these genes are well known to
+\subsubsection{Functional analysis} Some of these genes are well known to
 be involved in cellular motility, such as RhoA (Ras homolog family,
 member A) or CDK5 (cyclin-dependent kinase 5). However, the list is
 not overall significantly enriched in genes which are linked to cell
@@ -260,8 +260,8 @@ to be detected by lower-throughput and more ancient methods.
 %
 %ZRANB1: found to produce stress fibers in \cite{pmid21834987} and inhibit wound closure in PC3 cells. If I look at intersections with other screens, I can also cite them as saying their genes were not found by Collins et al 2006.
 
-\paragraph{Intersection with other published motility gene lists }The
-next step is to analyse the intersections between different published
+\subsubsection{Intersection with other published motility gene lists }
+The next step is to analyse the intersections between different published
 medium- to high-throughput studies 
 about cell motility. They are detailed in table~\ref{details_biblio}. 
 
@@ -470,7 +470,7 @@ Gene Ontology analysis reveals that there are three annotation clusters which ar
 \subsection{Discussion}
 Our approach for studying cell cycle length enabled us to obtain a list of 66 genes which may be involved in cell cycle regulation. Gene Ontology analysis revealed that a certain number of these genes has already been found to be linked to cell cycle duration regulation. This list contains 3 genes whose silencing lengthens cell cycle, and 63 whose silencing shortens it. It is possible that this more broadly reflects that there are more proteins which play a role of checkpoints rather than cell cycle enhancers, hence the fact that gene silencing experiments produce more experiments where cell proliferation is increased than decreased. This is supported as well by other studies such as~\cite{pmid16564017}, which found 87 (resp. 15) genes whose silencing significantly increases (resp. decreases) the mitotic index of HT29 cells.
 
-\paragraph{Method bias}
+\paragraph*{Method bias\\}
 Our method was applied to the whole Mitocheck dataset, enabling the obtention of complete trajectory length distributions for all experiments. Experiments with less than 10 complete trajectories were not considered for further analysis. This explains why decreased proliferation genes as provided by~\cite{pmid20360735} could not be found: the proliferation is so low that no mitosis is observed, hence no complete trajectories can be found. Trying to diminish this bias in experiment selection, we also included trajectories which finish with the end of the experiment rather than a mitosis (hereafter called \textit{incomplete} trajectories). 
 
 However, this approach was not successful. For some siRNAs, it seems that incomplete trajectory length distribution indeed has the same shift as that of \textit{complete} ones (see the example of arylsulfatase F gene, ARSF, on fig.~\ref{ARSF}). However, for most of the siRNAs, incomplete trajectory length distributions seem to be more dependent on the batch than on the chemical exposure. Two examples are shown fig.~\ref{CAC} which concern the genes CACNA1D and DIMT1 (respectively coding for the calcium channel, voltage-dependent, L Type, Alpha 1D subunit and DIM1 dimethyladenosine transferase 1 homolog). The outcome of the statistical analysis consistently proved too noisy to enable the detection of any hit siRNA for incomplete trajectory length (up to the following threshold for adjusted p-values: $0.1$).
@@ -488,7 +488,7 @@ However, this approach was not successful. For some siRNAs, it seems that incomp
 \label{CAC}
 \end{figure*}
 
-\paragraph{Perspective: cell cycle phase detection}
+\paragraph*{Perspective: cell cycle phase detection\\}
 The cell cycle can furthermore be split in four sequential phases: $G_1$, $S$, $G_2$, and $M$. $S$ is the DNA replication phase and $M$ stands for mitosis. To distinguish $S$ from $G_1$ and $G_2$, PCNA (proliferating cell nuclear antigen) is usually used. It forms sparkling nuclear dots during DNA replication, as it is recruited to replication foci~\cite{pmid10769021}.
 
 However, the only marker available in the Mitocheck dataset is the
@@ -701,16 +701,16 @@ Hit conditions are conditions for which stricly more than 50\% of their replicat
 
 \subsubsection{Other analyses}
 \label{sec:other_analyses}
-\paragraph{Proliferation hit detection}
+\paragraph*{Proliferation hit detection\\}
 Proliferation hit detection was realized similarly to hit experiment detection: experiments whose proliferation rate was higher than $Q_3^{ctrl} + 1.5\times IQR^{ctrl}$ or lower than $Q_1^{ctrl} - 1.5\times IQR^{ctrl}$ were considered proliferation hit experiments. Proliferation hit conditions were conditions for which stricly more than 50\% of their replicates are proliferation hit experiments. Interestingly, only one condition (Azacytidin, dose 7) was a proliferation hit without being a hit.
-\paragraph{Hierarchical clustering}
+\paragraph*{Hierarchical clustering\\}
 Condition hierarchical clustering was performed using the median of condition replicates. The Python package fastcluster~\cite{fastcluster} was used to this end. In each case, the clustering method which visually produced the best result was used, from Ward, centroid and single methods.
 
-\paragraph{Target pathway inference and analysis}
+\paragraph*{Target pathway inference and analysis\\}
 Target pathways were infered for groups of selected conditions following hierarchical clustering. For each group, experiments from all group conditions were pooled together and considered as replicates of one artificial condition. This condition was characterized by all experiment distances to Mitocheck experiments. A way to consider each experiment nearest neighbours consistently accross group experiments is to use rank products~\cite{pmid15327980}. Briefly, the idea is that if a gene is consistently close to all experiments, it will consistently by in the top of each ranked experiment-gene list. The product of its ranks will therefore be small. This is the final variable which was used to compute the nearest neighbours for each condition group. The list of 200 nearest genes to each condition group was then analyzed using DAVID online tool~\cite{pmid22543366}, and its enrichment in GO terms computed by comparison with the list of Mitocheck hit genes selected as described in section~\ref{sec:selection_mitocheck}.
 
 %For each group of selected conditions
-\paragraph{Data visualization}
+\paragraph*{Data visualization\\}
 A Web-based user interface was designed and implemented for result visualization and result sharing among collaborators. It is described more in details infra, see section~\ref{interface}.
 
 \subsection{Phenotypic profile distances}
@@ -759,7 +759,7 @@ On the other hand, it is possible to use the phenotypic trajectory distance as p
 This distance does not take explicitly time into account, but it respects the order of phenotypic changes. Hence its strength is that even if one experiment is identical with a delay to another, their distance will be small. It will not if they're distinctly ordered, as opposed to the phenotypic score distances.
 
 \subsubsection{Sinkhorn divergence}
-\paragraph{Motivations}
+\paragraph*{Motivations\\}
 Finally, we wanted to test a distance which would enable us to use
 some prior biological knowledge of phenotypic class relationships. If
 we consider the two previous distances, they implicitly consider each
@@ -795,7 +795,7 @@ distance). This distance was developed in the first place to compute
 the cost to move a certain number of piles of dirt into a certain
 numer of holes. To optimally do so, one needs to take into account the
 distance between piles and holes. 
-\paragraph{Definitions}
+\paragraph*{Definitions\\}
 Let us formalize this intuition and briefly introduce transportation distance\footnote{References and proofs can be found in~\cite{sinkhorn}.}. We note $\Sigma_d = \{ x \in \mathbb{R}^d_+ | x^T \mathbf{1}_d = 1\}$ the probability simplex. In our case, $d=13$: we can consider either the distributions of phenotypes in a given experiment over all time-points, or this distribution in a specific frame.
 
 Given $r$ and $c$ in $\Sigma_d$, the transport polytope $U(r,c)$ is the set of matrices such that 
@@ -850,7 +850,7 @@ D_{M,\lambda}^{sum}(i,j)= \sum_t d_{M,\lambda}((\%_{k,i,t})_{k},(\%_{k,j,t})_{k}
 \end{equation}
 \end{itemize}
 
-\paragraph{Choice of phenotypic cost matrix}
+\paragraph*{Choice of phenotypic cost matrix\\}
 The phenotypic cost matrix summarizes our biological knowledge about the phenotypes which were observed in the Mitocheck dataset (they include those which were observed in the drug screen). We made the choice to set inter-phenotypic costs according to the cellular process which is perturbed when they appear, or which they represent. The phenotypic cost matrix which we chose is illustrated fig.~\ref{cost}.
 
 To resume our previous example, \textit{Polylobed}, \textit{Grape} and
@@ -880,7 +880,7 @@ defects (such as \textit{Hole} or \textit{Folded}).
 \label{cost}
 \end{figure*}
 
-\paragraph{Choice of $\lambda$} This choice will determine how close the Sinkhorn divergence is to the transportation distance. As expected, when $\lambda$ increases, the Sinkhorn divergence converges. This is illustrated fig.~\ref{lambda_choice1}. This figure also enables us to see that in the range of $\lambda$ which we investigated, there seems to be mainly two different behaviours: one which is shown at $\lambda=0.01$ and $\lambda=0.1$, and one which is shown at $\lambda=1$ and $\lambda=10$.
+\paragraph*{Choice of $\lambda$\\} This choice will determine how close the Sinkhorn divergence is to the transportation distance. As expected, when $\lambda$ increases, the Sinkhorn divergence converges. This is illustrated fig.~\ref{lambda_choice1}. This figure also enables us to see that in the range of $\lambda$ which we investigated, there seems to be mainly two different behaviours: one which is shown at $\lambda=0.01$ and $\lambda=0.1$, and one which is shown at $\lambda=1$ and $\lambda=10$.
 
 Our choice of $\lambda$ was driven by the ability to differenciate between Mitocheck hit experiments. As detailed in section~\ref{sec:selection_mitocheck}, these experiments are grouped according to the phenotype(s) of which they present a strikingly high percentage. We therefore visually compared the ability of $\lambda$'s two different value ranges to separate Mitocheck hit experiment from different phenotypic hit lists. 
 
@@ -906,7 +906,7 @@ This is shown on figures~\ref{lambda_choice_2} and~\ref{lambda_choice_3}: Mitoch
 \label{lambda_choice_3}
 \end{figure*}
 
-\subsubsection{Distance quality evaluation}
+\subsubsection{Distance quality evaluation\\}
 Six distances were selected to compare phenotypic profiles following drug/siRNA exposure. We then wanted to evaluate their ability to distinguish between different conditions without distinguishing between condition replicates. For this purpose, we computed for each distance $d$ and condition $C$ a separability score $S_d(C)$ as defined in formula~\ref{sepa} and a replicability score $R_d(C)$ as defined in formula~\ref{replica}. Separability compares the distance between replicates of the same condition to the distance to other conditions, whereas replicability measures the correlation between condition replicates to Mitocheck hit experiments.
 
 Notations: for each experiment $i$ we note $C_i$ its condition,
@@ -979,7 +979,7 @@ to a possible mode of action.
 \label{cond_clust_transport}
 \end{figure*}
 
-\paragraph{Condition clustering}
+\paragraph*{Condition clustering\\}
 The median distance of each condition replicates to Mitocheck hit
 experiments was used to perform condition hierarchical clustering, for
 each investigated distance. The output for the global Sinkhorn
@@ -1108,7 +1108,7 @@ Paclitaxel & \textbf{BCL2},TUBB1, NR1I2, MAPT, MAP4, MAP2 &Microtubule stabilize
 \end{tabular}
 \end{table}
 
-\paragraph{Hit condition clustering}
+\paragraph*{Hit condition clustering\\}
 Hit condition clustering was realized in the same way. The output for the global Sinkhorn divergence can be seen fig.~\ref{hitcond_clust_transport} ; other distance outputs are displayed in appendix section~\ref{appendix:hit_heatmaps}.
 
 Existing knowledge about hit condition targets, as displayed in
