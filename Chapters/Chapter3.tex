@@ -34,7 +34,7 @@ believe that the usefulness of such data sets goes beyond single gene
 queries and visual inspection of the recorded image data. Indeed, although such data sets are mostly generated  by a laboratory or a consortium in order to answer a specific question, the acquired
 data is usually informative about many different aspects of cellular
 phenotypes. Therefore, one single analysis - typically performed by
-the groups that performed the screen - do not exploit all information
+the groups that performed the screen - does not exploit all information
 contained in these rich datasets. 
 
 Here, we advocate the re-use of HCS data by raw image data re-mining. This can be aimed at performing more detailed analyses of the same biological process, or in view of finding answers to different biological questions. For example, cell nucleus images can be used to analyze mitotic phases, the number of nucleoli, or even to assess phenotypic heterogeneity for different biological processes. Second,
@@ -44,14 +44,14 @@ in harmony with the current trend of general transparency in science. Indeed, th
 
 While the use of annotated data sets for method comparison have become
 increasingly important to the computer vision community
-(see ~\cite{pmid24904347} for a list of benchmark data sets) and are
-indeed used frequently, re-mining data studies are still very sparse in this field. Regarding the Mitocheck data set for example, three articles only have been re-using it since the original paper ~\cite{pmid20360735} was published:~\cite{ostaszewski2012evolutionary} is interested by linking phenotype and genotype in the context of cell cycle,~\cite{pmid25255318} searches for evidence of
+(see~\cite{pmid24904347} for a list of benchmark data sets) and are
+indeed used frequently, re-mining data studies are still very sparse in this field. Regarding the Mitocheck data set for example, four articles only have been re-using it since the original paper~\cite{pmid20360735} was published:~\cite{ostaszewski2012evolutionary} is interested by linking phenotype and genotype in the context of cell cycle,~\cite{pmid25255318} searches for evidence of
 protein-protein interactions in siRNA experiment similarity, and ~\cite{pmid24131777} dynamically models nuclear phenotypes. 
 
 %\paragraph*{}
 %In \textit{Bioimage informatics}, initiatives remain isolated. 
 I see various reasons for the little data re-use which is currently experienced in \textit{Bioimage informatics}. First, the general issues associated to dara sharing and re-use do apply to the case at hand: data and metadata should be of optimal quality, in order to ease re-analysis and make the data structure understandable. Laboratories should also share controlled vocabularies~\cite{pmid18603566}, as well as formats, for data to be easily accessed and understood by all parties. Data re-use should be born in mind while acquiring it~\cite{pmid23047157}, since post-experimental data re-organization is harder and likely to never happen. %Hence data re-use should never be a project afterthought. 
-Finally, data should be persistent, which demands time, fundings, and incentive.  %\paragraph*{}
+Data should also be persistent, which demands time, fundings, and incentive.  %\paragraph*{}
 %However big the advantages of data re-use, its requirements are not
 %light. First of all, data and metadata should be of optimal quality,
 %in order to ease re-analysis and make the data structure
@@ -167,15 +167,13 @@ motility}
 \label{sec:mitocheck}
 Part of this section was published in~\cite{motiw}.
 
-Analysis of the screening data with our workflow allows the
-identification of genes with putative role for nuclear and / or cell
+Analysis of the Mitocheck dataset with our workflow allows the
+identification of genes with putative role in nuclear and/or cellular
 motility (section~\ref{sec:hitlist}). Furthermore, it reveals the existence of
 a cell trajectory ontology in the dataset. Without any prior
 assumption on cell motion, we are able to identify eight types of cell
 trajectories (section~\ref{sec:ontology}). Finally, we also observed
-that there are no new motility modes induced by gene silencing: all
-motility modes exist in negative control situations, only their
-proportion is changed by the silencing of genes. 
+that all motility behaviours exist in negative controls: the only effect of gene silencing is a change in the measured proportion of distinct motility modes.
 
 \subsection{Hit list}
 \label{sec:hitlist}
@@ -218,8 +216,7 @@ neighbouring cells are bound to have major impacts on cell
 motility. As an example, cell motility processes are involved when
 cells divide as they detach from the plate surface, or as they probe
 their close environment. Perturbing cell adhesion or cell protrusion
-mechanisms, which involve numerous membrane proteins, will therefore
-modify cell motility. This explains that our hit list is enriched in
+mechanisms through the silencing of one of the numerous membrane proteins which these processes involve, will therefore modify cell motility. This explains that our hit list is enriched in
 genes which are related to cell membrane. 
 
 %
@@ -312,27 +309,18 @@ Following the information which is presented in
 table~\ref{intersection}, there is little intersection between the hit
 genes which were obtained by the existing medium- to high-throughput
 studies of cell motility. There are different explanations: first,
-some of the assays investigate collective, some single cell
-migration. It might be that between the machineries that govern
-migration in these two situations there is little overlap. Second,
-each cellular model (such
+some of the assays investigate collective migration, some others, single cell
+migration. It might be that there is little overlap between the machineries that govern
+migration in these two situations. Second, each cellular model (such
 as normal breast epithelial cells, lung cancer epithelial cells,
 cervix cancer epithelial cells) is depending on specific and partly
-distinct machineries for cell motility. Third, some of the used cell
-lines are adherent, others move fast. This means that genes that
-change motility parameters for the first group might act in exactly
-the opposite way than genes influencing the second group. Indeed, the
-way a perturbation influences the migratory behavior does not only
-depend on the perturbation but also on the state of the cell at the
-moment of the perturbation. This makes these comparisons extremely
-difficult. Last, there
-are also other differences in the assay which might influence the
-migratory behavior. 
+distinct machineries for cell motility. Third, all cell lines do not have identical basal speed and motility behaviours. As a consequence, genes that change motility parameters for slow cells such as HeLa cells, might have an opposite or even no effect on faster cells, such as H1299 cells. Indeed, the effects of a perturbation on a given cell depend both on the perturbation and its cellular state at the
+moment of the perturbation. This makes these comparisons difficult.% Last, there are also other differences in the assay which might influence the migratory behavior. 
 
 Nevertheless, we also observe that some "stars" of cell motility as
-RhoA are identified by all studies. As for hit list enrichment in
+RhoA are identified by all studies. Finally, as for hit list enrichment in
 previously known genes, little overlap is generally observed between
-medium- to HT screen outputs~\cite{pmid20360735}. 
+medium- to HT screen outputs in other fields as well~\cite{pmid20360735}. 
 
 %\textcolor{red}{\bf [*** There are also the MAR genes. Did you relook   at them? ***} Yes and it was not to our advantage. Sorry
 
@@ -360,11 +348,11 @@ where \[ a_x = mean \{d(x,y) | y \in \mathbb{C}_{k_x} \},\ \ b_x = \min_{\substa
 
 A slope change in $C(k)$ and a maximum in $S(k)$ are expected at the appropriate number of clusters, if it exists. Other interesting measures of clustering quality encompasses for example the Bayesian Information Criterion or clustering stability~\cite{pmid11928511}.
 
-This approach did not prove to be successful when applied to pooled trajectories from all experiments, for a wide range of clustering techniques (k-means, Gaussian mixtures models, spectral clustering, fuzzy c-means, kernel k-means with a radial basis function - data not shown). Concretely, no combination of clustering algorithm and cluster number could be found, whose quality was clearly over the quality obtained by the same clustering algorithm and other cluster numbers. It seemed as if no structure could be found in the data.
+This approach did not prove to be successful when applied to pooled trajectories from all experiments, for a wide range of clustering techniques (k-means, Gaussian mixtures models, spectral clustering, fuzzy c-means, kernel k-means with a radial basis function - data not shown). Concretely, no combination of clustering algorithm and cluster number could be found, whose quality was clearly over the quality obtained by the same clustering algorithm and other cluster numbers. It did not seem possible to find any structure in the data.
 
-Nevertheless, the clustering approach succeeded when only trajectories from the \textbf{detected} experiments were pooled together. Indeed, this small subset contains only experiments which have been selected for being significantly different of controls in terms of single cell motility: it is enriched in rare trajectories. Our interpretation for this result is the following. Let us assume that we have a number of $k$ clusters in the whole trajectory dataset. Due to biological variability, each trajectory is at a certain random distance (in the feature space) to its latent trajectory cluster center. Given the dataset size (approximately 50 million trajectories), this produces a continuous dataset in the feature space, preventing the identification of any cluster. Furthermore, the different clusters are unbalanced. It is therefore not sufficient to uniformly subsample the whole dataset to detect the clustering structure (data not shown). Applying MotIW to find experiments which are enriched in rarer trajectories functioned as performing a stratified subsampling with respect to the underlying cluster structure of the dataset. It made it possible to identify the latter.
+Nevertheless, clustering succeeded when only trajectories from MotIW \textbf{hit} experiments were pooled together. Indeed, this small subset contains only experiments which have been selected for being significantly different of controls in terms of single cell motility: it is enriched in rare trajectories. Our interpretation is the following. Let us assume that we have a number of $k$ clusters in the whole trajectory dataset. Due to biological variability, each trajectory is at a certain random distance (in the feature space) to its latent trajectory cluster center. Given the dataset size (approximately 50 million trajectories), this produces a continuous dataset in the feature space, preventing the identification of any cluster. Furthermore, the different clusters are unbalanced. Uniformly subsampling the whole dataset is therefore inefficient as well (data not shown). Applying MotIW to find experiments which are enriched in rarer trajectories enabled us to identify the underlying cluster structure of the dataset, since it performed a stratified subsampling with respect to the latter.
 
- After retaining the first seven principal components (explaining $95\%$ of the variance), k-means was applied to the resulting dataset of approximately 1.1 million trajectories. Fig.~\ref{clusterscore} shows the evolution of intra-cluster cohesion and silhouette score with respect to the number of clusters. It points to $k=8$ as being both the best and a good quality clustering on this dataset. Indeed, a break and a maximum are respectively expected in the cluster cohesion and the silhouette score curves at the correct cluster number, if it exists. It is compared to the evolution of those indices, if k-means is applied to a uniformly random dataset and a normal dataset (in $\mathbf{R}^8$). 
+ After retaining the first seven principal components (explaining $95\%$ of the variance), k-means was applied to the resulting dataset of approximately 1.1 million pooled trajectories. Fig.~\ref{clusterscore} shows the evolution of intra-cluster cohesion and silhouette score with respect to the number of clusters. It points to $k=8$ as being both the best and a good quality clustering on this dataset. Indeed, a break and a maximum are respectively expected in the cluster cohesion and the silhouette score curves at the correct cluster number, if it exists. It is compared to the evolution of those indices, if k-means is applied to a uniformly random dataset and a normal dataset (in $\mathbf{R}^8$). 
 
 \begin{figure*}[!ht]
 \centerline{\includegraphics[scale=0.3]{figures/Walter_295_fig_6.png}}
@@ -377,16 +365,12 @@ figure~\ref{distribution}. It presents the distribution of trajectory
 distributions in the eight identified clusters. One can observe that
 there are no cluster which is specific to either controls or
 hit experiments. From this we see that rather than creating new
-modes of movement, loss of  certain gene product rather leads to shifting the
-probability of entering a certain mode of movement. 
+modes of movement, gene silencing rather leads to shifting the probability of entering a certain mode of movement. 
 This can be
 explained by the fact that a certain number of motility behaviours are
-possible for the cell to adopt at any time. Which one it chooses is
-function of its cellular and molecular state, as well as the
-stochasticity of gene expression. Hence some behaviours will be rarer
-in control videos, but will become more
-frequent under a modification of the cell molecular state due to siRNA
-exposure. 
+possible for the cell to adopt at any time. Its molecular and cellular state, as well as the
+stochasticity of gene expression dictates which one it chooses. Hence some behaviours will be rarer
+in control videos, but become more frequent as siRNA exposure modifies cell molecular state. 
 
 \begin{figure*}[!ht]
 \centering
@@ -438,7 +422,7 @@ trajectories which start with a mitosis and end with a mitosis. Using
 the methodological procedure described in~\ref{sec:stats}, it is then
 possible to detect the experiments in which cell cycle length
 distribution is significantly different from that in control
-experiments, resulting in a list of genes. 
+experiments. This results in a list of genes. 
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.6]{figures/cell_cycle_examples.png}}
 \caption{Examples of object divisions from the Mitocheck dataset}
@@ -461,14 +445,14 @@ Briefly, the scores compute the number of \textit{right} classifications in the 
 \end{figure*}
 
 \subsection{Cell cycle length hit list}
-The principle of MotIW's statistical procedure~(see~\ref{sec:stats} and~\cite{motiw}) was then applied to the distributions of complete trajectory length: 2 sample Kolmogorov-Smirnov tests were realized between cell cycle length distributions of each experiment and the controls of the same batch. It was compared to the empirical null distribution in a second time. The latter is the distribution of 2 sample Kolmogorov-Smirnov tests comparing controls to controls. Finally, the empirical p-values which were obtained were adjusted for multiple testing, following the Benjamini-Hochberg procedure~\cite{Benjamini1}.
+The principle of MotIW's statistical procedure (see~\ref{sec:stats} and~\cite{motiw}) was then applied to the distributions of complete trajectory length: 2 sample Kolmogorov-Smirnov tests were realized between cell cycle length distributions of each experiment and the controls of the same batch. It was compared to the empirical null distribution in a second time. The latter is the distribution of 2 sample Kolmogorov-Smirnov tests comparing controls to controls. Finally, the empirical p-values which were obtained were adjusted for multiple testing, following the Benjamini-Hochberg procedure~\cite{Benjamini1}.
 
 Setting a threshold of $0.05$ enabled the identification of 66 genes whose cell cycle length distribution differs from that of controls from the same batch. The list is fully provided in appendix, see section~\ref{cellcyclelist}. Interestingly, the down-regulation of only three genes produces a \textit{longer} cell cycle length: APOA1, RPS20, SFMBT2 (coding respectively for the apolipoprotein A1, ribosomal protein S20 and Scm-like with four mbt domains 2). SFMBT2 silencing has already been found to decrease cell growth in human prostate cancer cells~\cite{pmid23385818}. 
 
 Gene Ontology analysis reveals that there are three annotation clusters which are highly enriched in this list. The first one is related to protein kinase activity. It contains such genes as BMPR-IB which encodes the bone morphogenetic protein receptor, type IB, and whose reduced expression is correlated to poor prognosis in breast cancer~\cite{pmid19451094}, and tumor grade in prostate cancer~\cite{pmid10850425}. The second cluster is related to nucleotide binding. It contains genes such as the integrin-linked kinase whose silencing has interestingly been found to slow cell cycle in human gastric carcinoma cells~\cite{pmid23748822}, whereas we have found its silencing to speed cell cycle in HeLa cells. Finally, the third cluster contains genes which encode proteins which are intrinsic to plasma membrane, such as the melatonin receptor 1A whose absence has been found to be correlated with bad prognosis in triple-negative breast cancer~\cite{pmid23250547}.  
 
 \subsection{Discussion}
-Our approach for studying cell cycle length enabled us to obtain a list of 66 genes which may be involved in cell cycle regulation. Gene Ontology analysis revealed that a certain number of these genes has already been found to be linked to cell cycle duration regulation. This list contains 3 genes whose silencing lengthens cell cycle, and 63 whose silencing shortens it. It is possible that this more broadly reflects that there are more proteins which play a role of checkpoints rather than cell cycle enhancers, hence the fact that gene silencing experiments produce more experiments where cell proliferation is increased than decreased. This is supported as well by other studies such as~\cite{pmid16564017}, which found 87 (resp. 15) genes whose silencing significantly increases (resp. decreases) the mitotic index of HT29 cells.
+Our approach for studying cell cycle length enabled us to obtain a list of 66 genes which may be involved in cell cycle regulation. Gene Ontology analysis revealed that a certain number of these genes has already been found to be linked to cell cycle duration regulation. This list contains 3 genes whose silencing lengthens cell cycle, and 63 whose silencing shortens it. It is possible that this more broadly reflects that there are more proteins which play a role of checkpoints rather than cell cycle enhancers, hence the fact that gene silencing experiments produce more experiments where cell proliferation is increased than decreased. This is supported by other studies such as~\cite{pmid16564017}, which found 87 (resp. 15) genes whose silencing significantly increases (resp. decreases) the mitotic index of HT29 cells.
 
 \paragraph*{Method bias\\}
 Our method was applied to the whole Mitocheck dataset, enabling the obtention of complete trajectory length distributions for all experiments. Experiments with less than 10 complete trajectories were not considered for further analysis. This explains why decreased proliferation genes as provided by~\cite{pmid20360735} could not be found: the proliferation is so low that no mitosis is observed, hence no complete trajectories can be found. Trying to diminish this bias in experiment selection, we also included trajectories which finish with the end of the experiment rather than a mitosis (hereafter called \textit{incomplete} trajectories). 
@@ -489,7 +473,7 @@ However, this approach was not successful. For some siRNAs, it seems that incomp
 \end{figure*}
 
 \paragraph*{Perspective: cell cycle phase detection\\}
-The cell cycle can furthermore be split in four sequential phases: $G_1$, $S$, $G_2$, and $M$. $S$ is the DNA replication phase and $M$ stands for mitosis. To distinguish $S$ from $G_1$ and $G_2$, PCNA (proliferating cell nuclear antigen) is usually used. It forms sparkling nuclear dots during DNA replication, as it is recruited to replication foci~\cite{pmid10769021}.
+Cell cycle can furthermore be split in four sequential phases: $G_1$, $S$, $G_2$, and $M$. $S$ is the DNA replication phase and $M$ stands for mitosis. To distinguish $S$ from $G_1$ and $G_2$, PCNA (proliferating cell nuclear antigen) is usually used. It forms sparkling nuclear dots during DNA replication, as it is recruited to replication foci~\cite{pmid10769021}.
 
 However, the only marker available in the Mitocheck dataset is the
 core histone 2B (H2B). The question is then to know whether it is
@@ -534,9 +518,7 @@ makes it possible to test the following hypothesis: can a classifier
 be trained, which uses H2B information for cell cycle phase
 identification? Preliminary work shows that all tested methods have an
 accuracy below 70\% (random forest, gradient boosting, support vector
-machine, logistic regression). However, using both this information
-and cell tracking, using Hidden Markov Models for error correction can
-significantly improve these results. 
+machine, logistic regression). However, using this information, cell tracking, and Hidden Markov Models for error correction can significantly improve these results. 
 
 %one can hope that the use of Hidden Markov Models
 %for correcting classification errors could lead to good results.
@@ -558,14 +540,13 @@ significantly improve these results.
 \label{target_inference}
 Finally, on top of enabling the discovery of cell cycle and motility genes, and identifying an ontology of cell trajectories, the Mitocheck dataset can be re-used for drug target inference\footnote{Manuscript in preparation}.
 
-Indeed, genome screens contain very rich information about how gene selective knockdown perturbs normal cell processes such as cell division, cytoplasmic morphology or motility. If cells are screened against drugs or putative drugs in the same experimental context (e.g. the same seeding density, the same markers, the same cell line), the comparison between drug exposure profile and genetic profiles can point at the biological processes which the drug targets~\cite{pmid16901791}. The comparison between gene knockdown and drug phenotypic profiles is therefore more and more considered as an efficient tool for drug discovery~\cite{pmid19568283}. In principle, it should allow for the systematic and direct identification of drug target, as opposed to targeted bioassays which demand specific prior knowledge or an extreme amount of time and means.
+Indeed, genome screens contain very rich information about how selective gene knockdown perturbs normal cell processes such as cell division, cytoplasmic morphology or motility. If cells are screened against drugs or putative drugs in the same experimental context (e.g. the same seeding density, the same markers, the same cell line), the comparison between drug exposure profile and genetic profiles can point at the biological processes which the drug targets~\cite{pmid16901791}. The comparison between gene knockdown and drug phenotypic profiles is therefore more and more considered as an efficient tool for drug discovery~\cite{pmid19568283}. In principle, it should allow for the systematic and direct identification of drug target, as opposed to targeted bioassays which demand specific prior knowledge or an extreme amount of time and means.
 
 This view has been applied under different forms in the recent years, either in the comparison of yeast deletion mutants to drug exposed yeast~\cite{pmid20418956}, or the comparison of parallel RNAi and small molecule screens in \textit{Drosophila}~\cite{pmid16901791} or HeLa cells~\cite{pmid18066055}.
 
-However, when applied, it rapidly appears that these comparisons cannot directly point at \textit{the} drug target or mode-of-action. This is mainly due to two biological rather than technical reasons. On the one hand, drug action can often not be summarized by a unique "entry point" into an organism's cellular processes~\cite{pmid26272035}. On the other hand, two drugs which are targeted at different molecules albeit occuring in the same pathway will very probably produce the same phenotypic profiles. Inferred targets remain to be confirmed and/or refined~\cite{pmid23508189}.
+However, when applied, it rapidly appears that these comparisons cannot directly point at \textit{the} drug target or mode-of-action. This is mainly due to two reasons, which are biological rather than technical. On the one hand, drug action can often not be summarized by a unique "entry point" into an organism's cellular processes~\cite{pmid26272035}. On the other hand, two drugs which are targeted at different molecules albeit occuring in the same pathway will very probably produce the same phenotypic profiles. Inferred targets remain to be confirmed and/or refined~\cite{pmid23508189}.
 
-A difficulty of another order for performing such inference is the
-complexity of HCS data and therefore the difficulty of exploiting
+A difficulty of another order is the complexity of HCS data and therefore the difficulty of exploiting
 it. For the same reason as the preference for univariate measures of
 cell motility, targeted bioassays can be preferred because they are
 easier to understand and exploit. Multivariate analysis methods for
@@ -574,7 +555,7 @@ developed~\cite{pmid17401369},~\cite{pmid18066055}. Nevertheless, drug
 target inference from HCS \textbf{time-lapse} data has to our
 knowledge never been done.
 
-This section therefore presents different methods for drug target inference by phenotypic profile comparison between siRNA and drug screen experiments in HeLa-H2B cells. After introducing the dataset and the image analysis methods which were used (section~\ref{sec:math_methods_ds}), six distances between phenotypic profiles are introduced and compared (section~\ref{sec:distances}) before being applied to drug similarity evaluation and target inference in section~\ref{sec:applications}.
+This section therefore presents different methods for drug target inference by phenotypic profile comparison between siRNA and drug screen experiments in HeLa H2B-GFP cells. After introducing the dataset and the image analysis methods which were used (section~\ref{sec:math_methods_ds}), six distances between phenotypic profiles are introduced and compared (section~\ref{sec:distances}) before being applied to drug similarity evaluation and target inference in section~\ref{sec:applications}.
 
 \subsection{Materials and methods}
 \label{sec:math_methods_ds}
@@ -631,10 +612,7 @@ it possible to re-use its training set, albeit strengthened for
 classes which were previously slightly under-represented. This can be
 seen on fig.~\ref{ds_classifier} in comparison with figure 3
 from~\cite{Walter2010}. A visual inspection of the dataset enabled us
-to verify that the drug screen experiments did not contain a new
-morphological class, absent in the Mitocheck experiments.
-This would have made it necessary to include nuclei from
-drug screen experiments into our training set. 
+to verify that the drug screen experiments did not contain new morphological classes (that is, absent in the Mitocheck experiments). This would have made it necessary to include nuclei from drug screen experiments into our training set. 
 
 Cell Cognition~\cite{cellcognition} was used for learning an RBF (Radial Base Function) kernel SVM classifier, whose precision and recall are also indicated on fig.~\ref{ds_classifier}. Its parameters were optimised by grid-search ($\gamma=2^{-7}$, $C=8$).
 
@@ -707,7 +685,7 @@ Proliferation hit detection was realized similarly to hit experiment detection: 
 Condition hierarchical clustering was performed using the median of condition replicates. The Python package fastcluster~\cite{fastcluster} was used to this end. In each case, the clustering method which visually produced the best result was used, from Ward, centroid and single methods.
 
 \paragraph*{Target pathway inference and analysis\\}
-Target pathways were infered for groups of selected conditions following hierarchical clustering. For each group, experiments from all group conditions were pooled together and considered as replicates of one artificial condition. This condition was characterized by all experiment distances to Mitocheck experiments. A way to consider each experiment nearest neighbours consistently accross group experiments is to use rank products~\cite{pmid15327980}. Briefly, the idea is that if a gene is consistently close to all experiments, it will consistently by in the top of each ranked experiment-gene list. The product of its ranks will therefore be small. This is the final variable which was used to compute the nearest neighbours for each condition group. The list of 200 nearest genes to each condition group was then analyzed using DAVID online tool~\cite{pmid22543366}, and its enrichment in GO terms computed by comparison with the list of Mitocheck hit genes selected as described in section~\ref{sec:selection_mitocheck}.
+Target pathways were infered for groups of selected conditions following hierarchical clustering. For each group, experiments from all group conditions were pooled together and considered as replicates of one artificial condition. This condition was characterized by all experiment distances to Mitocheck experiments. A way to consider each experiment nearest neighbours consistently accross group experiments is to use rank products~\cite{pmid15327980}. Briefly, the idea is that if a gene is consistently close to all experiments, it will consistently be in the top of each ranked experiment-gene list. The product of its ranks will therefore be small. This is the final variable which was used to compute the nearest neighbours for each condition group. The list of 200 nearest genes to each condition group was then analyzed using DAVID online tool~\cite{pmid22543366}, and its enrichment in GO terms computed by comparison with the list of Mitocheck hit genes selected as described in section~\ref{sec:selection_mitocheck}.
 
 %For each group of selected conditions
 \paragraph*{Data visualization\\}
@@ -715,8 +693,7 @@ A Web-based user interface was designed and implemented for result visualization
 
 \subsection{Phenotypic profile distances}
 \label{sec:distances}
-The screening experiments provide us with temporal sequences of
-information. They can be seen as sequences of 
+Screening experiments provide us with temporal sequences of information. They can be seen as sequences of 
 two-dimensional intensity distributions~\cite{pmid22743764}, sequences of object
 feature distributions or sequences of phenotypic class
 distributions. In our case, we chose to summarize each experiment by a
@@ -725,7 +702,6 @@ represent our experiments by their phenotypic profile. The question
 remains to know how to measure the similarity between two instances of
 this representation of the information. 
 
-%\subsubsection{Investigated distances}
 We decided to test the following distances on the question to know whether we can apply phenotypic profiling for drug target inference from parallel drug and siRNA screens:
 \begin{itemize}
 \item a very simple approach, the Euclidean distance of phenotypic scores, 
@@ -769,31 +745,23 @@ operate in $\mathbb{R}^p$ to sum the squared differences of phenotypic
 scores, hence treating the different phenotypes independently of
 each other. However, different morphological classes do not all point
 to entirely different phenotypic situations. For example,
-\textit{Hole}, \textit{Folded} and \textit{small irregular} all point
+\textit{Hole}, \textit{Folded} and \textit{Small Irregular} all point
 to problems in nuclear stability. Accumulations in \textit{Metaphase Alignment Problems
   (MAP)} and \textit{Prometaphase} are observed if the mitotic spindle
 is not capable of aligning chromosomes in the metaphase plate. 
-And \textit{binucleated}, \textit{polylobed} and
-\textit{grape} nuclei arise as secondary consequence of mitotic
-failures that were not detrimental to the cell. While
-\textit{binucleated} morphologies appear as a consequence of
-cytokinesis failure, \textit{polylobed} and \textit{grape} nuclei
-indicate problems in segregation and/or nuclear envelope formation
-after mitosis. Hence the biological intuition is that a chemical
-causing a great increase in \textit{polylobed} nuclei has probably a
-closer mode of action to that of another drug causing an increase in
-\textit{grape} nuclei than to another drug causing
-a strict increase in apoptosis. 
+\textit{Binucleated}, \textit{Polylobed} and \textit{Grape} nuclei arise as secondary consequence of mitotic failures that were not detrimental to the cell.%While \textit{Binucleated} morphologies appear as a consequence of cytokinesis failure, \textit{Polylobed} and \textit{Grape} nuclei indicate problems in segregation and/or nuclear envelope formation after mitosis. 
+Hence the biological intuition is that a chemical
+causing a great increase in \textit{Polylobed} nuclei has probably a
+closer mode of action to that of another drug causing an increase in \textit{Grape} nuclei than to another drug causing
+a strict increase in \textit{Apoptosis}. 
 
-Ideally, the idea is then that the distance of $a\%$ \textit{grape}
-nuclei to $b\%$ \textit{polylobed} nuclei is smaller than that to
-$b\%$ \textit{apoptosis} nuclei, or that it "costs" less to go from
-$a\%$ \textit{grape} nuclei to $b\%$ \textit{polylobed} nuclei
-than to $b\%$ \textit{apoptosis}. This is precisely the idea behind
+Ideally, the idea is then that the distance of $a\%$ \textit{Grape}
+nuclei to $b\%$ \textit{Polylobed} nuclei is smaller than that to
+$b\%$ \textit{Apoptosis} nuclei, or that it "costs" less to go from
+$a\%$ \textit{Grape} nuclei to $b\%$ \textit{Polylobed} nuclei
+than to $b\%$ \textit{Apoptosis}. This is precisely the idea behind
 the Earth Mover's distance (or transportation distance, or Wasserstein
-distance). This distance was developed in the first place to compute
-the cost to move a certain number of piles of dirt into a certain
-numer of holes. To optimally do so, one needs to take into account the
+distance). This distance was developed in the first place to compute the cost to move a certain number of piles of dirt into a certain number of holes. To optimally do so, one needs to take into account the
 distance between piles and holes. 
 \paragraph*{Definitions\\}
 Let us formalize this intuition and briefly introduce transportation distance\footnote{References and proofs can be found in~\cite{sinkhorn}.}. We note $\Sigma_d = \{ x \in \mathbb{R}^d_+ | x^T \mathbf{1}_d = 1\}$ the probability simplex. In our case, $d=13$: we can consider either the distributions of phenotypes in a given experiment over all time-points, or this distribution in a specific frame.
@@ -859,19 +827,16 @@ than to any other phenotype, as they are all non-detrimental failures
 of division defects. \textit{Binucleated} nuclei were set slightly
 further apart from \textit{Polylobed} and \textit{Grape} nuclei,
 because they correspond to cytokinesis defects, whereas the latter
-correspond to segregation defects. 
-Hence we set a cost of 1 between \textit{Grape} and
+correspond to segregation defects. Hence we set a cost of 1 between \textit{Grape} and
 \textit{Polylobed}, and 2 between \textit{Polylobed} and
 \textit{Binucleated}, and \textit{Grape} and \textit{Binucleated}. The
 three classes then have a cost of 3 between them and the different
-versions of interphases (\textit{interphase}, \textit{elongated},
-\textit{large}) and different mitotic classes (\textit{prometaphase},
-\textit{metaphase}, \textit{anaphase}, \textit{Metaphase Alignment
+versions of interphases (\textit{interphase}, \textit{Elongated},
+\textit{Large}) and different mitotic classes (\textit{Prometaphase},
+\textit{Metaphase}, \textit{Anaphase}, \textit{Metaphase Alignment
   Problems (MAP)}, \textit{ADCCM}), and 5 to \textit{Apoptosis}. Finally, they are at a
 cost 4 of nuclear stability phenotypes which do not result from cell division
 defects (such as \textit{Hole} or \textit{Folded}). 
-
-%Let us consider another example and take the group of \textit{Interphase}, \textit{Elongated} and \textit{Large} nuclei. They were set closer to eachother than to any other phenotype because they represent normal and abnormal versions of interphase nuclei. Hence we set a cost of 1 between them.
 
 \begin{figure*}[ht!]
 \centerline{\includegraphics[scale=0.4]{figures/transportation_cost.png}
@@ -1001,38 +966,21 @@ cluster on fig.~\ref{cond_clust_transport}). This means that non-hit
 conditions as described by their distance to Mitocheck hit experiments
 are not distinguishable, whereas hit conditions are. 
 
-%\textcolor{red}{\bf [*** Pour les deux paragraphes suivants, je
-%  n'etais pas du tout d'accord avec da conclusion. La limitation est
-%  bien ``morphologie nucleaire'' et non pas ``mitose''. Si une drogue
-%  a un effet sur la croissance du noyau ou bien sa stabilite, on la
-%  detecte aussi. J'ai change les paragraphes en accord avec ca. ***}
-
 We have chosen to summarize experiments by their nuclear phenotypic
 profiles, that is, the temporal sequence of nuclear phenotype
-distributions. This also means that any perturbation not resulting in
-a change in percentage of these class distributions cannot be
+distributions. This also means that any perturbation which do not result in
+a change in percentage of any of these class distributions cannot be
 detected. This might concern perturbations that alter nuclear
-morphologies without changing their class assignment (e.g. if the
-number of nucleoli was changed by a perturbation, the resulting
-interphase would still be classified as interphase and the change
-would remain unnoticed), or perturbations affecting an aspect which is
-not measured at all by our assay. For instance, thalidomide whose known teratogenic
-effects might be linked to an inhibition of ubiquitin
-ligase~\cite{pmid20223979}, might simply no have any affect on nuclear
-morphology. Some drugs might also not have any effect on HeLa cells or
-would need a longer exposure time for an effect to be detected. 
+morphologies without changing their class assignment? For example, if the number of nucleoli was changed by a perturbation, the resulting interphase would still be classified as interphase and the change would remain unnoticed. It can also concern perturbations which affect an aspect of cell life that is
+not measured at all by our assay. For instance thalidomide, whose known teratogenic
+effects might be linked to an inhibition of ubiquitin ligase~\cite{pmid20223979}, might simply have no affect on nuclear morphology. Some drugs might also not have any effect on HeLa cells, or demand a longer exposure time for an effect to be detected. 
 
-%The conclusion of these clusterings is that our information
-%representation is suitable for detecting and infering knowledge
-%regarding mitotic hit conditions and conditions which modify nuclear
-%morphology as described by the phenotypic classes which were chosen,
-%whereas it is not for other conditions. 
+The conclusion of these clusterings is that our method (combining our choice for information representation and similarity evaluation) is suitable for detecting and infering knowledge
+regarding mitotic hit conditions and conditions which modify nuclear
+morphology as described by the phenotypic classes which were chosen,
+whereas it is not for other conditions. We therefore restrict ourselves to the hit conditions which we have detected as described in section~\ref{sec:selection_ds}. 
 
-Hence, as our method is only suitable for detecting changes
-represented by the predefined classes and as consequently, the
-calculated distances to the genome-wide data set is not informative, we
-restrict ourselves to the hit conditions which we have detected as
-described in section~\ref{sec:selection_ds}. 
+%Hence, as our method is only suitable for detecting changes in predefined classes and as it has just been observed that distances to the genome-wide data set is not informative , we restrict ourselves to the hit conditions which we have detected as described in section~\ref{sec:selection_ds}. 
 
 %We have chosen to summarize experiments by their nuclear phenotypic
 %profiles, that is, the temporal sequence of nuclear phenotype
@@ -1128,14 +1076,12 @@ The binary map from phenotypic score distance
 conditions belonging to the same clusters seem to be randomly
 distributed and in particular not to reflect the structure suggested
 by the literature. 
-On the other
-hand, the binary map from global Sinkhorn divergence produces a
+On the other hand, the binary map from global Sinkhorn divergence produces a
 structure which is more in agreement with the current knowledge
 (fig.~\ref{binary_map_transport}). For example, doses 5 to 10 of
 Paclitaxel are clustered together with doses 8 to 10 of Nocodazole,
 which is consistent with their common target $\beta$-tubulin. 
-Another interesting example is that of
-Anisomycin. Its doses 5 to 8 constitute a single cluster according to
+Another interesting example is that of Anisomycin. Its doses 5 to 8 constitute a single cluster according to
 global Sinkhorn divergence. This is consistent with Anisomycin being
 the only drug in the drug screen to inhibit protein synthesis. The
 same effect can be observed for doses 3 to 10 of Camptothecin (S,+):
@@ -1151,9 +1097,7 @@ fig.~\ref{hitcond_clust_transport}) is the closest cluster to the one
 which contains high Paclitaxel and Nocodazole doses (pink
 cluster). The latter drugs are targeted at tubulin, when Aurora
 kinases are linked to microtubules as well (NCBI Gene
-webpages\cite{pmid24259432}). Hence the cluster hierarchy is
-consistent, with closer clusters pointing to a common biological
-process.
+webpages\cite{pmid24259432}). The cluster hierarchy is therefore consistent, since closer clusters point to a common biological process.
 
 The binary map from time Sinkhorn divergence (fig.~\ref{binary_map_ttransport_INT}) shows little difference with that from global Sinkhorn divergence. Finally, the binary map from phenotypic trajectory distance (fig.~\ref{binary_map_nature}) shows more agreement with the literature than the phenotypic score distance's (e.g. a high number of conditions of Etoposide, Doxorubicin hydrochloride and Daunorubicin hydrochloride cluster together), but seems less refined than any of the Sinkhorn's maps (e.g. most doses of Camptothecin (S,+) are included in the aforementioned cluster). % On the other hand, its doses 3 and 4 cluster with the previously mentioned Nocodazole-Paclitaxel cluster, which can be explained by the increased presence of \textit{Polylobed}, \textit{Prometaphase} and \textit{Apoptosis} nuclei. %which can be explained by the fact that these conditions result in nothing else than apoptosis. %Doses 3 and 4 of 
 
@@ -1237,7 +1181,7 @@ kinases A and B) are respectively the 39th and 21st closest genes to
 this condition group. 
 %appears to be involved in microtubule formation and/or stabilization at the spindle pole during chromosome segregation. The encoded protein is found at the centrosome in interphase cells and at the spindle poles in mitosis. 
 
-In the middle between these cases, it can be remarked that, although the main targets of Nocodazole and Paclitaxel are not extremely close to these condition groups, functional analysis does retrieve their impact on microtubule-based process. In conclusion, our method provides a list of genes and their similarity to drug exposure, for each group of drug conditions it identifies. Functional analysis of the top 10\% of these lists reveals that our method performs unequally well for retrieving target gene function in all cases. It works very well on drugs which directly act on mitosis-related proteins (e.g. VX680 or Paclitaxel), whereas it is not as helpful on drugs which are targeted at other biological processes (e.g. Anisomycin). 
+In between these cases, although the main targets of Nocodazole and Paclitaxel are not extremely close to these condition groups, functional analysis does retrieve their impact on microtubule-based process. In conclusion, our method provides a list of genes and their similarity to drug exposure, for each group of drug conditions it identifies. Functional analysis of the top 10\% of these lists reveals that our method performs unequally well for retrieving target gene function in all cases. It works very well on drugs which directly act on mitosis-related proteins (e.g. VX680 or Paclitaxel), whereas it is not as helpful on drugs which are targeted at other biological processes (e.g. Anisomycin). 
 
 %Cluster 0 Nocodazole: kinase activator activity, g-protein coupled receptors, ubiquitin and exonucleases
 %Cluster 1 Paclitaxel: ok, then regulation of cell cycle and ubiquitin
@@ -1331,16 +1275,10 @@ consequences within 48 hours, will not be detected. In the first case,
 new phenotypic classes could be added to the existing set, or hit
 experiment detection should be done directly from object feature
 distributions (e.g. nuclear perimeter, nuclear excentricity, etc.)
-rather than phenotypic distributions, such as
-in~\cite{pmid18066055}, even though this strategy remains challenging
-in high dimensional feature spaces. In the second case, one would need more
+rather than phenotypic distributions.~\cite{pmid18066055} gives an example of such a strategy, which is nevertheless challenging in high dimensional feature spaces. In the second case, one would need more
 fluorescent markers in order to quantify other phenotypic aspects
-(markers for the Golgi, plasma membrane, cytoskeleton, etc.). However,
-as the number of markers is necessarily limited, not all drug effects
-can be identified. One strategy might therefore be to perform drug
-screens with respect to one specific biological process and to chose
-the markers such that they are informative about all aspects of this
-particular process. 
+(markers for the Golgi apparatus, plasma membrane, cytoskeleton, etc.). However,
+as the number of markers is necessarily limited, effects of all drugs can never be identified in the same assay. One strategy might therefore be to perform drug screens with respect to one specific biological process, and to chose cell markers such that they are informative about all aspects of this particular process. 
 
 Drug similarity evaluation on hit conditions performed well, with Sinkhorn divergences performing better than all other distances. This was measured by the grouping of drugs with similar targets and mode-of-actions, as could be found in the literature. Furthermore, not only were similar drugs grouped together, but the hierarchical clustering performed using global Sinkhorn divergences also proved to be biologically meaningful. Indeed, it grouped microtubule-related drugs JNJ7706621, MLN8054 and VX680, and Paclitaxel and Nocodazole in the same cluster, which was further refined in two different clusters as they are respectively targeted at Aurora kinases and tubulin. Finally, hierarchical clustering also identified conditions which produced non-specific effects (with and without apoptosis), enabling to restrict drug target inference to drug doses which showed specific effects. This restriction has already been searched for~\cite{pmid17401369}, as results from drug target inference on small doses will probably not be robust and/or meaningful.
 
@@ -1348,18 +1286,14 @@ Finally, we used global Sinkhorn divergence between Mitocheck hit
 experiment and meaningful condition groups to perform drug target
 inference. Although it should theoretically be possible to identify
 drug targets from drug and genetic screen comparison, it is generally
-only providing a list of putative targets, which remain to be
-tested~\cite{pmid23508189}. 
-This is due to the fact that drugs do not
-have a single target in general and that many genes share the same
-phenotype upon knockdown. 
+only providing a list of putative targets, which remain to be tested~\cite{pmid23508189}. 
+This is due to the fact that drugs generally do not
+have a single target, and that many genes share the same phenotype upon knockdown. 
 It is also explained by the fact that
 drug exposure and siRNA exposure do not strictly have the same impact
 on the targeted protein. Indeed, siRNA phenotypic onset can be rather
-different than that of the drug, because drug directly act on their
-target, whereas siRNAs cause the destruction of target
-mRNAs. Furthermore, phenotype penetrance in drug screen experiments is
-always higher than that in siRNA experiments. 
+different than that of a drug, because drugs directly act on their
+target, whereas siRNAs cause the destruction of target mRNAs. Furthermore, phenotype penetrance in drug screen experiments is always higher than that in siRNA experiments. 
 
 This is precisely what was experienced in this analysis, with known
 drug targets never being \textit{the} closest gene to drug
@@ -1373,8 +1307,7 @@ these cases, the workflow will indicate the downstream impact of the
 drug on nuclear morphologies. But even in cases where the
 combination of markers and classes are not optimal, our method can
 still identify hits and group them together. In some cases however,
-no effect at all was observed. In these cases, we will need additional
-phenotypic classes and / or other markers. 
+no effect at all was observed. They demand additional phenotypic classes and/or other markers. 
 
 %Hence
 %the whole workflow (fluorescent markers and bioinformatics analysis)
