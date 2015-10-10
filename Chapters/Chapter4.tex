@@ -16,12 +16,12 @@ This led us to think of importing the technique of drug screening from pharmacol
 
 Classical \textit{in vitro} toxicological screening procedures have been in use for some time, such as the Comet assay for DNA damage, which is known since 1984~\cite{pmid6477583}. This type of test is now routinely done in a HT setup. However, it provides very crude information compared to what high content (HC) assays would indicate regarding for example, cell cycle modulation following BPA exposure. Subtler tests are being developed in a HT setup, either endpoint~\cite{pmid24772387},~\cite{pmid24610750} or real-time assays~\cite{pmid21516415}, \cite{pmid24141454}. This was recently made possible  by technical and computational progresses.
 
-Nevertheless, the majority of new \textit{in vitro} toxicological methods are not HC\footnote{3 papers dealing with new toxicological assays out of 10 present HC methods (PubMed searches: "environmental AND cellular AND (screening[Other Term] OR High throughput/high content assays[Other Term])", and "time-lapse AND toxicology" on the 3/19/2015).}, i.e. they do not allow detailed observation of phenotypes at the single cell level. Moreover, there are many biological processes which are best studied with time-lapse microscopy. Such methods are common practice in molecular biology and have been even scaled up to be applicable in a HC setup. Surprisingly, this type of experiment is still rarely used in Environmental Toxicology - regardless of the throughput. When it is, data is manually analyzed most of the time (e.g.~\cite{pmid17949680},~\cite{pmid15388243}, or~\cite{pmid24263567}).
+Nevertheless, the majority of new \textit{in vitro} toxicological methods are not HC\footnote{3 papers dealing with new toxicological assays out of 10 present HC methods (PubMed searches: "environmental AND cellular AND (screening[Other Term] OR High throughput/high content assays[Other Term])", and "time-lapse AND toxicology" on the 3/19/2015).}, i.e. they do not allow detailed observation of phenotypes at the single cell level. Such methods are common practice in molecular biology and have been scaled up, so as to be presently applicable in a HC setup. More specifically, there are many biological processes which are best studied with time-lapse microscopy. Surprisingly, this type of experiment is still rarely used in Environmental Toxicology - regardless of the throughput. When it is, data is manually analyzed most of the time (e.g.~\cite{pmid17949680},~\cite{pmid15388243}, or~\cite{pmid24263567}). However, time-lapse experiments would be a significant improvement over endpoint assays, as they enable for example to assess event sequences following exposure rather than record cell death. 
 
 %whose study not only requires access to single cell phenotypes, but 
 %Time-lapse experiments are a specific type of HC experiment which deals with cell videos rather than fixed images, and is about to become a common procedure in Molecular Biology. This type of experiment is still rarely used in Environmental Toxicology - regardless of the throughput. When it is, data is manually analyzed most of the time (e.g.~\cite{pmid17949680},~\cite{pmid15388243}, or~\cite{pmid24263567}).
 
-However, time-lapse experiments would be a significant improvement over endpoint assays, as they enable for example to assess event sequences following exposure rather than record cell death. Environmental Toxicology time-lapse data was therefore newly generated, in order to assess whether HC time-lapse screening is applicable in this context : is this approach relevant for toxicity detection and characterization of environmentally relevant compounds? Time-lapse HCS usability in this context would lead to the potential development of a time-lapse HC-HT assay for Environmental Toxicology. %Indeed, until recently, Toxicology experiments were either HC and low-throughput, or low-content and HT.
+Environmental Toxicology time-lapse data was therefore newly generated, in order to assess whether HC time-lapse screening is applicable in this context : is this approach relevant for toxicity detection and characterization of environmentally relevant compounds? Time-lapse HCS usability in this context would lead to the potential development of a time-lapse HC-HT assay for Environmental Toxicology. %Indeed, until recently, Toxicology experiments were either HC and low-throughput, or low-content and HT.
 
 Hence five well-known xenobiotics were selected and screened for their effects on nuclear motility and nuclear morphology. The whole pipeline is illustrated fig.~\ref{xbsc_workflow} (and the experimental settings are detailed fig.~\ref{exp_setting}). Briefly, cells were chemically exposed prior to image acquisition over time. Cells were segmented on each image of each experiment using the open-source software CellCognition~\cite{cellcognition}. Object features were extracted using the same software, for two purposes: nuclear tracking and nuclear morphology classification. 
 
@@ -32,8 +32,7 @@ CellCognition was used to establish a training set of annotated nuclear morpholo
 As this was a proof of concept experiment, the goal was slightly different than that when applying MotIW on the Mitocheck dataset. In the latter case the goal was to select relevant genes for nuclear motility with high confidence, which explains why an ad hoc statistical procedure had to be developed to make sure that p-values were not over-estimated. In the case at hand, the goal was rather to select experimental conditions with mild-to-high confidence for performing confirmatory experiments. Our goal was therefore to obtain a ranking of all conditions with respect to the tested endpoint (motility or cell cycle) rather than computing absolute p-values.
 
 \begin{figure}[!ht]
-\centering
-\includegraphics[scale=0.25]{figures/workflow_xb_complet_fused_calques.png}
+\centerline{\includegraphics[scale=0.33]{figures/workflow_xb_complet_fused_calques.png}}
 \caption{Xenobiotic screen complete workflow}
 \label{xbsc_workflow}
 \end{figure}
@@ -42,7 +41,7 @@ As this was a proof of concept experiment, the goal was slightly different than 
 \label{protocoles}
 \subsection{Experimental work}
 \subsubsection{Chemicals}
-TCDD was bought from LGC Standards (Molsheim, France), TGF~$\beta$1 from R\&D Systems\texttrademark (Minneapolis, MN, USA), BPA, MeHg and PCB153 from Sigma Aldrich\up{\textregistered} (Saint-Louis, MO, USA). $\alpha$-Endosulfan was bought from Cambridge Isotope Laboratories, Inc. (Tewksbury, MA, USA) and DMSO from Merck Millipore (Billerica, MA, USA).
+TCDD was bought from LGC Standards (Molsheim, France), TGF~$\beta$1 from R\&D Systems\texttrademark \\ (Minneapolis, MN, USA), BPA, MeHg and PCB153 from Sigma Aldrich\up{\textregistered} (Saint-Louis, MO, USA). $\alpha$-Endosulfan was bought from Cambridge Isotope Laboratories, Inc. (Tewksbury, MA, USA) and DMSO from Merck Millipore (Billerica, MA, USA).
 
 The following media were used:
 \begin{itemize}
@@ -60,7 +59,8 @@ MCF-7 cells were transfected with two plasmids : one containing human histone H2
 On the day before transfection, MCF-7 cells were seeded into 10cm dish with normal medium (2 millions per dish). On the day of transfection, cell medium was replaced with 2mL of normal medium and a mix composed of 72$\mu$l Lipofectamin\up{\textregistered} 2000 reagent and 24$\mu$g of total plasmid DNA (either H2B-mCherry alone, Myr/Palm-GFP alone or both), completed to a volume of 3mL with Optimem (Life technologies\texttrademark). Cells were then incubated for 5 hours at 37\up{o}C, after what 5mL of normal medium was added. 
 Antibiotic selection started 7 days after transfection, with 1mg/mL of neomycin and 1$\mu$g/mL of puromycin added to normal cell medium ; selection medium was replaced every other day.
 
-Clonal selection was realized by infinite dilution: three weeks following the beginning of antibiotic selection, transfected cells were seeded in two 96-well plates with 64 wells at 0.3 cell/well, 64 wells at 1 cells/well and 64 wells at at 3 cells/well. Once clones had suffienctly grown, a few clones were selected based on their level of plasmid expression. They were tested for the expression of the following genes with and without exposure to 25nM TCDD for \textbf{** hours}: Aryl hydrocarbon receptor  (AHR), Cytochrome P450 1A1 (CYP1A1) and E-cadherin genes. Most clones responded as expected (increased expression of AHR and CYP1A1 and decreased expression of E-cadherin - data not shown). One clone was discarded.
+Clonal selection was realized by infinite dilution: three weeks following the beginning of antibiotic selection, transfected cells were seeded in two 96-well plates with 64 wells at 0.3 cell/well, 64 wells at 1 cells/well and 64 wells at at 3 cells/well. Once clones had suffienctly grown, a few clones were selected based on their level of plasmid expression. They were tested for the expression of the following genes with and without exposure to 25nM TCDD for 48 hours%I don't think it's 48 hours but Celine did not answer
+: Aryl hydrocarbon receptor  (AHR), Cytochrome P450 1A1 (CYP1A1) and E-cadherin genes. Most clones responded as expected (increased expression of AHR and CYP1A1 and decreased expression of E-cadherin - data not shown). One clone was discarded.
 
 Following this step, modified cells were maintained in normal medium with 1mg/mL of neomycin and 1$\mu$g/mL of puromycin. Hereafter, "MCF-7 cells" refers to a selected clone of such modified cells.
 
@@ -70,7 +70,8 @@ Following this step, modified cells were maintained in normal medium with 1mg/mL
 \subsubsection{Production of 96 well-plate for imaging}
 48h prior to imaging, MCF-7 cells were seeded in normal medium into one 96 well-plastic plate, at a density of 6,000 cells per well. The plate was placed back in the incubator at constant temperature ($37^\circ$C) and CO$_2$ pressure (5\%). 24 hours prior to imaging, dilutions (cf table~\ref{dilutions}) of selected compounds with constant solvent percentage were freshly prepared in imaging medium. Cell medium was changed with 198$\mu$L of imaging medium and 2$\mu$L of chemical dilution or solvent dilution per well. Six control wells for each solvent and three wells with cell medium only were put on each plate. Plate design was not random, but control wells were not grouped (see fig~\ref{plate_setup} for an example of a plate setup).
 
-The plate was placed back in the incubator. Immediately before image acquisition, the plate was sealed using an adhesive optical film (\textbf{ref. **}). This procedure is illustrated on figure~\ref{exp_setting}.
+The plate was placed back in the incubator. Immediately before image acquisition, the plate was sealed using an adhesive optical film% (\textbf{ref. **}) wrong reference given by Celine
+. This procedure is illustrated on figure~\ref{exp_setting}.
 
 \begin{figure}
 \centering
@@ -105,11 +106,11 @@ The first goal was attained through a literature review, whose results can be se
 
 \subsection{Bioinformatics methods}
 \label{interface}
-\subsubsection{Web-based user interface for result visualization}  A web-based user interface was designed for raw  and quality control data visualization. It is accessible at the following address: \href{http://olympia.biomedicale.univ-paris5.fr/plates/}{http://olympia.biomedicale.univ-paris5.fr/plates/} (login: \textit{user}, password: \textit{xbscreen}). It was implemented using \href{https://www.djangoproject.com/}{Django} web framework, the programming language \href{http://www.python.org}{Python 2.7}, and runs under Linux-Apache web server and mod\_wsgi module. \href{https://sqlite.org/}{SQLite} was used for storing experimental metadata (plate setups, experimental conditions such as cell medium or the percentage of FCS). The database was built as visible on fig~\ref{db}.
+\subsubsection{Web-based user interface for result visualization}  A web-based user interface was designed for raw  and quality control data visualization. It is accessible at the following address: \href{http://olympia.biomedicale.univ-paris5.fr/plates/}{http://olympia.biomedicale.univ-paris5.fr/plates/} (login: \textit{user}, password: \textit{xbscreen}). It was implemented using Django\footnote{\href{https://www.djangoproject.com/}{https://www.djangoproject.com/}} web framework, the programming language Python 2.7\footnote{\href{http://www.python.org}{http://www.python.org}}, and runs under Linux-Apache web server and mod\_wsgi module. SQLite\footnote{\href{https://sqlite.org/}{https://sqlite.org/}} was used for storing experimental metadata (plate setups, experimental conditions such as cell medium or the percentage of FCS). The database was built as visible on fig~\ref{db}.
 
 Briefly, each well is linked to a unique plate, a unique condition (medium and percentage of FCS) and a unique treatment (xenobiotic and dose). As the data was (crudely) password-protected, a second database contains logins and passwords, as well as admin permissions.
 
-After logging in, any user has access to the list of plates in anti-chronological order. A plate page displays the plate setup, as well as some overall features of the experiments, such as initial number of objects or the proliferation rate in each well. This enables to see a significant geographical bias, which could be due to chemical exposure or the experimental settings. In the latter case, the plate should not be used for analysis and the experimental protocol modified ; such visualization tools were useful for designing the protocol. 
+After logging in, any user has access to the list of plates in anti-chronological order. A plate page displays the plate setup, as well as some overall features of all experiments, such as initial number of objects or the proliferation rate in each well. This enables to see a significant geographical bias, which could be due to chemical exposure or the experimental settings. In the latter case, the plate should not be used for analysis and the experimental protocol modified ; such visualization tools were useful for designing the protocol. 
 
 By clicking on a particular well on any image of the plate page, one accesses per-well information: well experimental conditions, well raw movies, and time evolutions of mean intensity, percentage of out-of-focus objects, number of cells, number of objects, and percentage of objects in all classes (as detailed below).
 
@@ -174,7 +175,7 @@ result which gives accurate results for isolated nuclei, but which
 tends to segment close nuclei together as a single object. 
 
 The last step is to calculate the Watershed transformation on the
-inverse distance map which is a
+inverse distance map. This is a
 standard technique to divide close convex objects after
 segmentation~\cite[Chapter Geodesic segmentation]{lantuejoul}. This
 method splits the binary segmentation
@@ -183,9 +184,8 @@ distance map. As small irregularities in the contours can lead to such
 minima, it is often necessary to apply a filter on the distance map in
 order to avoid oversegmentation. One option is to use a simple
 Gaussian filter, as proposed in ~\cite{Wahlby2002} and
-~\cite{cellcognition}. However, this does not give you an intuitive
-control over which minima are really kept, and even worse: it is not
-even guaranteed that larger filters suppress necessarily more minima. 
+~\cite{cellcognition}. However, this does not permit an intuitive
+control over which minima are really kept, and even worse: it does not guarantee that larger filters always suppress more minima. 
 Here, we propose to use morphological dynamics for this
 purpose~\cite{Soille:2003:MIA:773286}.  While this technique is widely
 used in the morphology community, it is to our knowledge not used for
@@ -210,12 +210,10 @@ spatial arrangement or the size of the objects).
 The computational cost of the morphological dynamics is the same as
 the watershed algorithm. Depending on the size of the data sets, this
 is not negligible, even though it compares favorably to 
-smoothing filters, as they were used in this context. In order to optimize this still further, we
-implemented the dynamic filter in such a way that it is directly
-combined with the watershed algorithm, thus further reducing the
-computational complexity. Indeed, the criterion can be checked each
-time a pixel is about to be assigned to the watershed line, and
-consequently no additional flooding step is necessary. 
+smoothing filters, as they were used in this context. To further reduce the
+computational complexity, we implemented the dynamic filter in such a way that it is directly
+combined with the watershed algorithm. Indeed, the criterion can be checked each
+time a pixel is about to be assigned to the watershed line. Consequently no additional flooding step is necessary. 
 
 %Briefly, the inverse distance map of a binary image $X$ assigns to each of its points $x$ the inverse of the distance to the nearest background point: 
 %\[ D(x) = \dfrac{1}{\min_{\substack{y\not\in X}} d(x, y)}\]
@@ -240,6 +238,7 @@ Object feature extraction was done using the open-source software CellCognition~
 \begin{table}[!ht]
 \caption{Nuclear morphology classes with examples. The \textit{artefact} and \textit{cluster} examples are shown with segmentation contours.}
 \label{classexamples}
+\centerline{
 \begin{tabular}{|ll|}
 \hline
 \multicolumn{2}{c}{Normal classes}\\
@@ -264,6 +263,7 @@ Object feature extraction was done using the open-source software CellCognition~
 \textit{Artefacts}&\includegraphics[scale=1]{figures/cut_artefact1.png}\\
 \hline
 \end{tabular}
+}
 \end{table}
 
 \subsubsection{Object classification}
@@ -288,10 +288,7 @@ either remain in the same class or lead to
 \textit{apoptosis}. Biologically, they might correspond to dying
 nuclei and resemble nuclei experiencing phototoxicity (personal
 communication, Beate Neumann, EMBL Heidelberg,
-Germany). But as it remains unclear why phototoxicity is not more
-generally observable in our data set, these cells might have been sensitized by the
-xenobiotic. We therefore believe that this class does not translate a
-simple technological artifact. 
+Germany). As these nuclei were observed following exposure to certain conditions only, we believe that this class does not translate a simple technological artifact. It would rather be the consequence of cell sensitization to phototoxicity which certain exposures could have produced. 
 
 %They are most probably
 %dying nuclei and resemble nuclei experiencing phototoxicity (as kindly
@@ -306,11 +303,11 @@ This step provides us with a representation of each video as a set of time-serie
 \[
 d^{obj}_{i,j} = \int_0^{T} (\% obj_{i,t} - \% obj_{j,t} )~dt
 \]
-Maxima are less robust to outlier points which could arise in any of
-the two time series than integrals. Therefore, we chose to replace the
-maximal difference between the two time series which is used in
-phenotypic scores~\cite{Walter2010} by the integral of all
-differences, as the xenobiotic screen data set is relatively noisy. 
+%Maxima are less robust to outlier points which could arise in any of
+%the two time series than integrals. Therefore, we chose to replace the
+%maximal difference between the two time series which is used in
+%phenotypic scores~\cite{Walter2010} by the integral of all
+%differences, as the xenobiotic screen data set is relatively noisy. 
 
 Due to the visual similarities between \textit{Micronucleated} and \textit{Polylobed} nuclei in our dataset, these classes were pooled together for computing distances. The corresponding distance is named \textit{Micronucleated} in the following.
 
@@ -346,7 +343,7 @@ TCDD & Nonane &$3.2~10^{-2} $ & 0.001, 0.01,	0.025, 0.1, 0.25,\\
 \paragraph{Preliminary choices}
 After testing a few clones for the expected behaviour in response to TCDD exposure, one clone was selected and five plates were imaged following the described procedure, producing 415 videos. In the following, each plate is named after the day image acquisition was launched. The quality control eliminated 22\% of the experiments, leaving 324 experiments for analysis with three biological replicates per condition minimum.
 
-Due to the observed high variability in control trajectory statistics on the different plates (cf fig.~\ref{control_heatmap}), the reference was chosen to be the whole plate as opposed to control wells only. This is a valid choice as long as there is no bias in the distribution of chemical conditions (and possibly results) on distinct plates, and most wells do not show any effect~\cite{pmid19644458}. 
+Due to the observed high variability in control trajectory statistics on the different plates (cf fig.~\ref{control_heatmap}), the reference was chosen to be the whole plate as opposed to control wells only. This is a valid choice as long as (1) there is no bias in the distribution of chemical conditions (and possibly results) on distinct plates, and (2) most wells do not show any effect~\cite{pmid19644458}. 
 \begin{figure}
 \centering
 \includegraphics[scale=0.4]{figures/heatmap_control_trajfeatures_medstandardized.png}
@@ -411,12 +408,12 @@ xenobiotic exposure only. Indeed \textit{micronucleated} and
 base level, and do not significantly appear following xenobiotic
 exposure. 
 
-\paragraph*{}
+\paragraph{Results}
 As opposed to the motility case, no specific plate distance distribution for any of the classes is significantly different to that of all other plate distance distribution. Hence distinct plate distances can be directly compared. 
 
 When no effect is expected, most cells are in interphase. Therefore, strong effects will be visible in a decrease of \textit{interphase} percentage. A preliminary step consists in looking at conditions for which \textit{interphase} distance is especially low. The \textit{interphase} distances are represented on fig.~\ref{interphase}. One can observe that only high doses (plain red dots) are consistently under the rest of the scatter plot. This depletion of interphases is explained by an increase in \textit{frozen} and \textit{apoptotic} nuclei (cf. the \textit{frozen} distance scatter plot on fig.~\ref{interphase}).
 
-The observation of other class distance distributions does not provide other results as to possible consequences of xenobiotic exposure on cell division, and especially low dose exposure: there is no low dose condition which show a consistent effect over distinct plates for any phenotypic class. Graphs are shown in annex, section~\ref{phenotypic_annex}.
+The observation of the distance distributions of other classes does not provide other results as to possible consequences of xenobiotic exposure on cell division, and especially low dose exposure: there is no low dose condition which show a consistent effect over distinct plates for any phenotypic class. Graphs are shown in annex, section~\ref{phenotypic_annex}.
 
 These observations are supported by the computation of \textit{Rank product} statistics for \textit{Interphase}, \textit{Frozen} and \textit{Micronucleated} nuclei (cf. table~\ref{dist_pheno}). The significant increase in \textit{Micronucleated} nuclei following exposure to PCB at the first dose could be visually confirmed in 1 out of 4 experiments only. Furthermore, the level of micronucleation in the latter experiment is comparable to the level that can be observed in other experiments with \textit{nothing} or \textit{Nonane}. Indeed, there is a significant base-level of aberrant cell divisions, as is stressed by the small p-value for wells containing nothing (\textit{Rien}) and visual inspection of the dataset.
 \begin{table}[!ht]
@@ -451,11 +448,14 @@ PCB,1 & $0.1 nM$ & 0.015 & Supp. movie 4 \\ %1212 w 48, others nothing
 
 \end{table} 		
 \begin{figure}
-\caption{Interphase (up) and frozen(down) distances. Colors are black for control wells, yellow to red for xenobiotics ranked by increased dose, and magenta for TGF-$\beta$1. B: BPA, D:DMSO, E: Endo, M: MeHg, N: Nonane, P:PCB, R: nothing, T(red):TCDD, T(magenta): TGF-$\beta$1}
+\caption{Interphase (up) and frozen(down) distances. Colors are black for control wells, yellow to red for xenobiotics ranked by increased dose, and magenta for TGF-$\beta$1. \textit{Legend}: B: BPA, D: DMSO, E: Endo, M: MeHg, N: Nonane, P: PCB, R: nothing, T(red): TCDD, T(magenta): TGF-$\beta$1}
 \centering
 \label{interphase}
-\includegraphics[scale=0.4]{figures/interphase.png}
-\includegraphics[scale=0.4]{figures/frozen.png}
+\centerline{
+\includegraphics[scale=0.4]{figures/interphase.png}}
+\centerline{
+\includegraphics[scale=0.4]{figures/frozen3.png}
+}
 \end{figure}
 
 \section{Discussion}
@@ -466,14 +466,14 @@ experiments. However, on the panel of xenobiotics and doses which were
 chosen for our set of experiments, it was not possible to detect
 subtler effects than a toxic effect at the highest doses.
 This is
-probably due to a combination of the following reasons: we observed a
+probably due to one or a combination of the following reasons: we observed a
 relatively high level of experimental noise, even in negative
-controls, which might be due to the biological variability of the used
-cell line, which showed many aberrant divisions, to experimental noise due to microscope intensity
-variations and low intensity of the fluorescence signal and the sensitivity of our
+controls, which might be due to (1) the biological variability of the used
+cell line, which showed many aberrant divisions, to (2) experimental noise due to microscope intensity
+variations and (3) low intensity of the fluorescence signal and (4) the sensitivity of our
 trajectory measurements. Even though our results are not conclusive on
 this project, we feel that it would be premature to conclude that the screening approach
-is not suited for Environmental predictive Toxicology. 
+is not suited for Environmental Toxicology. 
 
 As a general remark, it should not be forgotten that it is very likely that a xenobiotic screen will never be as visually extraordinary as a siRNA or drug screen. Most xenobiotics are not - at sub-toxic doses - targeted at one single vital cellular process, as opposed to some siRNAs (especially those which were enlighted by the Mitocheck project, whose goal was to study cell division). Hence, they are less specific, and their effects can be slower. Nevertheless, previous results had let one hope that, e.g., significant cell division defects could be obtained following TCDD exposure (\cite{pmid20089886},~\cite{pmid18640100},~\cite{pmid11479202}).
 

@@ -165,6 +165,8 @@ analysis.
 \section{MotIW reveals modes of movement and genes involved in nuclear
 motility}
 \label{sec:mitocheck}
+Part of this section was published in~\cite{motiw}.
+
 Analysis of the screening data with our workflow allows the
 identification of genes with putative role for nuclear and / or cell
 motility (section~\ref{sec:hitlist}). Furthermore, it reveals the existence of
@@ -264,10 +266,11 @@ medium- to high-throughput studies
 about cell motility. They are detailed in table~\ref{details_biblio}. 
 
 \begin{table}[!ht]
-\centering
 \caption{Existing medium- to high-throughput studies of cell motility}
 \label{details_biblio}
-\begin{tabular}{|L{4cm}|l|l|L{1.4cm}|L{1.4cm}|}
+
+\centerline{
+\begin{tabular}{|l|l|l|l|l|}
 \hline
 Study & Assay & Cell line & Gene list & Hit gene list \\
 \hline
@@ -279,27 +282,26 @@ Us & Single cell tracking & HeLa & 17,816 & 1,180\\%Us
 \cite{pmid25774502} & Phago-kinetic tracks & H1299 & 1,429 & 136\\%Water
 \hline
 \end{tabular}
+}
 \end{table}
+
 \begin{table}[!ht]
-\centering
 \caption{Hit list intersections}
 \label{intersection}
+\centerline{
 \begin{tabular}{|l|l|l|l|l|l|l|}
 \hline
 & Simpson & Lara & Yang & Zhang & Us & van Roosmalen \\
 \hline
 \cite{pmid19160483}&  66& 4 &0&19&10&4\\%Simpson
-
 \cite{pmid21423205} &4&70 &0&4&4&2 \\%Lara
-
 \cite{pmid23593504} &0&0 &25&0&4&0\\%Yang
-
 \cite{pmid23751374} & 19 &4&0&81&13&5\\%Zhang
 Us & 10 & 4 & 4 & 13 &1,180&6 \\%Us
 \cite{pmid25774502} & 4 & 2 & 0 & 5 & 6 & 136\\%van Roosmalen
 \hline
 \end{tabular}
-
+}
 \end{table}
 %HC Simpson: 10 not in Mitocheck study, 10 in common out of 66. Both HC and MC: 19 not in Mitocheck study, 16 in common (out of 142). Have 19 MAR genes among the HC.
 %We have 130 genes from Simpson study (138 siRNAs) of which 34 MAR genes (314 MAR genes). Hence that's approximately the same "concentration" of MAR genes although not designed for this (26\% for us, 29\% for them).

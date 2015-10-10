@@ -2,6 +2,7 @@
 
 \lhead{Chapter 2 - \emph{A generic methodological framework for studying single cell motility}} % Set the left side page header to "List of Figures"
 \chapter{A generic methodological framework for studying single cell motility}
+This chapter was published in~\cite{motiw}.
 \section{Studying single cell motility in a HT setup}
 % Introduction: cell motility
 
@@ -30,8 +31,7 @@ As a consequence, there are only few automatic workflows for the comprehensive a
 
 %very little completely automatic workflow, from tracking to statistical analysis, were developed for the analysis of single cell trajectories in 2 dimensions: only ours and~\cite{pmid25774502} could be found\footnote{\cite{pmid24324630} is based on manual tracking.}. The latter approach works on cell imprints as described earlier. It enables them to study membrane dynamics which are recorded in cell imprints; however they do not get any detailed temporal information such as speed, curvature, or more importantly resting time and speed variations.
 
-In this chapter, we present MotIW (\textbf{Mot}ility study \textbf{I}ntegrated \textbf{W}orkflow). A generic methodological framework, MotIW enables to quantitatively study cell motility at single cell resolution in HT time-lapse data in an unsupervised way. It consists of cell tracking, cell trajectory mapping to an original feature space, and outlier experiment detection according to a new statistical procedure (cf figure~\ref{workflow}). We show the power of our method in section~\ref{sec:simulation} by applying MotIW to simulated data, which allows us to estimate recall and precision to be expected on real data. We then apply this workflow to a previously published genome-wide
-screen by RNA interference (RNAi) and live cell imaging, the Mitocheck dataset, in section~\ref{sec:mitocheck} of chapter~\ref{chap:reuse}.
+In this chapter, we present MotIW (\textbf{Mot}ility study \textbf{I}ntegrated \textbf{W}orkflow). A generic methodological framework, MotIW enables to quantitatively study cell motility at single cell resolution in HT time-lapse data in an unsupervised way. It consists of cell tracking, cell trajectory mapping to an original feature space, and outlier experiment detection according to a new statistical procedure (cf figure~\ref{workflow}). We show the power of our method in section~\ref{sec:simulation} by applying MotIW to simulated data, which allows us to estimate recall and precision to be expected on real data. We then apply this workflow to a previously published genome-wide screen by RNA interference (RNAi) and live cell imaging, the Mitocheck dataset, in section~\ref{sec:mitocheck} of chapter~\ref{chap:reuse}.
 
 \begin{figure*}[ht]
 \centerline{\includegraphics[scale=0.3]{figures/Walter_295_fig_1.png}}

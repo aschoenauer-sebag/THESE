@@ -257,7 +257,7 @@
       \smallskip
       {\LARGE \authornames \par}
       \vfill
-      {\large A thesis submitted in partial fulfillment for the \par}
+      {\large A thesis submitted in fulfillment for the \par}
       {\large degree of \degreename \par}
       \bigskip
       \bigskip
