@@ -33,13 +33,14 @@
 %\usepackage[]{algorithm2e} % for algorithm environment
 %\usepackage[square, comma, numbers, sort&compress]{natbib} % Use the natbib reference package - read up on this to edit the reference style; if you want text (e.g. Smith et al., 2012) for the in-text references (instead of numbers), remove 'numbers' 
 
-\usepackage[french]{babel}
+\usepackage[french, english]{babel}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 
 \usepackage{graphicx}
-%\usepackage{graphics}
+\usepackage{eso-pic}
+
 \usepackage{color}
 \usepackage{floatflt}
 %usepackage[frenchb]{babel}
@@ -74,8 +75,33 @@ pdftex}
 %\hbadness = 10000
 %\vbadness = 10000
 %\def\RR{{\rm I\hspace{-0.50ex}R} }
+\newcommand\BackgroundPic{
+\put(70,-70){
+\centering
+\ifpdf
+	\includegraphics[height=\paperheight,width=\paperwidth]{figures/Couverture.pdf}
+\else
+	\includegraphics[height=\paperheight,width=\paperwidth]{figures/Couverture.eps}
+\fi
+}
+}
+
+\newcommand\EndBackgroundPic{
+\put(70,-70){
+\centering
+\ifpdf
+	\includegraphics[height=\paperheight,width=\paperwidth]{figures/QuatriemeCouverture.pdf}
+\else
+	\includegraphics[height=\paperheight,width=\paperwidth]{figures/QuatriemeCouverture.eps}
+\fi
+}
+}
 
 \begin{document}
+\pagestyle{empty}
+\AddToShipoutPicture*{\BackgroundPic}
+~
+\clearpage
 \frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
 
 \setstretch{1.3} % Line spacing of 1.3
@@ -106,7 +132,7 @@ pdftex}
 
 %\begin{titlepage}
 %\begin{center}
-\maketitle
+%\maketitle
 %\end{center}
 
 %\end{titlepage}
@@ -291,4 +317,51 @@ Xenobiotic & Any chemical which is foreign to an organism, i.e. is neither produ
 
 \bibliographystyle{apalike}
 \bibliography{these,refs}{}
+\clearpage
+\pagestyle{empty}
+%\AddToShipoutPicture*{\EndBackgroundPic}
+~
+%
+%
+%
+\selectlanguage{french}
+%
+%
+%
+\begin{center}
+{\large {\bf Titre}}
+\\
+\end{center}
+%
+%
+\noindent
+{\large{\bf Résumé:}} Texte
+\\
+\noindent
+{\large {\bf Mots clés:}} Texte
+%
+%
+%
+\vfill
+%
+%
+%
+\selectlanguage{english}
+%
+%
+%
+\begin{center}
+{\large {\bf Title}}\\
+\end{center}
+%
+%
+\noindent
+{\large {\bf Abstract:}}Biological screens are experiments in which a set of compounds is tested for a specific biological effect on a living entity. Recent technical and computational progresses have made it possible to biologically test hundreds to thousands of chemical compounds in parallel, such as small interfering RNAs or putative drugs and small molecules.
+
+Time-lapse microscopy screening experiments enable to gather even more and more precise data regarding the consequences of chemical perturbation on a given biological process. Nevertheless, the quantity and specific structure of information which such experiments produce make them difficult to analyze. They demand the combination of robust computer vision methods, efficient statistical methods for significant effect detection and reliable quality controls.
+
+Through examples, this thesis answers the question to know how to optimally develop analytical methods for high throughput (HT) time-lapse microscopy screening data. It demonstrates the significant insights which one can gain by developing generic methods for analyzing and re-analyzing such screens. The first multivariate workflow for the study of single cell motility in such data is detailed in Chapter 2. Chapter 3 presents its application to published data, and the development of a new distance for drug target inference by \textit{in silico} comparisons of parallel siRNA and drug screens.  Finally, chapter 4 presents a complete methodological pipeline for performing HT time-lapse screens in Environmental Toxicology, together with its visualization Web-interface.
+\\
+\noindent
+{\large {\bf Keywords:}} Text
 \end{document}

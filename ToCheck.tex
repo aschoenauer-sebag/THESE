@@ -1,0 +1,78 @@
+\documentclass[12pt]{article}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{multirow}
+
+\usepackage[pdftex]{graphicx}
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{floatflt}
+%usepackage[frenchb]{babel}
+\usepackage{amsfonts}
+\usepackage{multirow}
+\usepackage{calc}
+%\linespread{1.3}
+\usepackage{setspace}
+\usepackage{hyperref}
+\hypersetup{bookmarks=true,
+colorlinks,%
+citecolor=black,%
+filecolor=black,%
+linkcolor=black,%
+urlcolor=blue,%
+pdftex}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\setlength{\unitlength}{2mm}
+\pagestyle{empty}
+\textwidth 17truecm
+\textheight 23truecm
+\voffset -2.5truecm
+\hoffset -2.0truecm
+\sloppy
+\hbadness = 10000
+\vbadness = 10000
+\def\RR{{\rm I\hspace{-0.50ex}R} }
+
+\begin{document}
+Things to check for PhD
+\section{Title}
+\begin{itemize}
+\item English: The versatility of high-content high-throughput time-lapse screening data: developing generic methods for data re-use and comparative analyses
+\item French: Développements méthodologiques pour données de cribles temporels à haut contenu et haut débit: versatilité et analyses comparatives
+\end{itemize}
+\section{Keywords}
+\begin{enumerate}
+\item Data mining
+\item Bioinformatics
+\item Bioimage informatics
+\item High-content high-throughput screening
+\item Toxicology
+\item \textit{eventually one more keyword}
+\end{enumerate}
+
+
+\section{Summary (4,000 char and both must fit on the last page - now still too long)}
+\subsection{English}
+Biological screens are experiments in which a set of compounds is tested for a specific biological effect on a living entity. Recent technical and computational progresses have made it possible to biologically test hundreds to thousands of chemical compounds in parallel, such as small interfering RNAs or putative drugs and small molecules.
+
+Time-lapse microscopy screening experiments enable to gather even more and more precise data regarding the consequences of chemical perturbation on a given biological process. Nevertheless, the quantity and specific structure of information which such experiments produce make them difficult to analyze. They demand the combination of robust computer vision methods, efficient statistical methods for significant effect detection and reliable quality controls.
+
+Through examples, this thesis answers the question to know how to optimally develop analytical methods for high throughput (HT) time-lapse microscopy screening data. It demonstrates the significant insights which one can gain by developing generic methods for analyzing and re-analyzing such screens. The first multivariate workflow for the study of single cell motility in such data is detailed in Chapter 2. Chapter 3 presents its application to published data, and the development of a new distance for drug target inference by \textit{in silico} comparisons of parallel siRNA and drug screens.  Finally, chapter 4 presents a complete methodological pipeline for performing HT time-lapse screens in Environmental Toxicology, together with its visualization Web-interface.
+\subsection{French}
+
+\section{General public summary (1,000 char)}
+\subsection{English}
+Biological screens are experiments in which compounds, e.g. pollutants, are tested for a given biological effect on a living entity. Recent progresses have made it possible to test more than hundreds of compounds in parallel.
+
+Time-lapse microscopy screening experiments are screening experiments in which images are acquired over time. Temporal experiments enable to gather more and more precise data. But they constitute large structured datasets which are harder to analyze: one needs to combine robut image analysis algorithms with efficient statistical methods.
+
+This thesis answers through examples the question to know how to optimally develop generic analytical methods for such data: it presents e.g. the first multivariate workflow for the study of single cell motility in such data, the development of a new approach for drug target inference, and a complete methodological pipeline for performing such screens in Environmental Toxicology, together with its visualization Web-interface.
+
+\subsection{French}
+
+\end{document}

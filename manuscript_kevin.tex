@@ -1,0 +1,296 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%      Fichier maître (Main.tex)      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[a4paper, 12pt, twoside,openright]{book}
+%\usepackage[utf8]{inputenc}		% LaTeX, comprend les accents !
+\usepackage[T1]{fontenc}		
+\usepackage[french,english]{babel}
+\usepackage{lmodern}
+\usepackage{ae,aecompl}
+\usepackage[top=2.5cm, bottom=2cm,left=3cm, right=2.5cm,headheight=15pt]{geometry}
+\usepackage{graphicx}
+\usepackage{eso-pic}	
+\usepackage{array}		
+
+\usepackage{color}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{tocloft}
+\usepackage{setspace}
+\usepackage{rotating}
+
+\renewcommand{\baselinestretch}{1.0} 
+
+%add hyperlinks 
+\usepackage{hyperref}
+
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=black,          % color of internal links (change box color with linkbordercolor)
+    citecolor=blue,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+%quote symbols
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+
+% style biblio
+\bibliographystyle{plain}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
+\fancyhead[LE,RO]{}
+\fancyhead[LO,RE]{}
+\fancyfoot[C]{\thepage}
+
+%lof in bold
+\renewcommand\cftloftitlefont{\huge\bfseries}
+
+%orthopen
+% \input Chapter3/header.tex
+
+%abstract in chapter
+\newcommand\abstractname{Abstract}  %%% here
+\makeatletter
+\newenvironment{abstract}{%
+        \small
+        \begin{center}%
+          {\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}%
+        \end{center}%
+        \quotation}
+      {\if@twocolumn\else\endquotation\fi}
+\makeatother
+
+%résumé in chapter
+\newcommand\resumename{R\'esum\'e}  %%% here
+\makeatletter
+\newenvironment{resume}{%
+        \small
+        \begin{center}%
+          {\bfseries \resumename\vspace{-.5em}\vspace{\z@}}%
+        \end{center}%
+        \quotation}
+      {\if@twocolumn\else\endquotation\fi}
+\makeatother
+
+%verbatim in footnote
+\newsavebox\myVerb
+\newenvironment{verbbox}{\lrbox\myVerb}{\endlrbox}
+\newcommand*{\verbBox}{\usebox\myVerb}
+
+%todo command
+\newcommand {\todo}[1]{\textcolor{red}{{\bf TODO: #1}}}
+
+\input{Pagedegarde}
+
+\author{Alice \scshape{Schoenauer Sebag}}
+\title{Titre \\
+---\\ Title}
+\ED{\'{E}cole doctorale n\textsuperscript{o}
+432: Sciences des m\'{e}tiers de l'ing\'{e}nieur}
+\doctorat{Doctorat ParisTech}
+\specialite{Bio-informatique}
+\directeur{Jean-Philippe \scshape{Vert} et Robert \scshape{Barouki}}
+\encadrant{Thomas \scshape{Walter}}
+\date{4 d\'ecembre 2015}
+\jurya{M. Wolfgang HUBER}{Docteur, EMBL}{Rapporteur}
+\juryb{M. Miguel LUENGO-OROZ}{Docteur, Univ. Polit. de Madrid}{Rapporteur}
+\juryc{M. Bernard SALLES}{Professeur, INRA}{Examinateur}
+\juryd{M. Jean-Philippes VERT}{Ing. en chef des Mines, MINES ParisTech}{Examinateur}
+\jurye{M. Thomas WALTER}{Docteur, MINES ParisTech}{Examinateur}
+\juryf{M. Robert BAROUKI}{Professeur, Univ. Paris Descartes}{Examinateur}
+\ecole{l'\'{E}cole nationale sup\'erieure des mines de Paris}
+
+\adresse{
+	\textbf{MINES ParisTech\\ Centre de Bio-Informatique (CBIO)}\\	35 rue Saint-Honor\'e, 77300 Fontainebleau, France
+}
+
+\begin{document}
+\pagenumbering{roman}
+\pagedegarde
+
+\begingroup
+\let\cleardoublepage\relax
+\let\clearpage\relax
+
+%\chapter*{Acknowledgements/Remerciements}
+%\addcontentsline{toc}{chapter}{\numberline{}Acknowledgements/Remerciements}
+%\thispagestyle{empty}
+%
+%I like to acknowledge ... for accepting to be part of my jury.
+%
+%Merci \`a Jean-Philippe Vert, mon directeur de th\`ese. Malgr\'e la distance Paris-Lyon, il s'est montr\'e tr\`es disponible et \`a l'\'ecoute.
+%
+%Merci \`a Pierre Mah\'e pour m'avoir encadr\'e au quotidien chez Biomerieux lors de ma th\`ese. Je ne compterai pas le temps que nous avons pu passer \`a tordre des probl\`emes \'epineux dans tous les sens, ainsi qu'\`a ecrire des lignes de script ensemble. Il a toujours su trouver les mots justes, pour me relancer lorsque les r\'esultats n'\'etaient pas tr\`es positifs.
+%
+%Merci \`a Jean-Baptiste Veyrieras, mon manager \`a Biomerieux, pour m'avoir accueilli sur les sites de Marcy-l'Etoile et de Grenoble, mais \'egalement pour sa disponibilit\'e et son efficacit\'e. 
+%
+%Merci aux membres de l'\'equipe DKL/BIRD: Audrey, Ghislaine, Magalie, Maud, Nathalie, Bertrand, Christophe, Guillaume, St\'ephane, Thomas. Ce que je retiendrai le plus de cette \'equipe est sa pluridisciplinarit\'e de tous, et des riches discussions qui en d\'ecoulent.
+%Merci aux biomaths de Grenoble avec qui j'ai partag\'e d'innombrables pauses-caf\'e: C\'eline, Faustine, Sophie, V\'eronique, Laurent et Etienne.
+%
+%Je pr\'ef\`ere ne pas faire de liste de peur d'en oublier, mais je remercie \'egalement tous les membres du CBIO que j'ai pu croiser lors de mes visites sur Paris. Merci aussi à Emmanuel Barillot de m'avoir accueilli dans les locaux de l'Institut Curie.
+%
+%Merci \`a l'ANRT et au dispositif CIFRE qui repr\'esente une r\'eelle opportunit\'e de faire de la recherche \`a la jonction du domaine priv\'e et de l'acad\'emique.
+%
+%En dehors de travail, il y a aussi ceux qui sont l\`a quelque soit le jour, qu'il neige ou qu'il pleuve. Un grand merci aux amis de longue date toujours disponibles pour papoter ou me sortir (je pr\'ecise que l'ordre ne veut rien dire): Adeline, Camille, Bruno, Cedric, David, Gauthier, Romain, Sebastien, Vincent
+%
+%Merci aussi aux deux anciens de classe pr\'eparatoire, Cl\'ement et Guillaume, qui m'ont accueilli lors de mes s\'ejours sur Paris et qui m'ont fait conna\^itre un peu mieux la capitale.
+%
+%Merci \`a ma famille, et en particulier \`a mes parents, pour m'avoir appuy\'e depuis toujours dans mes d\'ecisions.
+%
+%Merci enfin \`a Virginie pour sa patience et son soutien au quotidien durant toutes ces ann\'ees.
+%
+%
+%\newpage
+%\thispagestyle{plain}
+%\hspace{1cm}
+%\newpage
+%
+%%\tableofcontents
+%%\addcontentsline{toc}{chapter}{\numberline{}\listfigurename}
+%%
+%%\newpage
+%%\thispagestyle{plain}
+%%\hspace{1cm}
+%%\newpage
+%%
+%%\listoffigures
+%%\newpage
+%%\thispagestyle{plain}
+%%\hspace{1cm}
+%%\newpage
+%%
+%%\addcontentsline{toc}{chapter}{\numberline{}\listtablename}
+%%\listoftables
+%%
+%%\newpage
+%%\thispagestyle{plain}
+%%\hspace{1cm}
+%%\newpage
+%%
+%%\endgroup
+%%
+%%%\input{Preambule}		% Liste des packages et de leurs options
+%%%\input{CommandesPerso}	% Commandes et environnements perso
+%
+%\chapter*{Abstract}
+%\addcontentsline{toc}{chapter}{\numberline{}Abstract}
+%\thispagestyle{empty}
+%
+%Using high-throughput technologies in Mass Spectrometry (MS) and Next-Generation Sequencing (NGS) is changing scientific practices and landscape in microbiology. On the one hand, mass spectrometry is already used in clinical microbiology laboratories through systems identifying unknown microorganisms from spectral data. On the other hand, the dramatic progresses during the last 10 years in sequencing technologies allow cheap and fast characterizations of microbial diversity in complex clinical samples, an approach known as "metagenomic". Consequently, the two technologies will play an increasing role in future diagnostic solutions not only to detect pathogens in clinical samples but also to identify virulence and antibiotic resistance. 
+%
+%This thesis focuses on the computational aspects of this revolution and aims to contribute to the development of new \textit{in vitro} diagnostics (IVD) systems based on high-throughput technologies, like mass spectrometry or next generation sequencing, and their applications in microbiology. To deal with the volume and complexity of data generated by these new technologies, we develop innovative and versatile statistical learning methods for applications in IVD and microbiology. The field of statistical learning is well-suited to solve tasks relying on high-dimensional raw data that can hardly be manipulated by medical experts, like identifying an organism from an MS spectrum or affecting millions of sequencing reads to the right organism.
+%
+%Our main methodological is to develop and evaluate statistical learning methods that incorporate prior knowledge about the structure of the data or of the problem to be solved. For instance, we convert a sequencing read (raw data) into a vector in a nucleotide composition space and use it as a \textit{structured input} for machine learning approaches. We also add prior information related to the hierarchical structure that organizes the reachable micro-organisms (\textit{structured output}).
+%
+%\thispagestyle{plain}
+%\hspace{1cm}
+%\newpage
+%
+%
+%\chapter*{R\'esum\'e}
+%\addcontentsline{toc}{chapter}{\numberline{}R\'esum\'e}
+%\thispagestyle{empty}
+%
+%L'utilisation des technologies haut d\'ebit de spectrom\'etrie de masse et de s\'equen\c cage nouvelle g\'en\'eration est en train de changer aussi bien les pratiques que le paysage scientifique en microbiologie.
+%D'une part la spectrom\'etrie de masse a d'ores et d\'ej\`a fait son entr\'ee avec succ\`es dans les laboratoires de microbiologie clinique au travers de syst\`emes permettant d'identifier un microorganisme \`a partir de son spectre de masse. D'autre part, l'avanc\'ee spectaculaire des technologies de s\'equen\c cage au cours des dix derni\`eres ann\'ees permet d\'esormais \`a moindre co\^ut et dans un temps raisonnable de caract\'eriser \`a la fois qualitativement et quantitativement la diversit\'e microbienne au sein d'\'echantillons cliniques complexes (approche d\'esormais commun\'ement d\'enomm\'ee m\'etagenomique). Aussi ces deux technologies sont pressenties comme les piliers de futures solutions de diagnostic permettant de caract\'eriser simultan\'ement et rapidement non seulement les pathog\`enes pr\'esents dans un \'echantillon mais \'egalement leurs facteurs de r\'esistance aux antibiotiques ainsi que de virulence.
+%
+%Cette th\`ese vise donc \`a contribuer au d\'eveloppement de nouveaux syst\'emes de diagnostic \textit{in vitro} bas\'es sur les technologies haut d\'ebit de spectrom\'etrie de masse et de s\'equen\c cage nouvelle g\'en\'eration pour des applications en microbiologie. 
+%%Ces technologies et les probl\'ematiques cliniques associ\'ees sont au c\oe{}ur de l'innovation de bioM\'erieux.
+%
+%L'objectif de cette th\`ese est de d\'evelopper des m\'ethodes d'apprentissage statistique innovantes et versatiles pour exploiter les donn\'ees fournies par ces technologies haut-d\'ebit dans le domaine du diagnostic \textit{in vitro} en microbiologie.
+%Le domaine de l'apprentissage statistique fait partie int\'egrante des probl\'ematiques mentionn\'ees ci-dessus, au travers notamment des questions de classification d'un spectre de masse ou d'un "read" de s\'equen\c cage haut-d\'ebit dans une taxonomie bact\'erienne. 
+%
+%Sur le plan m\'ethodologique, ces donn\'ees n\'ecessitent des d\'eveloppements sp\'ecifiques afin de tirer au mieux avantage de leur structuration inh\'erente: une structuration en "entr\'ee" lorsque l'on r\'ealise une pr\'ediction \`a partir d'un "read" de s\'equen\c cage caract\'eris\'e par sa composition en nucl\'eotides, et un structuration en "sortie" lorsque l'on veut associer un spectre de masse ou d'un "read" de s\'equen\c cage \`a une structure hi\'erarchique de taxonomie bact\'erienne.
+%
+%%\section*{Identification microbienne par sp\'ectrom\'etrie de masse}
+%
+%%\section*{Assignation taxonomique de "reads" pour la m\'etag\'enomique}
+%
+%\newpage
+%\thispagestyle{plain}
+%\hspace{1cm}
+%\newpage
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%   			Liste des fichiers à compiler					%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	\includeonly{MetagCompo}
+
+\clearpage
+\pagenumbering{arabic}
+
+% {\setstretch{1.2}
+% \input{Chapter1}
+% 
+% \newpage
+% \thispagestyle{plain}
+% \hspace{1cm}
+% 
+% \input{Chapter2}
+% 
+% \newpage
+% \thispagestyle{plain}
+% \hspace{1cm}
+% 
+% 
+% \input{Chapter3}
+% 
+% \newpage
+% \thispagestyle{plain}
+% \hspace{1cm}
+% \newpage
+% 
+% \input{Chapter4}
+% \newpage
+% \thispagestyle{plain}
+% \hspace{1cm}
+% \newpage
+% 
+% \input{Discussion}
+% 
+% \newpage
+% \thispagestyle{plain}
+% \hspace{1cm}
+% \newpage
+% 
+% \input{Annexes}
+% 
+% \newpage
+% \thispagestyle{plain}
+% \hspace{1cm}
+% \newpage
+% 
+% }
+
+% Méta-données du PDF
+%\hypersetup{
+%    pdfauthor={Kévin Vervier},
+%    pdfsubject={Manuscrit de thèse de doctorat},
+%    pdftitle={Apprentissage structuré pour la microbiologie},
+%    pdfkeywords={Apprentissage statistique, Machine \'a vecteur de support, Spectrom\'etrie de masse, S\'equençage, Microbiologie, Diagnostic \textit{in vitro}}
+%}
+
+
+\bibliography{biblio}
+	
+
+\end{document}
+
+
+
+
