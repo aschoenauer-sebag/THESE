@@ -174,10 +174,10 @@ Date:\\
 %	RESUME PAGE
 %----------------------------------------------------------------------------------------
 
-\addtotoc{Résumé} % Add the "Abstract" page entry to the Contents
+%\addtotoc{Résumé} % Add the "Abstract" page entry to the Contents
 
 
-\clearpage % Start a new page
+%\clearpage % Start a new page
 
 %----------------------------------------------------------------------------------------
 %	ABSTRACT PAGE
@@ -185,12 +185,12 @@ Date:\\
 
 \addtotoc{Abstract} % Add the "Abstract" page entry to the Contents
 \begin{abstract}
-Biological screens test large sets of experimental conditions with respect to their specific biological effect on living systems. Technical and computational progresses have made it possible to perform such screens at a large scale - up to hundreds of thousands of experiments. % Such approaches have applications in the field of functional genomics (e.g. RNA interference (RNAi) screens) and in the field of pharmacology (drug screens). 
+Biological screens test large sets of experimental conditions with respect to their specific biological effect on living systems. %Technical and computational progresses have made it possible to perform such screens at a large scale - up to hundreds of thousands of experiments. % Such approaches have applications in the field of functional genomics (e.g. RNA interference (RNAi) screens) and in the field of pharmacology (drug screens). 
 
-Live cell imaging is an excellent tool to study in detail the consequences of chemical perturbation on a given biological process. However, the analysis of live cell screens demands the combination of robust computer vision methods, efficient statistical methods for the detection of significant effects and robust procedures for quality control. %the quantity and structural complexity of such experimental data make them difficult to analyze. They demand the combination of robust computer vision methods, efficient statistical methods for the detection of significant effects and robust procedures for quality control. 
+Live cell imaging is an excellent tool to study in detail the consequences of chemical perturbation on a given biological process. However, the analysis of live cell screens demands the combination of robust computer vision methods and quality control procedures, and efficient statistical approaches for the detection of significant effects. %the quantity and structural complexity of such experimental data make them difficult to analyze. They demand the combination of robust computer vision methods, efficient statistical methods for the detection of significant effects and robust procedures for quality control. 
 
-This thesis addresses these challenges by developing analytical methods for the analysis of High Throughput time-lapse microscopy screening data. The developed frameworks are applied to publicly available HCS data, demonstrating their applicability and the benefits of HCS data remining. % usefulness of HCS data as a scientific resource to gain new insights from existing data. 
-The first multivariate workflow for the study of single cell motility in such large-scale data is detailed in Chapter 2. Chapter 3 presents this workflow application to previously published data, and the development of a new distance for drug target inference by in silico comparisons of parallel siRNA and drug screens. Finally, chapter 4 presents a complete methodological pipeline for performing HT time-lapse screens in Environmental Toxicology.%, together with its visualization Web-interface.
+This thesis addresses these challenges by developing analytical methods for High Throughput time-lapse microscopy screening data. The developed frameworks are applied to publicly available HCS data, demonstrating their applicability and the benefits of HCS data remining. % usefulness of HCS data as a scientific resource to gain new insights from existing data. 
+The first multivariate workflow for the study of single cell motility in such large-scale data is detailed in Chapter 2. Chapter 3 presents this workflow application to previously published data, and the development of a new distance for drug target inference by in silico comparisons of parallel siRNA and drug screens. Finally, chapter 4 presents a complete methodological pipeline for performing HT time-lapse screens in Environmental Toxicology.
 \end{abstract}
 
 
@@ -199,9 +199,49 @@ The first multivariate workflow for the study of single cell motility in such la
 %	ACKNOWLEDGEMENTS
 %----------------------------------------------------------------------------------------
 
-% \setstretch{1.3} % Reset the line-spacing to 1.3 for body text (if it has changed)
+ \setstretch{1.3} % Reset the line-spacing to 1.3 for body text (if it has changed)
+ \lhead{\emph{Acknowledgements}}
+ \acknowledgements{\addtocontents{toc}{\vspace{1em}} 
+ \begin{flushright}
+\textit{Thank you. I just feel so grateful.}\\
+Mariah Carey\\
+\textit{Vittoria ! Vittoria !/L'alba vindice appar[…] !}\\
+Luigi Illica et Giuseppe Giacosa
+ \end{flushright}
+
+Comme parfaitement résumé ci-dessus, j'aimerais remercier toutes les personnes qui m'ont permis de finir – la tête haute, entourée et peut-être un peu meilleure qu'au début – plus patiente, plus rigoureuse, plus précise, plus détendue entre autres.
+
+\begin{flushright}
+\textit{Je voudrais, pour parler de vous, inventer des mots plus vibrants, plus respectueux et plus tendres.} ~ ~
+André Gide 
+\end{flushright}
+\paragraph{}
+Et la première personne que je voudrais remercier pour m'avoir guidée jusque là est Thomas. Pour sa patience avec moi, sa gentillesse, son écoute. Pour avoir tant pris soin de mon état au point d'être aussi triste ou excité que moi des résultats ou des manips. Pour sa rigueur et son amour de la précision, des bullet points tous identiques et de la visualisation de données qui répond à ce qu'on lui demande. Pour tous les déjeuners où il a renoncé à la cantine pour m'accompagner, pour ces voyages qu'il m'a permis de faire (Louvain, Stockholm, Tübingen, Dublin, New York, Vienne, Munich, Lake Tahoe), pour ta présence, ton soutien inépuisable, ton temps et ta bonté. Pour avoir supporté mon obstination et mon humeur de gueux par les temps pluvieux (et parfois même ensoleillés). Merci.
+
+I would like to thank the jury for their time and interest in my work.
+
+Je voudrais aussi remercier Jean-Philippe pour m'avoir accueillie au CBIO, puis toute son aide et ses encouragements ML-esques, ainsi que sur la suite. Pour le free ride de « NIPS » 2012 ! Rien n'aurait été possible non plus sans Robert qui a accepté de prendre en thèse cet OVNI un peu matheux, et Céline (RT) grâce à qui j'ai appris les rudiments de la biologie cellulaire. Que d'espoirs partagés, que de temps à s'esquinter les yeux en salle de microscopie, que de déceptions aussi : merci pour ton temps et ta patience ! Rien non plus sans Olivier et Céline (D) qui m'ont tout appris sur le microscope, et avec qui j'ai aussi partagé de longs moments à tout régler, re-régler, dérégler, … Et Martine bien sûr, qui malgré sa todo liste infinie a toujours trouvé le temps de me montrer quelque chose ou de nourrir nos cellules.
+
+Merci aux « grands », Anne-Claire et Emile, pour les retours d'expérience, Nelle pour toute son aide avec Python – toujours prête à filer un coup de main même au milieu d'une grosse deadline, Elsa, Matahi. Véronique pour son aide, et tout le CBIO. Alix, Ludmila et Eléonore, Sophie et son équipe pour leur accueil très chaleureux pendant les quelques mois que j'ai passés dans leur bureau. Merci à toute l'unité 1124 !
+
+Merci à Marco Cuturi, Wolfgang Huber, Beate Neumann pour leur aide et leurs réponses à mes questions durant ces trois dernières années. Merci à Luc Tamisier, à l'assistance CBIO ainsi qu'à Jean Duong.
+\paragraph{}
+En premier lieu aussi je voudrais remercier mes parents, ma sœur et Jean. Le lycée, la prépa, sautes d'humeurs (doux euphémisme) et crises existentielles, ils ont à peu près tout enduré et ils m'ont toujours soutenue... Papa dispo pour faire des exos de maths le samedi de 14h à 20h et 21h à 23h, pour discuter optimisation à la piscine, pour m'aider à déménager, toujours prêt à sauver mon monde. Maman à le refaire, en commençant par la fonction objectif : également là pour la méditation et la reprise à zéro de la formalisation du problème... Mathilde, dispo pour déjeuner, un ciné, Garnier, me remonter le moral, se moquer des imbéciles, un sms scato et des blagues niveau CM2, tout ce dont j'ai eu et aurai besoin pour moins me prendre au sérieux, réaliser que rien n'est tragique. Jean qui depuis 1998 (date du premier billet d'opéra que j'aie gardé) m'a ouvert un monde qui est une de mes raisons d'être, ce qui me redonne le sens quand je crois l'avoir perdu : Garnier Bastille TCE Pleyel Philharmonie Cité de la musique Chaillot Châtelet : autant d'endroits où je me suis construite grâce à toi, qui m'ont permis de continuer à sourire ou à bosser en me disant que ce meilleur est toujours à venir !
+\paragraph{}
+En premier lieu toujours je voudrais remercier mes amis. 
+
+Ceux de (presque) toujours : Nico pour tous les Skypes à des heures presque indues, pour son soutien à toute épreuve malgré la distance, Loulou pour sa présence critique et les soirées de la rue des Quatre Fils, Gégé pour toutes nos soirées londoniennes ou sur What'sApp, sans oublier nos folles manucures, Fred, Dimi, Rapha. 
+
+Mes coupains chéris à la folie pour tous nos dîners entre Paris, Munich, la Baule et Montpellier : Margaux, Nicolas et Roro, dîners où je suis parfois (souvent ?) arrivée avec le sourire d'un boule-dogue ou dans un état à ramasser à la petite cuillère, ce que vous avez toujours fait avec patience, délicatesse, amour et une pincée de taquinerie. Pour tous les dîners où je voulais manger une feuille d'épinard sans sauce accompagnée d'eau gazeuse et où vous m'avez supportée...
+
+Kambiz ! Mein Lieblingskankun, merci pour ta présence. Laure, comme tu m'as manquée depuis que tu habites à cinq minutes de l'océan Pacifique... Le crew de choc, le crew de mon premier Memphis et des Chat Noir, de la Keszino, des livres blancs de la Défense et de la chevauchée des Walkyries à la CK : Vincent, Max, Anna, Charles, Timothée et Titi, merci d'avoir été là ! Mes copines rochelaises : Noémie et son regard éclairé sur ma vie, Olivia grâce à laquelle j'ai pu donner l'illusion de savoir ce qui se passe la nuit à Paris, Greg ;). Keurkeurkeur
+
+Merci à Sandra pour son aide en stats et son soutien ces derniers mois ! Mes copains opéresques : Pierre Juliette et Sylvain, merci pour votre soutien sans faille et vos taquineries Kangoo-related ! Thank you Andrei for your total confidence and support. 
+
+Et ceux que j'aurai pu oublier...
+ }
  
-% \acknowledgements{\addtocontents{toc}{\vspace{1em}} % Add a gap in the Contents, for aesthetics
+% Add a gap in the Contents, for aesthetics
 % hidden for now
 % Thomas JP Nelle Marco Cuturi equipe + assistance / Robert Celine RT Olivier Celine D Martine +equipe Luc
 % 
@@ -217,7 +257,7 @@ The first multivariate workflow for the study of single cell motility in such la
 % 
 % Andrei
 % }
-% \clearpage % Start a new page
+ \clearpage % Start a new page
 
 %----------------------------------------------------------------------------------------
 %	LIST OF CONTENTS/FIGURES/TABLES PAGES
@@ -331,38 +371,35 @@ Xenobiotic & Any chemical which is foreign to an organism, i.e. is neither produ
 %
 %
 \begin{center}
-{\large {\bf Titre}}
+{\large {\bf Développements méthodologiques pour données de cribles temporels à haut contenu et haut débit%: versatilité et analyses comparatives
+}}
 \\
 \end{center}
 %
 %
 \noindent
-{\large{\bf Résumé:}} Texte
-\\
-\noindent
-{\large {\bf Mots clés:}} Fouille de données, Apprentissage statistique, Bioinformatique, Informatique de l'image biologique, Cribles à haut contenu, Toxicologie
-%
-%
-%
-\vfill
-%
-%
-%
+{\large{\bf Résumé:}}~\begin{small} Un crible biologique a pour objectif de tester en parallèle l'impact de nombreuses conditions expérimentales sur un processus biologique d'un organisme modèle. %Le progrès technique et computationnel a rendu possible la réalisation de tels cribles à grande échelle - jusqu'à des centaines de milliers de conditions. 
+L'imagerie sur cellules vivantes est un excellent outil pour étudier en détail les conséquences d'une perturbation chimique sur un processus biologique. L'analyse des cribles sur cellules vivantes demande toutefois la combinaison de méthodes robustes d'imagerie par ordinateur et de contr\^ole qualité, et d'approches statistiques efficaces pour la détection des effets significatifs. La présente thèse répond à ces défis par le développement de méthodes analytiques pour les images de cribles temporels à haut débit. Les cadres qui y sont développés sont appliqués à des données publiées, démontrant par là leur applicabilité ainsi que les bénéfices d'une ré-analyse des données de cribles à haut contenu (HCS). Le premier workflow pour l'étude de la motilité cellulaire à l'échelle d'une cellule dans de telles données constitue le chapitre 2. Le chapitre 3 applique ce workflow à des données publiées et présente une nouvelle distance pour l'inférence de cible thérapeutique à partir d'images de cribles temporels. Enfin, le chapitre 4 présente une pipeline méthodologique complète pour la conduite de cribles temporels à haut débit en toxicologie environnementale.
+
+{\large {\bf Mots clefs:}} Fouille de données, Apprentissage statistique, Bioinformatique, Informatique de l'image biologique, Cribles à haut contenu, Toxicologie
+\end{small}
 \selectlanguage{english}
 %
 %
 %
 \begin{center}
-{\large {\bf The versatility of HC HT time-lapse screening data: developing generic methods for data re-use and comparative analyses}}\\
+{\large {\bf The versatility of HC HT time-lapse screening data%: developing generic methods for data re-use and comparative analyses
+}}\\
 \end{center}
 %
 %
 \noindent
-{\large {\bf Abstract:}}~ Biological screens test large sets of experimental conditions with respect to their specific biological effect on living systems. Technical and computational progresses have made it possible to perform such screens at a large scale - up to hundreds of thousands of experiments. % Such approaches have applications in the field of functional genomics (e.g. RNA interference (RNAi) screens) and in the field of pharmacology (drug screens). 
-Live cell imaging is an excellent tool to study in detail the consequences of chemical perturbation on a given biological process. However, the analysis of live cell screens demands the combination of robust computer vision methods, efficient statistical methods for the detection of significant effects and robust procedures for quality control. %the quantity and structural complexity of such experimental data make them difficult to analyze. They demand the combination of robust computer vision methods, efficient statistical methods for the detection of significant effects and robust procedures for quality control. 
-This thesis addresses these challenges by developing analytical methods for the analysis of High Throughput time-lapse microscopy screening data. The developed frameworks are applied to publicly available HCS data, demonstrating their applicability and the benefits of HCS data remining. % usefulness of HCS data as a scientific resource to gain new insights from existing data. 
+{\large {\bf Abstract:}}~\begin{small} Biological screens test large sets of experimental conditions with respect to their specific biological effect on living systems. %Technical and computational progresses have made it possible to perform such screens at a large scale - up to hundreds of thousands of experiments. % Such approaches have applications in the field of functional genomics (e.g. RNA interference (RNAi) screens) and in the field of pharmacology (drug screens). 
+Live cell imaging is an excellent tool to study in detail the consequences of chemical perturbation on a given biological process. However, the analysis of live cell screens demands the combination of robust computer vision methods and quality control procedures, and efficient statistical approaches for the detection of significant effects. %the quantity and structural complexity of such experimental data make them difficult to analyze. They demand the combination of robust computer vision methods, efficient statistical methods for the detection of significant effects and robust procedures for quality control. 
+This thesis addresses these challenges by developing analytical methods for High Throughput time-lapse microscopy screening data. The developed frameworks are applied to publicly available HCS data, demonstrating their applicability and the benefits of HCS data remining. % usefulness of HCS data as a scientific resource to gain new insights from existing data. 
 The first multivariate workflow for the study of single cell motility in such large-scale data is detailed in Chapter 2. Chapter 3 presents this workflow application to previously published data, and the development of a new distance for drug target inference by in silico comparisons of parallel siRNA and drug screens. Finally, chapter 4 presents a complete methodological pipeline for performing HT time-lapse screens in Environmental Toxicology.%, together with its visualization Web-interface.
+ 
 
-\noindent
 {\large {\bf Keywords:}} Data mining, Machine Learning, Bioinformatics, Bioimage informatics, High-content screening, Toxicology
+\end{small}
 \end{document}
