@@ -70,8 +70,8 @@ image analysis and computer vision communities for the automatic
 tracking of individual objects. When it comes to the tracking of
 biological objects, such as cells or particles (e.g.
 single molecules or vesicles), there are two main approaches. On the one hand, it is possible to associate pre-segmented objects in consecutive frames, e.g. ~\cite{lou},
-~\cite{citeulike:11229467}, ~\cite{Chenouard2014}.% the object-association approach associates
-pre-segmented objects in consecutive frames. On the other hand, the deformable model approach relies on identifying and modeling objects in the first frame, and linking them to objects in consecutive frames by updating the models, e.g. \cite{pmid12585703}. Methods also differ in the amount of prior knowledge which is hard-coded in the tracking model. For example,~\cite{pmid18656418} assumes that there are three types of
+~\cite{citeulike:11229467}, ~\cite{Chenouard2014}. % the object-association approach associates pre-segmented objects in consecutive frames. 
+On the other hand, the deformable model approach relies on identifying and modeling objects in the first frame, and linking them to objects in consecutive frames by updating the models, e.g. \cite{pmid12585703}. Methods also differ in the amount of prior knowledge which is hard-coded in the tracking model. For example,~\cite{pmid18656418} assumes that there are three types of
 cell motion: Brownian motion, migration at a constant speed, and
 migration at a constant acceleration. At the other
 extreme,~\cite{pmid16043363} formulates tracking as an optimization
@@ -145,7 +145,7 @@ cell motion is not known. As we also wished to avoid any manual parameter tuning
 %a set of user-annotated cell associations is the relative importance
 %of node features in determining the right matching. 
 
-We first characterize each cell nucleus in each image by a set of 239 shape and texture features on the one hand (~\cite{Walter2010}, ~\cite{cellcognition}), and geometric features on the other hand (its distance to the border, its position in the image, and the orientation of its main axis). The goal of cell tracking in this approach is to match cells in successive images, by assigning them the most likely instant temporal behaviour in the set $\mathbf{E}$ = \{\textit{move},~\textit{appear},~\textit{disappear},~\textit{split in 2 or 3},~\textit{merge at 2 or 3}\}. %The relative importance of match features for cell matching is the information which will be learned. 
+We first characterize each cell nucleus in each image by a set of 239 shape and texture features on the one hand (\cite{Walter2010}, ~\cite{cellcognition}), and geometric features on the other hand (its distance to the border, its position in the image, and the orientation of its main axis). The goal of cell tracking in this approach is to match cells in successive images, by assigning them the most likely instant temporal behaviour in the set $\mathbf{E}$ = \{\textit{move},~\textit{appear},~\textit{disappear},~\textit{split in 2 or 3},~\textit{merge at 2 or 3}\}. %The relative importance of match features for cell matching is the information which will be learned. 
 All possible matches between cells in consecutive frames are exhaustively considered, subject to
 distance thresholding. Match features are: 
 \begin{itemize}
