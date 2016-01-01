@@ -2,6 +2,22 @@
 
 \chapter{Xenobiotic screen}
 \label{chap:xbsc}
+\begin{table}[!ht]
+\begin{tabular}{|l|}
+\hline
+~\\
+
+\textbf{Résumé~}(see \textit{infra} for English text)\\
+\parbox{15cm}{Environ 100,000 nouvelles molécules sont synthétisées chaque année. D'autre part, les réglementations européennes sont de plus en plus strictes en ce qui concerne l'expérimentation animale. L'utilisation de cribles biologiques à haut débit et haut contenu semble donc indiquée en toxicologie environnementale : ils constitueraient une procédure expérimentale ayant l'avantage d'être à la fois \textit{in vitro} et très informative. Toutefois, la plupart des tests actuellement utilisés en toxicologie environnementale sont à faible contenu, ou analysés manuellement.
+
+Afin d'étudier la faisabilité d'une telle approche, nous avons réalisé un crible de 5 xénobiotiques connus comme la dioxine (TCDD), produisant un jeu de données de vidéomicroscopie à épifluoresence. Ces données ont d'une part été analysées à l'aide de MotIW~\cite{motiw} pour la motilité cellulaire individuelle (cf. section~\ref{sec:xb_motility}), d'autre part à l'aide de la procédure dévelopée par~\cite{Walter2010} pour le cycle et la division cellulaires (cf. section~\ref{sec:phenostudy}). Une interface Web a également été conçue pour le partage des résultats entre les laboratoires, présentée dans la section~\ref{sec:interface}.
+
+Toutefois, ces expériences n'ont pas permis de conclure à l'utilité de l'approche pour l'étude de l'impact sub-toxique des xénobiotiques choisis. Plusieurs pistes sont discutées dans la section~\ref{sec:discussion}: il serait dans un premier lieu intéressant de réaliser une batterie d'expériences avant le crible afin de choisir un ensemble de doses resserré. Dans un second lieu, le choix de la lignée cellulaire pourrait être revu.}\\
+~\\
+\hline
+\end{tabular}
+\end{table}
+\clearpage
 Environmental health consists in studying the impact of Man's environment on his health. This can be done following either one of two major paradigms: \textit{Epidemiology} and \textit{Toxicology}. The former deals with human populations, looking for significant link between past exposure and present pathologies. Toxicology can itself be \textit{in vivo}, \textit{in vitro} or \textit{in silico}, depending whether one chooses to study the impact of a precise exposure on a population of living organisms, a population of cells, or based on chemical descriptors of the exposure.
 
 Causal links can be quite delicate to establish in Epidemiology. There is a great number of variables which are involved (e.g. genetic or behavioral) ; the effects can have a weak penetration and are often delayed by a certain number of years with respect to the exposure. To mitigate these effects, Toxicology enables to select the chemical (or xenobiotic\footnote{A xenobiotic is, with regard to a species, any compound which was not produced by an individual of this species.}) of interest, as well as precisely control the experimental settings.
@@ -106,7 +122,8 @@ The first goal was attained through a literature review, whose results can be se
 
 \subsection{Bioinformatics methods}
 \label{interface}
-\subsubsection{Web-based user interface for result visualization}  A web-based user interface was designed for raw  and quality control data visualization. It is accessible at the following address: \href{http://olympia.biomedicale.univ-paris5.fr/plates/}{http://olympia.biomedicale.univ-paris5.fr/plates/} (login: \textit{user}, password: \textit{xbscreen}). It was implemented using Django\footnote{\href{https://www.djangoproject.com/}{https://www.djangoproject.com/}} web framework, the programming language Python 2.7\footnote{\href{http://www.python.org}{http://www.python.org}}, and runs under Linux-Apache web server and mod\_wsgi module. SQLite\footnote{\href{https://sqlite.org/}{https://sqlite.org/}} was used for storing experimental metadata (plate setups, experimental conditions such as cell medium or the percentage of FCS). The database was built as visible on fig~\ref{db}.
+\subsubsection{Web-based user interface for result visualization}
+\label{sec:interface} A web-based user interface was designed for raw  and quality control data visualization. It is accessible at the following address: \href{http://olympia.biomedicale.univ-paris5.fr/plates/}{http://olympia.biomedicale.univ-paris5.fr/plates/} (login: \textit{user}, password: \textit{xbscreen}). It was implemented using Django\footnote{\href{https://www.djangoproject.com/}{https://www.djangoproject.com/}} web framework, the programming language Python 2.7\footnote{\href{http://www.python.org}{http://www.python.org}}, and runs under Linux-Apache web server and mod\_wsgi module. SQLite\footnote{\href{https://sqlite.org/}{https://sqlite.org/}} was used for storing experimental metadata (plate setups, experimental conditions such as cell medium or the percentage of FCS). The database was built as visible on fig~\ref{db}.
 
 Briefly, each well is linked to a unique plate, a unique condition (medium and percentage of FCS) and a unique treatment (xenobiotic and dose). As the data was (crudely) password-protected, a second database contains logins and passwords, as well as admin permissions.
 
@@ -398,6 +415,7 @@ trigger motility alterations as a secondary effect of other
 alterations, as it seems to be the case here. 
 
 \subsection{Phenotypic study}
+\label{sec:phenostudy}
 \subsubsection{Phenotypic class selection}
 Phenotypic classes were chosen after an almost exhaustive visual
 inspection of the dataset. The first result is that except
@@ -459,7 +477,7 @@ PCB,1 & $0.1 nM$ & 0.015 & Supp. movie 4 \\ %1212 w 48, others nothing
 \end{figure}
 
 \section{Discussion}
-
+\label{sec:discussion}
 A workflow is established, which is accompanied by a Web interface, to
 enable the analysis of time-lapse xenobiotic screening
 experiments. However, on the panel of xenobiotics and doses which were
